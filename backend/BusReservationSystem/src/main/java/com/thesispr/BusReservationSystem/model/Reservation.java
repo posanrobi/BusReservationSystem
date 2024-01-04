@@ -1,4 +1,4 @@
-package com.thesispr.BusReservationSystem.models;
+package com.thesispr.BusReservationSystem.model;
 
 import jakarta.persistence.*;
 

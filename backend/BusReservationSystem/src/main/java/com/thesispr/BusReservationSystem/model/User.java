@@ -1,4 +1,4 @@
-package com.thesispr.BusReservationSystem.models;
+package com.thesispr.BusReservationSystem.model;
 
 import jakarta.persistence.*;
 
@@ -20,6 +20,19 @@ public class User {
     private String role;
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations = new ArrayList<>();
+
+    public User() {}
+
+    public User(Long id, String username, String firstname, String lastname, String email, String password, String role, List<Reservation> reservations) {
+        this.id = id;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.reservations = reservations;
+    }
 
     public Long getId() {
         return id;

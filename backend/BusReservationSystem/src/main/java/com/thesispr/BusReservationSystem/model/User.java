@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -15,24 +16,16 @@ public class User {
     private String username;
     private String firstname;
     private String lastname;
+    @Column(unique = true)
     private String email;
     private String password;
-    private String role;
+    @ElementCollection(targetClass = ERole.class)
+    @Enumerated(EnumType.STRING)
+    private Set<ERole> roles;
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations = new ArrayList<>();
 
     public User() {}
-
-    public User(Long id, String username, String firstname, String lastname, String email, String password, String role, List<Reservation> reservations) {
-        this.id = id;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.reservations = reservations;
-    }
 
     public Long getId() {
         return id;
@@ -82,12 +75,12 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public Set<ERole> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<ERole> roles) {
+        this.roles = roles;
     }
 
     public List<Reservation> getReservations() {

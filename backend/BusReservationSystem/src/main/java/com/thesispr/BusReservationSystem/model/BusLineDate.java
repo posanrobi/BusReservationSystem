@@ -2,7 +2,7 @@ package com.thesispr.BusReservationSystem.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class BusLineDate {
@@ -11,8 +11,7 @@ public class BusLineDate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
-    private Date date;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "bus_line_id")
@@ -29,11 +28,11 @@ public class BusLineDate {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

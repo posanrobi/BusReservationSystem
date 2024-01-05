@@ -3,7 +3,7 @@ package com.thesispr.BusReservationSystem.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 @Entity
@@ -13,8 +13,8 @@ public class BusLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Temporal(TemporalType.DATE)
-    private List<Date> available_dates = new ArrayList<>();
+    @OneToMany(mappedBy = "busLine", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BusLineDate> available_dates = new ArrayList<>();
     private int seat_num;
     private int price;
 
@@ -34,11 +34,11 @@ public class BusLine {
         this.name = name;
     }
 
-    public List<Date> getAvailable_dates() {
+    public List<BusLineDate> getAvailable_dates() {
         return available_dates;
     }
 
-    public void setAvailable_dates(List<Date> available_dates) {
+    public void setAvailable_dates(List<BusLineDate> available_dates) {
         this.available_dates = available_dates;
     }
 

@@ -18,4 +18,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE :role MEMBER OF u.roles")
     Set<User> findByRoles(@Param("role") ERole role);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByUsername(String username);
 }

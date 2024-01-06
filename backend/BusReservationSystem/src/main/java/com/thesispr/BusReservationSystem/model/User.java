@@ -19,13 +19,30 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+
     @ElementCollection(targetClass = ERole.class)
     @Enumerated(EnumType.STRING)
     private Set<ERole> roles;
+
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations = new ArrayList<>();
 
     public User() {}
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String username, String email, String password, String firstname, String lastname, Set<ERole> roles) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;

@@ -1,6 +1,9 @@
 package com.thesispr.BusReservationSystem.payload.request;
 
+import com.thesispr.BusReservationSystem.model.ERole;
+
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SignupRequest {
 

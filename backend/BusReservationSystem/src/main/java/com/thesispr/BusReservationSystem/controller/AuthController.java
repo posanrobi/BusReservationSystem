@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.thesispr.BusReservationSystem.model.Role;
+import com.thesispr.BusReservationSystem.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,12 +42,15 @@ public class AuthController {
     UserRepository userRepository;
 
     @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
     PasswordEncoder encoder;
 
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
+    /*@PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -79,7 +84,7 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-
+        Set<ERole> roles = new HashSet<>();
 
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
@@ -87,22 +92,22 @@ public class AuthController {
                 encoder.encode(signUpRequest.getPassword()),
                 signUpRequest.getFirstname(),
                 signUpRequest.getLastname(),
-                new HashSet<>());
+                roles);
 
         Set<String> strRoles = signUpRequest.getRole();
-        Set<ERole> roles = new HashSet<>();
 
-        /*if (strRoles == null) {
-            roles.add(ERole.ROLE_USER);
-        } else {
-            strRoles.forEach(role -> {
-                if ("admin".equals(role)) {
-                    roles.add(ERole.ROLE_ADMIN);
-                } else {
-                    roles.add(ERole.ROLE_USER);
-                }
-            });
-        }*/
+        //if (strRoles == null) {
+        //    roles.add(ERole.ROLE_USER);
+        //} else {
+         //   strRoles.forEach(role -> {
+         //       if ("admin".equals(role)) {
+         //           roles.add(ERole.ROLE_ADMIN);
+         //       } else {
+         //           roles.add(ERole.ROLE_USER);
+       //       }
+       //   });
+       // }
+
 
         if (strRoles == null) {
             roles.add(ERole.ROLE_USER);
@@ -117,4 +122,99 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
+    */
+
+    //LAST
+    /*@PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+
+        Set<String> strRoles = signUpRequest.getRole();
+        Set<Role> roles = new HashSet<>();
+
+        // Create new user's account
+        User user = new User(signUpRequest.getUsername(),
+                signUpRequest.getEmail(),
+                encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getFirstname(),
+                signUpRequest.getLastname());
+
+
+
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                if ("admin".equals(role)) {
+                    Role adminRole = roleRepository.findByRoleName(ERole.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(adminRole);
+                } else {
+                    Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(userRole);
+                }
+            });
+        }
+
+        user.setRoles(roles);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }*/
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+
+        Set<Role> roles = new HashSet<>();
+
+        // Create new user's account
+        User user = new User(signUpRequest.getUsername(),
+                signUpRequest.getEmail(),
+                encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getFirstname(),
+                signUpRequest.getLastname());
+
+        if (signUpRequest.getRole() == null) {
+            Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        } else {
+            signUpRequest.getRole().forEach(role -> {
+                Role userRole = roleRepository.findByRoleName(ERole.valueOf(role))
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                roles.add(userRole);
+            });
+        }
+
+        user.setRoles(roles);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
 }

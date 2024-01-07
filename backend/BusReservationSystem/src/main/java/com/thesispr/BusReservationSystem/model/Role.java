@@ -3,6 +3,7 @@ package com.thesispr.BusReservationSystem.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "roles")
 public class Role {
 
     @Id

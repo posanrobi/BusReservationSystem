@@ -1,0 +1,71 @@
+body {
+  height: 100vh;
+  width: 100%;
+  background-image: url(../images/bus_background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.authContainer {
+  padding: 5rem 8rem 5rem 8rem;
+  display: flex;
+  gap: 10rem;
+  justify-content: space-between;
+}
+
+.loginContainer {
+  background-color: rgb(60, 102, 170);
+  border-radius: 1rem;
+  width: 20rem;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.labelInput {
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 1.2rem;
+}
+
+.input {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  width: 15rem;
+  font-weight: 500;
+  background-color: lightgrey;
+
+  border-radius: 1rem;
+}
+
+.authBtn {
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.cancelBtn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin-top: 2rem;
+}

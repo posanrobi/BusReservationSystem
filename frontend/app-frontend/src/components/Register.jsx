@@ -35,10 +35,15 @@ export default function Register() {
     let isValid = true;
     const newErrors = {};
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     ["firstname", "lastname", "username", "email", "password"].forEach(
       (input) => {
         if (!formData[input]) {
           newErrors[input] = `${input} is required`;
+          isValid = false;
+        } else if (input === "email" && !emailRegex.test(formData.email)) {
+          newErrors[input] = "Invalid email format";
           isValid = false;
         }
       }
@@ -133,6 +138,9 @@ export default function Register() {
               onChange={handleInputChange}
               error={errors.password}
             />
+            {errors.message && (
+              <div className={classes.error}>{errors.message}</div>
+            )}
             <div className={classes.btnContainer}>
               <button className={classes.cancelBtn} onClick={closeHandler}>
                 Cancel

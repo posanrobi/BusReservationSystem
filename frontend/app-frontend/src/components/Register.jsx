@@ -3,6 +3,7 @@ import axios from "axios";
 
 import classes from "./Auth.module.css";
 import { useNavigate, useNavigation } from "react-router-dom";
+import Input from "./Input";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -13,10 +14,14 @@ export default function Register() {
     password: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
   const navigate = useNavigate();
 
   const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const isSubmitting =
+    navigation.state === "submitting" ? "Submitting..." : "Create a user";
 
   function handleInputChange(e) {
     const { name, value } = e.target;
@@ -26,17 +31,45 @@ export default function Register() {
     }));
   }
 
+  function validateForm() {
+    let isValid = true;
+    const newErrors = {};
+
+    ["firstname", "lastname", "username", "email", "password"].forEach(
+      (input) => {
+        if (!formData[input]) {
+          newErrors[input] = `${input} is required`;
+          isValid = false;
+        }
+      }
+    );
+
+    setErrors(newErrors);
+    return isValid;
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/auth/signup",
-        formData
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error("Register error:", error.response.data);
+    if (validateForm(formData)) {
+      try {
+        const response = await axios.post(
+          "http://localhost:8080/api/auth/signup",
+          formData
+        );
+
+        console.log(response.data);
+
+        setSubmitted(true);
+        setTimeout(() => {
+          navigate("/signin");
+        }, 2000);
+      } catch (error) {
+        setErrors({
+          message: error.response.data.message,
+        });
+        setSubmitted(false);
+      }
     }
   }
 
@@ -49,86 +82,65 @@ export default function Register() {
     <>
       <div className={classes.loginContainer}>
         <h2>Register</h2>
-        <form onSubmit={handleSubmit}>
-          <div className={classes.labelInput}>
-            <label className={classes.label} htmlFor="firstname">
-              Firstname
-            </label>
-            <input
-              className={classes.input}
-              type="text"
-              name="firstname"
-              id="firstname"
+        {submitted ? (
+          <div className={classes.successMessage}>
+            User created successfully!
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <Input
+              label={"Firstname"}
+              type={"text"}
+              name={"firstname"}
+              id={"firstname"}
               value={formData.firstname}
-              required
               onChange={handleInputChange}
+              error={errors.firstname}
             />
-          </div>
-          <div className={classes.labelInput}>
-            <label className={classes.label} htmlFor="lastname">
-              Lastname
-            </label>
-            <input
-              className={classes.input}
-              type="text"
-              name="lastname"
-              id="lastname"
+            <Input
+              label={"Lastname"}
+              type={"text"}
+              name={"lastname"}
+              id={"lastname"}
               value={formData.lastname}
-              required
               onChange={handleInputChange}
+              error={errors.lastname}
             />
-          </div>
-          <div className={classes.labelInput}>
-            <label className={classes.label} htmlFor="username">
-              Username
-            </label>
-            <input
-              className={classes.input}
-              type="text"
-              name="username"
-              id="username"
+            <Input
+              label={"Username"}
+              type={"text"}
+              name={"username"}
+              id={"username"}
               value={formData.username}
-              required
               onChange={handleInputChange}
+              error={errors.username}
             />
-          </div>
-          <div className={classes.labelInput}>
-            <label className={classes.label} htmlFor="email">
-              Email
-            </label>
-            <input
-              className={classes.input}
-              type="email"
-              name="email"
-              id="email"
+            <Input
+              label={"Email"}
+              type={"text"}
+              name={"email"}
+              id={"email"}
               value={formData.email}
-              required
               onChange={handleInputChange}
+              error={errors.email}
             />
-          </div>
-          <div className={classes.labelInput}>
-            <label className={classes.label} htmlFor="password">
-              Password
-            </label>
-            <input
-              className={classes.input}
-              type="password"
-              name="password"
-              id="password"
+            <Input
+              label={"Password"}
+              type={"password"}
+              name={"password"}
+              id={"password"}
               value={formData.password}
-              required
               onChange={handleInputChange}
+              error={errors.password}
             />
-          </div>
-          <div className={classes.btnContainer}>
-            <button className={classes.cancelBtn} onClick={closeHandler}>
-              Cancel
-            </button>
-            <button className={classes.authBtn} disabled={isSubmitting}>
-              {isSubmitting ? "Submitting..." : "Create a user"}
-            </button>
-          </div>
-        </form>
+            <div className={classes.btnContainer}>
+              <button className={classes.cancelBtn} onClick={closeHandler}>
+                Cancel
+              </button>
+              <button className={classes.authBtn}>{isSubmitting}</button>
+            </div>
+          </form>
+        )}
       </div>
     </>
   );

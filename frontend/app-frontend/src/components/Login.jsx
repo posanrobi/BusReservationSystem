@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from "./Auth.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ export default function Login() {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  //const [isFormValid, setIsFormValid] = useState(true);
 
   const navigate = useNavigate();
 
@@ -55,13 +56,16 @@ export default function Login() {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
 
-        console.log("Login successful");
         console.log(response.data);
 
         setSubmitted(true);
-        //navigate("/home");
+        setTimeout(() => {
+          navigate("/home");
+        }, 2000);
       } catch (error) {
-        console.error("Login error", error.response.data);
+        //console.error("Login error", error.response.data);
+        console.log(error.response.data.message);
+        setSubmitted(false);
       }
     }
   }
@@ -91,7 +95,6 @@ export default function Login() {
                 name="username"
                 id="username"
                 value={formData.username}
-                required
                 onChange={handleInputChange}
               />
             </div>
@@ -109,7 +112,6 @@ export default function Login() {
                 name="password"
                 id="password"
                 value={formData.password}
-                required
                 onChange={handleInputChange}
               />
             </div>
@@ -121,7 +123,7 @@ export default function Login() {
               <button className={classes.cancelBtn} onClick={closeHandler}>
                 Cancel
               </button>
-              <button className={classes.authBtn} disabled={!isFormValid}>
+              <button className={classes.authBtn} /*disabled={!isFormValid}*/>
                 Sign in
               </button>
             </div>

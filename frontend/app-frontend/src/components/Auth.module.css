@@ -26,7 +26,7 @@
 }
 
 .loginContainer {
-  background-color: rgb(60, 102, 170);
+  background-color: rgb(87, 129, 198);
   border-radius: 1rem;
   width: 20rem;
   padding: 2rem;
@@ -38,7 +38,7 @@
 }
 
 .labelInput {
-  padding: 1rem;
+  padding-top: 1rem;
 
   display: flex;
   flex-direction: column;
@@ -87,7 +87,10 @@
 }
 
 .error {
+  padding-left: 0.5rem;
   color: red;
+  border-radius: 1rem;
+  width: fit-content;
 }
 
 .successMessage {

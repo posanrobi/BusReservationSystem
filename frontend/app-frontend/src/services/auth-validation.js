@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 export function validateForm(formData, inputData, errorData) {
   let isValid = true;
   const newErrors = {};

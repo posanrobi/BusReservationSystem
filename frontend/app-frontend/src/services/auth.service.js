@@ -1,36 +1,29 @@
 import axios from "axios";
 
-export default function AuthService() {
-  const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = "http://localhost:8080/api/auth/";
 
-  async function login(username, password) {
-    return await axios
-      .post(API_URL + "signin", {
-        username,
-        password,
-      })
-      .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-
-        return response.data;
-      });
+export async function login(formData) {
+  const response = await axios.post(API_URL + "signin", formData);
+  if (response.data.accessToken) {
+    localStorage.setItem("user", JSON.stringify(response.data));
   }
+  return response;
+}
 
-  function logout() {
-    localStorage.removeItem("user");
-  }
+export async function register(formData) {
+  const response = await axios.post(API_URL + "signup", formData);
+  return response;
+}
 
-  async function register(username, email, password) {
-    return await axios.post(API_URL + "signup", {
-      username,
-      email,
-      password,
-    });
-  }
+export function logout() {
+  localStorage.removeItem("user");
+}
 
-  function getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
-  }
+export function getCurrentUser() {
+  return JSON.parse(localStorage.getItem("user"));
+}
+
+export function getUserRole() {
+  const user = getCurrentUser();
+  return user ? user.roles[0] : null;
 }

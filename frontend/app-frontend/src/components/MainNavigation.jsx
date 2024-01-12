@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import AuthService from "../services/auth.service";
+import { logout } from "../services/auth.service";
 
 import classes from "./MainNavigation.module.css";
 
 function handleLogout() {
-  AuthService.logout();
+  logout();
 }
 
 export default function MainNavigation() {

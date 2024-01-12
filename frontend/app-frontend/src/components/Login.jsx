@@ -1,8 +1,10 @@
-import { useState } from "react";
-import classes from "./Auth.module.css";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../services/auth.service";
 import Input from "./Input";
+import { getUserRole } from "../services/auth.service";
+
+import classes from "./Auth.module.css";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,16 @@ export default function Login() {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+
+  //--
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    const role = getUserRole();
+    console.log(role);
+    setUserRole(role);
+  }, []);
+  //--
 
   const navigate = useNavigate();
 
@@ -43,19 +55,17 @@ export default function Login() {
 
     if (validateForm()) {
       try {
-        const response = await axios.post(
-          "http://localhost:8080/api/auth/signin",
-          formData
-        );
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
+        const response = await login(formData);
 
         console.log(response.data);
 
         setSubmitted(true);
         setTimeout(() => {
-          navigate("/home");
+          if (userRole === "ROLE_USER") {
+            navigate("/home");
+          } else {
+            navigate("/admin");
+          }
         }, 2000);
       } catch (error) {
         setErrors({

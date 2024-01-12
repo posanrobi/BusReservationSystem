@@ -1,9 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
+import { useNavigate, useNavigation } from "react-router-dom";
+import { register } from "../services/auth.service";
+import Input from "./Input";
 
 import classes from "./Auth.module.css";
-import { useNavigate, useNavigation } from "react-router-dom";
-import Input from "./Input";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -58,10 +58,7 @@ export default function Register() {
 
     if (validateForm(formData)) {
       try {
-        const response = await axios.post(
-          "http://localhost:8080/api/auth/signup",
-          formData
-        );
+        const response = await register(formData);
 
         console.log(response.data);
 

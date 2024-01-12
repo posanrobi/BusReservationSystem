@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/auth.service";
 import Input from "./Input";
@@ -14,16 +14,6 @@ export default function Login() {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
-
-  //--
-  const [userRole, setUserRole] = useState(null);
-
-  useEffect(() => {
-    const role = getUserRole();
-    console.log(role);
-    setUserRole(role);
-  }, []);
-  //--
 
   const navigate = useNavigate();
 
@@ -61,9 +51,9 @@ export default function Login() {
 
         setSubmitted(true);
         setTimeout(() => {
-          if (userRole === "ROLE_USER") {
+          if (getUserRole() === "ROLE_USER") {
             navigate("/home");
-          } else {
+          } else if (getUserRole() === "ROLE_ADMIN") {
             navigate("/admin");
           }
         }, 2000);

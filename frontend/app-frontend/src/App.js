@@ -9,20 +9,26 @@ import PlanningPage from "./pages/PlanningPage";
 import ProfilePage from "./pages/ProfilePage";
 import ReservationsPage from "./pages/ReservationsPage";
 import AdminBoard from "./components/AdminBoard";
+import { checkAuthLoader } from "./services/auth.service";
 
 const router = createBrowserRouter([
   { path: "/", element: <AuthenticationPage /> },
   { path: "signin", element: <Login /> },
   { path: "signup", element: <Register /> },
+  //{ path: "admin", element: <AdminBoard />, loader: checkAuthLoader },
   {
     path: "/",
     element: <RootLayout />,
     children: [
-      { path: "home", element: <HomePage /> },
-      { path: "plan", element: <PlanningPage /> },
-      { path: "profile", element: <ProfilePage /> },
-      { path: "reservations", element: <ReservationsPage /> },
-      { path: "admin", element: <AdminBoard /> },
+      { path: "home", element: <HomePage />, loader: checkAuthLoader },
+      { path: "plan", element: <PlanningPage />, loader: checkAuthLoader },
+      { path: "profile", element: <ProfilePage />, loader: checkAuthLoader },
+      {
+        path: "reservations",
+        element: <ReservationsPage />,
+        loader: checkAuthLoader,
+      },
+      { path: "admin", element: <AdminBoard />, loader: checkAuthLoader },
     ],
   },
 ]);

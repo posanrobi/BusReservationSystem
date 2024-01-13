@@ -69,6 +69,7 @@ export function useEnterKeyEffect(handleSubmit) {
   return null;
 } */
 
+//protect routes
 export function checkAuthLoader() {
   const token = getAuthToken();
   const userRole = getUserRole();

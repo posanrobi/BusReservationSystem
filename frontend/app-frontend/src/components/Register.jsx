@@ -89,7 +89,7 @@ export default function Register() {
         <h2>Register</h2>
         {submitted ? (
           <div className={classes.successMessage}>
-            User created successfully!
+            User registered successfully!
           </div>
         ) : (
           <form onSubmit={handleSubmit}>

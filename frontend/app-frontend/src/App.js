@@ -13,10 +13,13 @@ import { checkAuthLoader } from "./services/auth.service";
 import Error from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
-  { path: "/", element: <AuthenticationPage /> },
+  {
+    path: "/",
+    element: <AuthenticationPage />,
+    errorElement: <Error />,
+  },
   { path: "signin", element: <Login /> },
   { path: "signup", element: <Register /> },
-  { path: "error", element: <Error /> },
   {
     path: "/",
     element: <RootLayout />,
@@ -32,6 +35,7 @@ const router = createBrowserRouter([
       { path: "admin", element: <AdminBoard />, loader: checkAuthLoader },
     ],
   },
+  { path: "*", element: <Error /> },
 ]);
 
 function App() {
@@ -41,5 +45,4 @@ function App() {
 export default App;
 
 //TODO
-// - bad url
-// - enter click
+// -

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { getUserRole } from "../services/auth.service";
 
 export default function Error() {

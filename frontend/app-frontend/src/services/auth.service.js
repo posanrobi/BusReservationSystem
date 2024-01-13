@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -43,6 +43,22 @@ export function getAuthToken() {
 }
 
 //enter submit
+export function useEnterKeyEffect(handleSubmit) {
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        event.preventDefault();
+        handleSubmit(event);
+      }
+    };
+
+    document.addEventListener("keydown", listener);
+
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [handleSubmit]);
+}
 
 //loaded token
 /* export function checkAuthLoader() {

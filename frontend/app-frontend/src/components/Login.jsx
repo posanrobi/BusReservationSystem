@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/auth.service";
 import Input from "./Input";
@@ -65,6 +65,26 @@ export default function Login() {
       }
     }
   }
+
+  //----------
+
+  useEffect(() => {
+    function keyDownHandler(event) {
+      if (event && event.key === "Enter") {
+        event.preventDefault();
+        handleSubmit(); // Call your handleSubmit function
+      }
+    }
+
+    // Attach the event listener
+    window.addEventListener("keydown", keyDownHandler);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [handleSubmit]);
+  //----------
 
   function closeHandler(e) {
     e.preventDefault();

@@ -4,13 +4,13 @@ import { getUserRole } from "../services/auth.service";
 
 import classes from "./MainNavigation.module.css";
 
-function handleLogout() {
-  logout();
-}
-
-const isAdmin = getUserRole() === "ROLE_ADMIN";
-
 export default function MainNavigation() {
+  function handleLogout() {
+    logout();
+  }
+
+  const isAdmin = getUserRole() === "ROLE_ADMIN";
+
   return (
     <header className={classes.header}>
       <nav className={classes.nav}>

@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 
 import classes from "./Auth.module.css";
+import { getCurrentUser } from "../services/auth.service";
 
 export default function AuthenticationPage() {
+  const user = getCurrentUser();
+  if (user) localStorage.removeItem("user");
+
   return (
     <>
       <div className={`${classes.authContainer} ${classes.authBackground}`}>

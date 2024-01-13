@@ -1,5 +1,11 @@
 import axios from "axios";
-import { redirect } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  redirect,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -42,17 +48,32 @@ export function getAuthToken() {
 }
 
 //loaded token
-export function checkAuthLoader() {
+/* export function checkAuthLoader() {
   const token = getAuthToken();
   if (!token) {
     return redirect("/");
   }
   return null;
-}
-
-/* export function navigationLoader() {
-  if (getUserRole() === "ROLE_USER") {
-    return true;
-  }
-  return false;
 } */
+
+export function checkAuthLoader() {
+  const token = getAuthToken();
+  const userRole = getUserRole();
+  const url = window.location.href;
+
+  if (!token) {
+    return redirect("/");
+  } else if (userRole === "ROLE_USER" && url.includes("/admin")) {
+    return redirect("/error");
+  } else if (
+    userRole === "ROLE_ADMIN" &&
+    (url.includes("/home") ||
+      url.includes("/reservations") ||
+      url.includes("/plan") ||
+      url.includes("/profile"))
+  ) {
+    return redirect("/error");
+  }
+
+  return null;
+}

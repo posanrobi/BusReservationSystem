@@ -10,12 +10,13 @@ import ProfilePage from "./pages/ProfilePage";
 import ReservationsPage from "./pages/ReservationsPage";
 import AdminBoard from "./components/AdminBoard";
 import { checkAuthLoader } from "./services/auth.service";
+import Error from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   { path: "/", element: <AuthenticationPage /> },
   { path: "signin", element: <Login /> },
   { path: "signup", element: <Register /> },
-  //{ path: "admin", element: <AdminBoard />, loader: checkAuthLoader },
+  { path: "error", element: <Error /> },
   {
     path: "/",
     element: <RootLayout />,
@@ -38,3 +39,7 @@ function App() {
 }
 
 export default App;
+
+//TODO
+// - bad url
+// - enter click

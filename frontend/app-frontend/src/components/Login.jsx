@@ -66,25 +66,19 @@ export default function Login() {
     }
   }
 
-  //----------
-
+  // submit for enter
   useEffect(() => {
-    function keyDownHandler(event) {
-      if (event && event.key === "Enter") {
+    const listener = (event) => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
         event.preventDefault();
-        handleSubmit(); // Call your handleSubmit function
+        handleSubmit(event);
       }
-    }
-
-    // Attach the event listener
-    window.addEventListener("keydown", keyDownHandler);
-
-    // Clean up the event listener on component unmount
+    };
+    document.addEventListener("keydown", listener);
     return () => {
-      window.removeEventListener("keydown", keyDownHandler);
+      document.removeEventListener("keydown", listener);
     };
   }, [handleSubmit]);
-  //----------
 
   function closeHandler(e) {
     e.preventDefault();

@@ -1,11 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import {
-  redirect,
-  useLoaderData,
-  useLocation,
-  useParams,
-} from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -46,6 +41,8 @@ export function getAuthToken() {
   const token = currentUser ? currentUser.accessToken : null;
   return token;
 }
+
+//enter submit
 
 //loaded token
 /* export function checkAuthLoader() {

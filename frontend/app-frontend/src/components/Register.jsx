@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { register } from "../services/auth.service";
 import Input from "./Input";
@@ -74,6 +74,20 @@ export default function Register() {
       }
     }
   }
+
+  // enter submit
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        event.preventDefault();
+        handleSubmit(event);
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [handleSubmit]);
 
   function closeHandler(e) {
     e.preventDefault();

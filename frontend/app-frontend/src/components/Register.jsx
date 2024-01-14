@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { register, useEnterKeyEffect } from "../services/auth.service";
 import Input from "./Input";
 
 import classes from "./Auth.module.css";
 
-export default function Register() {
+export default function Register({ closeRegisterModal }) {
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -80,7 +80,9 @@ export default function Register() {
 
   function closeHandler(e) {
     e.preventDefault();
-    navigate("..");
+    //navigate("..");
+    setErrors("");
+    closeRegisterModal();
   }
 
   return (

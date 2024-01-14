@@ -6,7 +6,7 @@ import { getUserRole } from "../services/auth.service";
 
 import classes from "./Auth.module.css";
 
-export default function Login() {
+export default function Login({ closeLoginModal }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -70,7 +70,9 @@ export default function Login() {
 
   function closeHandler(e) {
     e.preventDefault();
-    navigate("..");
+    //navigate("..");
+    setErrors("");
+    closeLoginModal();
   }
 
   return (
@@ -85,7 +87,7 @@ export default function Login() {
               label={"Username"}
               type={"text"}
               name={"username"}
-              id={"username"}
+              id={"login-username"}
               value={formData.username}
               onChange={handleInputChange}
               error={errors.username}
@@ -94,7 +96,7 @@ export default function Login() {
               label={"Password"}
               type={"password"}
               name={"password"}
-              id={"password"}
+              id={"login-password"}
               value={formData.password}
               onChange={handleInputChange}
               error={errors.password}
@@ -104,7 +106,11 @@ export default function Login() {
             )}
 
             <div className={classes.btnContainer}>
-              <button className={classes.cancelBtn} onClick={closeHandler}>
+              <button
+                type="button"
+                className={classes.cancelBtn}
+                onClick={closeHandler}
+              >
                 Cancel
               </button>
               <button className={classes.authBtn}>Sign in</button>

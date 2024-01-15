@@ -13,9 +13,9 @@ public class BusLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "busLine", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BusLineDate> available_dates = new ArrayList<>();
-    private int seat_num;
+    //@OneToMany(mappedBy = "busLine", cascade = CascadeType.ALL, orphanRemoval = true)
+    //private List<BusLineDate> available_dates = new ArrayList<>();
+    private int seatNum;
     private int price;
 
     public Long getId() {
@@ -34,20 +34,20 @@ public class BusLine {
         this.name = name;
     }
 
-    public List<BusLineDate> getAvailable_dates() {
+    /*public List<BusLineDate> getAvailable_dates() {
         return available_dates;
     }
 
     public void setAvailable_dates(List<BusLineDate> available_dates) {
         this.available_dates = available_dates;
-    }
+    }*/
 
     public int getSeat_num() {
-        return seat_num;
+        return seatNum;
     }
 
-    public void setSeat_num(int seat_num) {
-        this.seat_num = seat_num;
+    public void setSeat_num(int seatNum) {
+        this.seatNum = seatNum;
     }
 
     public int getPrice() {

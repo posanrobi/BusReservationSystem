@@ -1,0 +1,28 @@
+.planContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8rem;
+}
+
+.planBox {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(147, 173, 232, 0.832);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.planBoxBody {
+  display: flex;
+  gap: 6rem;
+
+  border: 1px solid red;
+}
+
+.planBoxFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

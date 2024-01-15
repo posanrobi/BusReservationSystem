@@ -2,11 +2,12 @@ import axios from "axios";
 import { useEffect } from "react";
 import { redirect } from "react-router-dom";
 
-const API_URL = "http://localhost:8080/api/auth/";
+const AUTH_API_URL = "http://localhost:8080/api/auth/";
+const BUS_LINE_API_URL = "http://localhost:8080/api/bus-lines/";
 
 //login
 export async function login(formData) {
-  const response = await axios.post(API_URL + "signin", formData);
+  const response = await axios.post(AUTH_API_URL + "signin", formData);
   if (response.data.accessToken) {
     localStorage.setItem("user", JSON.stringify(response.data));
   }
@@ -15,7 +16,7 @@ export async function login(formData) {
 
 //register
 export async function register(formData) {
-  const response = await axios.post(API_URL + "signup", formData);
+  const response = await axios.post(AUTH_API_URL + "signup", formData);
   return response;
 }
 

@@ -8,6 +8,7 @@ export default function Input({
   value,
   onChange,
   error,
+  placeholder = "",
 }) {
   return (
     <div className={classes.labelInput}>
@@ -21,6 +22,7 @@ export default function Input({
         id={id}
         value={value}
         onChange={onChange}
+        placeholder={placeholder}
       />
       {error && <div className={classes.error}>{error}</div>}
     </div>

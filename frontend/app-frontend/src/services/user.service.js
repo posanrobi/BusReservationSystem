@@ -24,3 +24,11 @@ export async function getAllUsers() {
     throw new Error("Unauthorized access");
   }
 }
+
+export async function getAllBusLines() {
+  try {
+    return await axios.get(API_URL + "bus-lines", { headers: authHeader() });
+  } catch (error) {
+    throw new Error("Unauthorized access");
+  }
+}

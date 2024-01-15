@@ -64,7 +64,8 @@ export default function Register({ closeRegisterModal }) {
 
         setSubmitted(true);
         setTimeout(() => {
-          navigate("/signin");
+          closeRegisterModal();
+          //openLoginModal();
         }, 2000);
       } catch (error) {
         setErrors({
@@ -84,6 +85,18 @@ export default function Register({ closeRegisterModal }) {
     setErrors("");
     closeRegisterModal();
   }
+
+  useEffect(() => {
+    setErrors({});
+    setFormData({
+      firstname: "",
+      lastname: "",
+      username: "",
+      email: "",
+      password: "",
+    });
+    setSubmitted(false);
+  }, [closeRegisterModal]);
 
   return (
     <>

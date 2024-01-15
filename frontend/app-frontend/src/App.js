@@ -18,8 +18,8 @@ const router = createBrowserRouter([
     element: <AuthenticationPage />,
     errorElement: <Error />,
   },
-  { path: "signin", element: <Login /> },
-  { path: "signup", element: <Register /> },
+  /* { path: "signin", element: <Login /> },
+  { path: "signup", element: <Register /> }, */
   {
     path: "/",
     element: <RootLayout />,
@@ -45,4 +45,5 @@ function App() {
 export default App;
 
 //TODO
-// -
+// - home page
+// - plan page

@@ -8,13 +8,13 @@ export default function HomePage() {
       <div className={classes.backGround}>
         <div className={classes.homeContainer}>
           <div className={classes.navBox}>
-            <Link>Planning</Link>
+            <Link to={"/plan"}>Planning</Link>
           </div>
           <div className={classes.navBox}>
-            <Link>Reservations</Link>
+            <Link to={"/reservations"}>Reservations</Link>
           </div>
           <div className={classes.navBox}>
-            <Link>Profile</Link>
+            <Link to={"/profile"}>Profile</Link>
           </div>
         </div>
       </div>

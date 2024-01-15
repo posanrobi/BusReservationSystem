@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { login, useEnterKeyEffect } from "../services/auth.service";
 import Input from "./Input";
@@ -70,10 +70,17 @@ export default function Login({ closeLoginModal }) {
 
   function closeHandler(e) {
     e.preventDefault();
-    //navigate("..");
-    setErrors("");
     closeLoginModal();
   }
+
+  useEffect(() => {
+    setErrors({});
+    setFormData({
+      username: "",
+      password: "",
+    });
+    setSubmitted(false);
+  }, [closeLoginModal]);
 
   return (
     <>

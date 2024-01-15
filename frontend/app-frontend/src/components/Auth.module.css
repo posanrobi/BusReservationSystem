@@ -26,7 +26,7 @@
 }
 
 .loginContainer {
-  background-color: rgb(87, 129, 198);
+  background-color: rgb(160, 179, 224);
   border-radius: 1rem;
   width: 20rem;
   padding: 0 2rem 2rem 2rem;
@@ -69,14 +69,23 @@
   background-color: white;
   color: black;
   text-decoration: none;
+  box-shadow: 0 0 2px rgba(1, 11, 20, 0.712);
+}
+
+.authBtn:hover {
+  animation: buttonHover 0.1s ease-in-out forwards;
 }
 
 .cancelBtn {
   background: none;
   border: none;
-  color: white;
+  color: rgb(39, 52, 136);
   font-size: 1rem;
   cursor: pointer;
+}
+
+.cancelBtn:hover {
+  color: rgb(76, 81, 116);
 }
 
 .btnContainer {
@@ -99,4 +108,16 @@
   background-color: lightgreen;
   border-radius: 1rem;
   padding: 0.5rem 1.2rem;
+}
+
+@keyframes buttonHover {
+  from {
+    background-color: white;
+    transform: scale(1);
+  }
+
+  to {
+    background-color: rgb(95, 156, 209);
+    transform: scale(1.05);
+  }
 }

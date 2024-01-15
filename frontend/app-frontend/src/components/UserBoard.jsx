@@ -12,15 +12,15 @@ export default function HomePage() {
           corporis optio modi commodi assumenda quibusdam aspernatur!
         </p>
         <div className={classes.navBoxContainer}>
-          <div className={classes.navBox}>
-            <Link to={"/plan"}>Planning</Link>
-          </div>
-          <div className={classes.navBox}>
-            <Link to={"/reservations"}>Reservations</Link>
-          </div>
-          <div className={classes.navBox}>
-            <Link to={"/profile"}>Profile</Link>
-          </div>
+          <Link to="/plan" className={classes.navBox}>
+            Planning
+          </Link>
+          <Link to={"/reservations"} className={classes.navBox}>
+            Reservations
+          </Link>
+          <Link to={"/profile"} className={classes.navBox}>
+            Profile
+          </Link>
         </div>
       </div>
     </>

@@ -33,6 +33,14 @@ export default function MainNavigation() {
               Plan
             </NavLink>
             <NavLink
+              to="/reservations"
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              Reservations
+            </NavLink>
+            <NavLink
               to="/profile"
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
@@ -40,14 +48,6 @@ export default function MainNavigation() {
             >
               Profile
             </NavLink>
-            <NavLink
-              to="/reservations"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              Reservations
-            </NavLink>{" "}
           </>
         )}
 

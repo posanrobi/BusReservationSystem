@@ -40,9 +40,9 @@
   animation: scaling 0.2s ease-in-out forwards;
 }
 
-.navBox a:link,
-.navBox a:active,
-.navBox a:visited {
+.navBoxContainer a:link,
+.navBoxContainer a:active,
+.navBoxContainer a:visited {
   color: black;
   text-decoration: none;
   font-size: 1.5rem;

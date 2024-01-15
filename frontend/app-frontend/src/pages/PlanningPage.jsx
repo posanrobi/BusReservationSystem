@@ -1,16 +1,31 @@
 import Input from "../components/Input";
-import { getAllBusLines } from "../services/user.service";
+import { getAllBusLineDates, getAllBusLines } from "../services/user.service";
 import classes from "./PlanningPage.module.css";
 import { useState, useEffect } from "react";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
+  const [busLineDates, setBusLineDates] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await getAllBusLines();
         setBusLines(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error while fetching buslines", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getAllBusLineDates();
+        setBusLineDates(response.data);
         console.log(response.data);
       } catch (error) {
         console.error("Error while fetching buslines", error);
@@ -28,6 +43,13 @@ export default function PlanningPage() {
             <h3>{busLine.name}</h3>
             <p>Seat Num: {busLine.seatNum}</p>
             <p>Price: {busLine.price}</p>
+          </div>
+        ))}
+      </div>
+      <div>
+        {busLineDates.map((date) => (
+          <div key={date.id}>
+            <p>Date: {date.date}</p>
           </div>
         ))}
       </div>

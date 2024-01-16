@@ -42,11 +42,11 @@ public class BusLine {
         this.available_dates = available_dates;
     }*/
 
-    public int getSeat_num() {
+    public int getSeatNum() {
         return seatNum;
     }
 
-    public void setSeat_num(int seatNum) {
+    public void setSeatNum(int seatNum) {
         this.seatNum = seatNum;
     }
 

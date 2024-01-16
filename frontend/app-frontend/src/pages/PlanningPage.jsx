@@ -1,4 +1,3 @@
-import Input from "../components/Input";
 import { getAllBusLineDates, getAllBusLines } from "../services/user.service";
 import classes from "./PlanningPage.module.css";
 import { useState, useEffect } from "react";
@@ -6,6 +5,36 @@ import { useState, useEffect } from "react";
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
   const [busLineDates, setBusLineDates] = useState([]);
+
+  const [selectedFrom, setSelectedFrom] = useState("");
+  const [selectedTo, setSelectedTo] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+
+  function handleSelectFromChange(e) {
+    const { value } = e.target;
+    setSelectedFrom(value);
+
+    setSelectedTo("");
+    setSelectedDate("");
+  }
+
+  function handleSelectToChange(e) {
+    const { value } = e.target;
+    setSelectedTo(value);
+
+    setSelectedDate("");
+  }
+
+  function handleSelectDateChange(e) {
+    const { value } = e.target;
+    setSelectedDate(value);
+  }
+
+  const getLineId = (from, to) => {
+    const line = `${from}-${to}`;
+    const busLine = busLines.find((bl) => bl.name === line);
+    return busLine ? busLine.id : null;
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -15,9 +44,6 @@ export default function PlanningPage() {
 
         const datesResponse = await getAllBusLineDates();
         setBusLineDates(datesResponse.data);
-
-        /*  console.log(linesResponse.data);
-        console.log(datesResponse.data); */
       } catch (error) {
         console.error("Error while fetching data", error);
       }
@@ -35,7 +61,19 @@ export default function PlanningPage() {
     return grouped;
   }, {});
 
-  console.log("HELLOO", groupedDatesByLineId);
+  const renderSeats = () => {
+    return busLines.map((busLine) => {
+      const seatDivs = [];
+      for (let i = 0; i < busLine.seatNum; i++) {
+        seatDivs.push(
+          <div className={classes.seat} key={i}>
+            {i + 1}
+          </div>
+        );
+      }
+      return seatDivs;
+    });
+  };
 
   return (
     <>
@@ -55,6 +93,7 @@ export default function PlanningPage() {
           </div>
         ))}
       </div>
+
       <div className={classes.planContainer}>
         <div className={classes.planBox}>
           <div className={classes.planBoxBody}>
@@ -63,13 +102,18 @@ export default function PlanningPage() {
 
               <label>
                 From:
-                <div>
-                  <select>
+                <div className={classes.dropDownBox}>
+                  <select
+                    className={classes.select}
+                    onChange={handleSelectFromChange}
+                    value={selectedFrom}
+                  >
                     <option value="" disabled selected>
                       Choose your starting place
                     </option>
                     {busLines.map((busLine) => {
                       const startingPlace = busLine.name.split("-")[0].trim();
+
                       return (
                         <option key={busLine.id} value={startingPlace}>
                           {startingPlace}
@@ -82,60 +126,69 @@ export default function PlanningPage() {
 
               <label>
                 To:
-                <div>
-                  <select>
+                <div className={classes.dropDownBox}>
+                  <select
+                    className={classes.select}
+                    onChange={handleSelectToChange}
+                    value={selectedTo}
+                  >
                     <option value="" disabled selected>
                       Choose your destination place
                     </option>
-                    {busLines.map((busLine) => {
-                      const destinationPlace = busLine.name
-                        .split("-")[1]
-                        .trim();
-                      return (
-                        <option key={busLine.id} value={destinationPlace}>
-                          {destinationPlace}
+                    {busLines
+                      .filter(
+                        (busLine) =>
+                          busLine.name.split("-")[0].trim() === selectedFrom
+                      )
+                      .map((busLine) => (
+                        <option
+                          key={busLine.id}
+                          value={busLine.name.split("-")[1].trim()}
+                        >
+                          {busLine.name.split("-")[1].trim()}
                         </option>
-                      );
-                    })}
+                      ))}
                   </select>
                 </div>
               </label>
 
               <label>
                 Available dates:
-                <div>
-                  <select>
+                <div className={classes.dropDownBox}>
+                  <select
+                    className={classes.select}
+                    onChange={handleSelectDateChange}
+                    value={selectedDate}
+                  >
                     <option value="" disabled selected>
                       Choose a date
                     </option>
-                    {busLines.map((busLine) =>
-                      groupedDatesByLineId[busLine.id]?.map((date) => (
+                    {selectedFrom &&
+                      selectedTo &&
+                      groupedDatesByLineId[
+                        getLineId(selectedFrom, selectedTo)
+                      ]?.map((date) => (
                         <option key={date.id} value={date.date}>
                           {date.date}
                         </option>
-                      ))
-                    )}
+                      ))}
                   </select>
                 </div>
               </label>
             </div>
 
+            {/*------------------------------------------------------------------*/}
             <div className={classes.seatsDiv}>
               <p>Available seats:</p>
-              <div className={classes.seats}>
-                {busLines.map((busLine) => {
-                  const seatDivs = [];
-                  for (let i = 0; i < busLine.seatNum; i++) {
-                    seatDivs.push(
-                      <div className={classes.seat} key={i}>
-                        {i + 1}
-                      </div>
-                    );
-                  }
-                  return seatDivs;
-                })}
-              </div>
+              <div className={classes.seats}>{renderSeats()}</div>
             </div>
+
+            {/*------------------------------------------------------------------*/}
+
+            {/* <div className={classes.seatsDiv}>
+              <p>Available seats:</p>
+              <div className={classes.seats}>{renderSeats()}</div>
+            </div> */}
 
             <div className={classes.detailsDiv}>
               <ul>

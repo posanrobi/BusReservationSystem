@@ -61,20 +61,6 @@ export default function PlanningPage() {
     return grouped;
   }, {});
 
-  /* const renderSeats = () => {
-    return busLines.map((busLine) => {
-      const seatDivs = [];
-      for (let i = 0; i < busLine.seatNum; i++) {
-        seatDivs.push(
-          <div className={classes.seat} key={i}>
-            {i + 1}
-          </div>
-        );
-      }
-      return seatDivs;
-    });
-  }; */
-
   const renderSeats = (busLineId, seatNum) => {
     const seatDivs = [];
     for (let i = 0; i < seatNum; i++) {
@@ -89,23 +75,6 @@ export default function PlanningPage() {
 
   return (
     <>
-      {/* <div>
-        {busLines.map((busLine) => (
-          <div key={busLine.id}>
-            <h3>{busLine.name}</h3>
-            <p>Seat Num: {busLine.seatNum}</p>
-            <p>Price: {busLine.price}</p>
-            <div>
-              {groupedDatesByLineId[busLine.id]?.map((date) => (
-                <div key={date.id}>
-                  <p>Date: {date.date}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div> */}
-
       <div className={classes.planContainer}>
         <div className={classes.planBox}>
           <div className={classes.planBoxBody}>
@@ -189,7 +158,6 @@ export default function PlanningPage() {
               </label>
             </div>
 
-            {/*------------------------------------------------------------------*/}
             <div className={classes.seatsDiv}>
               <p>Available seats:</p>
               <div className={classes.seats}>
@@ -199,7 +167,7 @@ export default function PlanningPage() {
                   groupedDatesByLineId[getLineId(selectedFrom, selectedTo)] &&
                   groupedDatesByLineId[getLineId(selectedFrom, selectedTo)]
                     .filter((date) => date.busLine)
-                    .slice(0, 1) // Csak az első elemet választja ki
+                    .slice(0, 1)
                     .map((date) =>
                       renderSeats(
                         getLineId(
@@ -211,13 +179,6 @@ export default function PlanningPage() {
                     )}
               </div>
             </div>
-
-            {/*------------------------------------------------------------------*/}
-
-            {/* <div className={classes.seatsDiv}>
-              <p>Available seats:</p>
-              <div className={classes.seats}>{renderSeats()}</div>
-            </div> */}
 
             <div className={classes.detailsDiv}>
               <ul>

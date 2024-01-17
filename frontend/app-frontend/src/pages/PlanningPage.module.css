@@ -17,8 +17,6 @@
 .planBoxBody {
   display: flex;
   gap: 6rem;
-
-  /*border: 1px solid red;*/
 }
 
 .planBoxFooter {
@@ -35,7 +33,7 @@
 }
 
 .seats {
-  height: 20rem;
+  max-height: 12rem;
   width: 20rem;
   overflow-y: auto;
   display: flex;

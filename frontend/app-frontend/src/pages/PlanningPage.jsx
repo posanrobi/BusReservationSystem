@@ -61,7 +61,7 @@ export default function PlanningPage() {
     return grouped;
   }, {});
 
-  const renderSeats = () => {
+  /* const renderSeats = () => {
     return busLines.map((busLine) => {
       const seatDivs = [];
       for (let i = 0; i < busLine.seatNum; i++) {
@@ -73,11 +73,23 @@ export default function PlanningPage() {
       }
       return seatDivs;
     });
+  }; */
+
+  const renderSeats = (busLineId, seatNum) => {
+    const seatDivs = [];
+    for (let i = 0; i < seatNum; i++) {
+      seatDivs.push(
+        <div className={classes.seat} key={`${busLineId}-${i}`}>
+          {i + 1}
+        </div>
+      );
+    }
+    return seatDivs;
   };
 
   return (
     <>
-      <div>
+      {/* <div>
         {busLines.map((busLine) => (
           <div key={busLine.id}>
             <h3>{busLine.name}</h3>
@@ -92,7 +104,7 @@ export default function PlanningPage() {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       <div className={classes.planContainer}>
         <div className={classes.planBox}>
@@ -180,7 +192,24 @@ export default function PlanningPage() {
             {/*------------------------------------------------------------------*/}
             <div className={classes.seatsDiv}>
               <p>Available seats:</p>
-              <div className={classes.seats}>{renderSeats()}</div>
+              <div className={classes.seats}>
+                {selectedFrom &&
+                  selectedTo &&
+                  selectedDate &&
+                  groupedDatesByLineId[getLineId(selectedFrom, selectedTo)] &&
+                  groupedDatesByLineId[getLineId(selectedFrom, selectedTo)]
+                    .filter((date) => date.busLine)
+                    .slice(0, 1) // Csak az első elemet választja ki
+                    .map((date) =>
+                      renderSeats(
+                        getLineId(
+                          date.busLine.name.split("-")[0].trim(),
+                          date.busLine.name.split("-")[1].trim()
+                        ),
+                        date.busLine.seatNum
+                      )
+                    )}
+              </div>
             </div>
 
             {/*------------------------------------------------------------------*/}

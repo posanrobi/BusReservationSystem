@@ -39,7 +39,6 @@ import { useState } from "react";
 import Modal from "./Modal";
 import Login from "./Login";
 import { getCurrentUser } from "../services/auth.service";
-import { Link } from "react-router-dom";
 
 import classes from "./Auth.module.css";
 import Register from "./Register";
@@ -69,7 +68,6 @@ export default function AuthenticationPage() {
         <div className={classes.textContainer}>
           <h1 className={classes.ctaTitle}>Do you have an account?</h1>
           <button className={classes.authBtn} onClick={openLoginModal}>
-            {/*  <Link to="signin">Sign in</Link> */}
             Sign in
           </button>
           <h1>Or create a New One</h1>

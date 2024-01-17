@@ -1,6 +1,10 @@
+import Confirm from "../components/Confirm";
+import Modal from "../components/Modal";
 import { getAllBusLineDates, getAllBusLines } from "../services/user.service";
-import classes from "./PlanningPage.module.css";
 import { useState, useEffect } from "react";
+
+import classes from "./PlanningPage.module.css";
+import modalClasses from "../components/Modal.module.css";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
@@ -9,6 +13,13 @@ export default function PlanningPage() {
   const [selectedFrom, setSelectedFrom] = useState("");
   const [selectedTo, setSelectedTo] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+
+  //------------------------------------------------
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openConfirm = () => setIsModalOpen(true);
+  const closeConfirm = () => setIsModalOpen(false);
+  //------------------------------------------------
 
   function handleSelectFromChange(e) {
     const { value } = e.target;
@@ -182,17 +193,25 @@ export default function PlanningPage() {
 
             <div className={classes.detailsDiv}>
               <ul>
-                <li>Free</li>
-                <li>Booked</li>
-                <li>Selected</li>
+                <li>Free 🟩</li>
+                <li>Booked 🟥</li>
+                <li>Selected ⬛</li>
               </ul>
+
+              <div>
+                <p>Total: 1200 Ft </p>
+              </div>
             </div>
           </div>
           <div className={classes.planBoxFooter}>
-            <button>Submit</button>
+            <button onClick={openConfirm}>Submit</button>
           </div>
         </div>
       </div>
+
+      <Modal open={isModalOpen} className={modalClasses.modalContainer}>
+        <Confirm onCloseConfirm={closeConfirm} />
+      </Modal>
     </>
   );
 }

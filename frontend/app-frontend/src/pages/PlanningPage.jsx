@@ -14,12 +14,60 @@ export default function PlanningPage() {
   const [selectedTo, setSelectedTo] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
 
-  //------------------------------------------------
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openConfirm = () => setIsModalOpen(true);
   const closeConfirm = () => setIsModalOpen(false);
-  //------------------------------------------------
+
+  const [selectedSeats, setSelectedSeats] = useState([]);
+
+  const handleClick = (busLineId, seatContent) => {
+    const selectedSeat = { busLineId, seatContent };
+
+    const isAlreadySelected = selectedSeats.some(
+      (seat) =>
+        seat.busLineId === selectedSeat.busLineId &&
+        seat.seatContent === selectedSeat.seatContent
+    );
+
+    if (isAlreadySelected) {
+      setSelectedSeats((prevSeats) =>
+        prevSeats.filter(
+          (seat) =>
+            seat.busLineId !== selectedSeat.busLineId ||
+            seat.seatContent !== selectedSeat.seatContent
+        )
+      );
+    } else {
+      setSelectedSeats((prevSeats) => [...prevSeats, selectedSeat]);
+    }
+  };
+
+  useEffect(() => {
+    console.log(selectedSeats);
+  }, [selectedSeats]);
+
+  const renderSeats = (busLineId, seatNum) => {
+    const seatDivs = [];
+    for (let i = 0; i < seatNum; i++) {
+      const seatContent = i + 1;
+      const isSelected = selectedSeats.some(
+        (seat) =>
+          seat.busLineId === busLineId && seat.seatContent === seatContent
+      );
+
+      seatDivs.push(
+        <div
+          onClick={() => handleClick(busLineId, seatContent)}
+          className={`${classes.seat} ${isSelected ? classes.selected : ""}`}
+          key={`${busLineId}-${i}`}
+        >
+          {seatContent}
+        </div>
+      );
+    }
+    return seatDivs;
+  };
 
   function handleSelectFromChange(e) {
     const { value } = e.target;
@@ -72,16 +120,13 @@ export default function PlanningPage() {
     return grouped;
   }, {});
 
-  const renderSeats = (busLineId, seatNum) => {
-    const seatDivs = [];
-    for (let i = 0; i < seatNum; i++) {
-      seatDivs.push(
-        <div className={classes.seat} key={`${busLineId}-${i}`}>
-          {i + 1}
-        </div>
-      );
-    }
-    return seatDivs;
+  const calculateTotalPrice = () => {
+    const totalPrice = selectedSeats.reduce((total, seat) => {
+      const busLine = busLines.find((bl) => bl.id === seat.busLineId);
+      const seatPrice = busLine ? busLine.price : 0;
+      return total + seatPrice;
+    }, 0);
+    return totalPrice;
   };
 
   return (
@@ -167,10 +212,25 @@ export default function PlanningPage() {
                   </select>
                 </div>
               </label>
+
+              <label>
+                Price:
+                <div>
+                  {busLines.map((busLine) => {
+                    const selectedLine = getLineId(selectedFrom, selectedTo);
+
+                    if (busLine.id === selectedLine) {
+                      return <p key={busLine.id}>{busLine.price} Ft / seat</p>;
+                    }
+                  })}
+                  {!selectedTo && <p>No price available</p>}
+                </div>
+              </label>
             </div>
 
             <div className={classes.seatsDiv}>
               <p>Available seats:</p>
+              {!selectedDate && <p>No seats available</p>}
               <div className={classes.seats}>
                 {selectedFrom &&
                   selectedTo &&
@@ -199,7 +259,7 @@ export default function PlanningPage() {
               </ul>
 
               <div>
-                <p>Total: 1200 Ft </p>
+                <p>Total: {calculateTotalPrice()} Ft</p>
               </div>
             </div>
           </div>

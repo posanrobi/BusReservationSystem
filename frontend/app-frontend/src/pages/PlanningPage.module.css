@@ -12,8 +12,8 @@
   flex-direction: column;
   background-color: rgba(147, 173, 232, 0.577);
   border-radius: 1rem;
-  padding: 0.5rem 2rem;
-  padding-bottom: 0;
+  padding: 2rem 2rem 0 2rem;
+  /* padding-bottom: 0; */
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -40,6 +40,11 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+/* .infoIcon:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+*/
 .planBoxFooter button:hover {
   cursor: pointer;
   background-color: rgba(49, 75, 132, 0.795);
@@ -55,6 +60,22 @@
 .tripDiv h2 {
   margin-top: 0;
   margin-bottom: 2rem;
+}
+
+.seatsDivHeader {
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  margin-top: 3rem;
+}
+
+.seatsDivHeader span {
+  font-size: 1.2rem;
+}
+
+.seatsDivHeader span:hover {
+  color: red;
+  cursor: pointer;
 }
 
 .seats {
@@ -107,6 +128,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 5rem;
+  width: 8rem;
 }
 
 .detailsDiv ul {
@@ -118,6 +140,64 @@
   padding: 0.5rem 0;
 }
 
-.seatsDiv p {
-  margin-top: 6rem;
+.noItemMessage {
+  font-style: italic;
+  color: grey;
+}
+
+/* info icon */
+/* .infoDiv {
+  display: flex;
+  justify-content: flex-end;
+
+  position: relative;
+}
+
+.infoIcon {
+  font-size: 1.4rem;
+}
+
+.infoIcon:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.infoDiv .hide {
+  display: block;
+}
+
+.hide {
+  display: none;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+ */
+
+/* info icon */
+.infoDiv {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.infoIcon {
+  font-size: 1.4rem;
+}
+
+.infoIcon:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.infoIcon:hover + .hide {
+  display: block;
+}
+
+.hide {
+  display: none;
+  position: absolute;
+  top: -100%;
+  right: 0;
 }

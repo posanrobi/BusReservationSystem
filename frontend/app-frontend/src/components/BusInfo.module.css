@@ -1,0 +1,10 @@
+.infoContainer {
+  height: 20rem;
+  width: 15rem;
+  background-color: rgba(172, 166, 166, 0.688);
+  border-radius: 1rem;
+}
+
+.infoContainer h3 {
+  padding: 1rem;
+}

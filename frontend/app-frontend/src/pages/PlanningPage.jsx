@@ -2,9 +2,11 @@ import Confirm from "../components/Confirm";
 import Modal from "../components/Modal";
 import { getAllBusLineDates, getAllBusLines } from "../services/user.service";
 import { useState, useEffect } from "react";
+import { TbTrash, TbInfoCircle } from "react-icons/tb";
 
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
+import BusInfo from "../components/BusInfo";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
@@ -16,10 +18,28 @@ export default function PlanningPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openConfirm = () => setIsModalOpen(true);
-  const closeConfirm = () => setIsModalOpen(false);
-
   const [selectedSeats, setSelectedSeats] = useState([]);
+
+  const [selectedData, setSelectedData] = useState({
+    startingCity: "",
+    destinationCity: "",
+    date: "",
+    totalPrice: 0,
+    numberOfSelectedSeats: [],
+  });
+
+  const openConfirm = () => {
+    const total = calculateTotalPrice();
+    setSelectedData({
+      startingCity: selectedFrom,
+      destinationCity: selectedTo,
+      date: selectedDate,
+      totalPrice: total,
+      numberOfSelectedSeats: selectedSeats.length,
+    });
+    setIsModalOpen(true);
+  };
+  const closeConfirm = () => setIsModalOpen(false);
 
   const handleClick = (busLineId, seatContent) => {
     const selectedSeat = { busLineId, seatContent };
@@ -68,6 +88,10 @@ export default function PlanningPage() {
     }
     return seatDivs;
   };
+
+  function handleClearSelectedSeats() {
+    setSelectedSeats([]);
+  }
 
   function handleSelectFromChange(e) {
     const { value } = e.target;
@@ -223,14 +247,23 @@ export default function PlanningPage() {
                       return <p key={busLine.id}>{busLine.price} Ft / seat</p>;
                     }
                   })}
-                  {!selectedTo && <p>No price available</p>}
+                  {!selectedTo && (
+                    <p className={classes.noItemMessage}>No price available</p>
+                  )}
                 </div>
               </label>
             </div>
 
             <div className={classes.seatsDiv}>
-              <p>Available seats:</p>
-              {!selectedDate && <p>No seats available</p>}
+              <div className={classes.seatsDivHeader}>
+                <p>Available seats:</p>
+                <span>
+                  <TbTrash onClick={handleClearSelectedSeats} />
+                </span>
+              </div>
+              {!selectedDate && (
+                <p className={classes.noItemMessage}>No seats available</p>
+              )}
               <div className={classes.seats}>
                 {selectedFrom &&
                   selectedTo &&
@@ -258,19 +291,25 @@ export default function PlanningPage() {
                 <li>Selected ⬛</li>
               </ul>
 
-              <div>
+              {/*   <div>
                 <p>Total: {calculateTotalPrice()} Ft</p>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className={classes.planBoxFooter}>
             <button onClick={openConfirm}>Submit</button>
           </div>
+          <div className={classes.infoDiv}>
+            <TbInfoCircle className={classes.infoIcon} />
+            <div className={classes.hide}>
+              <BusInfo />
+            </div>
+          </div>
         </div>
       </div>
 
       <Modal open={isModalOpen} className={modalClasses.modalContainer}>
-        <Confirm onCloseConfirm={closeConfirm} />
+        <Confirm onCloseConfirm={closeConfirm} selectedData={selectedData} />
       </Modal>
     </>
   );

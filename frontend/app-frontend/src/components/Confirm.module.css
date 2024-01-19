@@ -38,3 +38,13 @@
 .confirmBtn:hover {
   background-color: rgba(78, 78, 154, 0.779);
 }
+
+.infoList {
+  padding: 0;
+  list-style-type: none;
+}
+
+.confirmItem {
+  font-weight: bold;
+  text-transform: capitalize;
+}

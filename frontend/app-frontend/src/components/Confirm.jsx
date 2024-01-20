@@ -2,7 +2,11 @@ import classes from "./Confirm.module.css";
 
 import PlanningPage from "../pages/PlanningPage";
 
-export default function Confirm({ onCloseConfirm, selectedData }) {
+export default function Confirm({
+  onCloseConfirm,
+  selectedData,
+  onSubmitConfirm,
+}) {
   function handleClose() {
     onCloseConfirm();
   }
@@ -46,7 +50,14 @@ export default function Confirm({ onCloseConfirm, selectedData }) {
         <button type="text" onClick={handleClose} className={classes.cancelBtn}>
           Cancel
         </button>
-        <button className={classes.confirmBtn}>Confirm</button>
+
+        <button
+          className={classes.confirmBtn}
+          type="button"
+          onClick={onSubmitConfirm}
+        >
+          Confirm
+        </button>
       </div>
     </div>
   );

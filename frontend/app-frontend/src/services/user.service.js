@@ -33,9 +33,9 @@ export async function getAllBusLines() {
   }
 }
 
-export async function getAllBusLineDates() {
+export async function getAllBusLineDatesAndTimes() {
   try {
-    return await axios.get(API_URL + "bus-line-dates", {
+    return await axios.get(API_URL + "busline-date-time", {
       headers: authHeader(),
     });
   } catch (error) {

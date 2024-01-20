@@ -3,6 +3,7 @@ package com.thesispr.BusReservationSystem.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class Reservation {
@@ -17,6 +18,8 @@ public class Reservation {
     @JoinColumn(name = "bus_line_id")
     private BusLine busLine;
     private LocalDate reservation_date;
+    private LocalTime reservation_time;
+
     private int seat_number;
     private int price;
     private boolean status;
@@ -51,6 +54,14 @@ public class Reservation {
 
     public void setReservation_date(LocalDate reservation_date) {
         this.reservation_date = reservation_date;
+    }
+
+    public LocalTime getReservation_time() {
+        return reservation_time;
+    }
+
+    public void setReservation_time(LocalTime reservation_time) {
+        this.reservation_time = reservation_time;
     }
 
     public int getSeat_number() {

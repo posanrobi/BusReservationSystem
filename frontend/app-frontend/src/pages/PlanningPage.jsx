@@ -1,20 +1,26 @@
 import Confirm from "../components/Confirm";
 import Modal from "../components/Modal";
-import { getAllBusLineDates, getAllBusLines } from "../services/user.service";
+import {
+  getAllBusLineDatesAndTimes,
+  getAllBusLines,
+} from "../services/user.service";
 import { useState, useEffect } from "react";
 import { TbTrash, TbInfoCircle } from "react-icons/tb";
 
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
 import BusInfo from "../components/BusInfo";
+import axios from "axios";
+import { sendReservation } from "../services/auth.service";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
-  const [busLineDates, setBusLineDates] = useState([]);
+  const [busLineDateTime, setBusLineDateTime] = useState([]);
 
   const [selectedFrom, setSelectedFrom] = useState("");
   const [selectedTo, setSelectedTo] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,6 +30,7 @@ export default function PlanningPage() {
     startingCity: "",
     destinationCity: "",
     date: "",
+    time: "",
     totalPrice: 0,
     numberOfSelectedSeats: [],
   });
@@ -67,6 +74,7 @@ export default function PlanningPage() {
     console.log(selectedSeats);
   }, [selectedSeats]);
 
+  /*   // render seats
   const renderSeats = (busLineId, seatNum) => {
     const seatDivs = [];
     for (let i = 0; i < seatNum; i++) {
@@ -86,6 +94,59 @@ export default function PlanningPage() {
         </div>
       );
     }
+    return seatDivs;
+  }; */
+
+  //----------------------------------------------------------------
+  const renderSeats = (busLineId, seatNum) => {
+    const seatDivs = [];
+    const seatsPerRow = 4;
+    const totalSeats = 31;
+
+    const rows = Math.ceil(totalSeats / seatsPerRow);
+
+    for (let row = 1; row <= rows; row++) {
+      const rowDivs = [];
+
+      for (let col = 1; col <= seatsPerRow; col++) {
+        const seatNumber = col + (row - 1) * seatsPerRow;
+
+        if (seatNumber <= totalSeats) {
+          const isSelected = selectedSeats.some(
+            (seat) =>
+              seat.busLineId === busLineId && seat.seatContent === seatNumber
+          );
+
+          rowDivs.push(
+            <div
+              onClick={() => handleClick(busLineId, seatNumber)}
+              className={`${classes.seat} ${
+                isSelected ? classes.selected : ""
+              }`}
+              key={`${busLineId}-${row}-${col}`}
+            >
+              {seatNumber}
+            </div>
+          );
+
+          if (col === 2 && row !== rows) {
+            rowDivs.push(
+              <div
+                key={`empty-space-${busLineId}-${row}`}
+                className={classes.corridor}
+              />
+            );
+          }
+        }
+      }
+
+      seatDivs.push(
+        <div className={classes.seatRow} key={`${busLineId}-${row}`}>
+          {rowDivs}
+        </div>
+      );
+    }
+
     return seatDivs;
   };
 
@@ -113,20 +174,26 @@ export default function PlanningPage() {
     setSelectedDate(value);
   }
 
+  function handleSelectTimeChange(e) {
+    const { value } = e.target;
+    setSelectedTime(value);
+  }
+
   const getLineId = (from, to) => {
     const line = `${from}-${to}`;
     const busLine = busLines.find((bl) => bl.name === line);
     return busLine ? busLine.id : null;
   };
 
+  // FETCH
   useEffect(() => {
     async function fetchData() {
       try {
         const linesResponse = await getAllBusLines();
         setBusLines(linesResponse.data);
 
-        const datesResponse = await getAllBusLineDates();
-        setBusLineDates(datesResponse.data);
+        const datetimeResponse = await getAllBusLineDatesAndTimes();
+        setBusLineDateTime(datetimeResponse.data);
       } catch (error) {
         console.error("Error while fetching data", error);
       }
@@ -135,7 +202,8 @@ export default function PlanningPage() {
     fetchData();
   }, []);
 
-  const groupedDatesByLineId = busLineDates.reduce((grouped, date) => {
+  //Grouping Date by id
+  const groupedDatesByLineId = busLineDateTime.reduce((grouped, date) => {
     const lineId = date.busLine.id;
     if (!grouped[lineId]) {
       grouped[lineId] = [];
@@ -144,6 +212,24 @@ export default function PlanningPage() {
     return grouped;
   }, {});
 
+  //Grouping Time by id
+  const groupedTimesByLineId = busLineDateTime.reduce((grouped, time) => {
+    const lineId = time.busLine.id;
+    //const formattedTime = time.time.split(":").slice(0, 2).join(":");
+    const formattedTime = time.time
+      .split(":")
+      .slice(0, 2)
+      .join(":")
+      .replace(/^0/, "");
+
+    if (!grouped[lineId]) {
+      grouped[lineId] = [];
+    }
+    grouped[lineId].push(formattedTime);
+    return grouped;
+  }, {});
+
+  //Total
   const calculateTotalPrice = () => {
     const totalPrice = selectedSeats.reduce((total, seat) => {
       const busLine = busLines.find((bl) => bl.id === seat.busLineId);
@@ -153,6 +239,29 @@ export default function PlanningPage() {
     return totalPrice;
   };
 
+  //---------------------------------------------------------------
+  const reservationData = {
+    price: calculateTotalPrice(),
+    reservationDate: selectedDate,
+    reservationTime: selectedTime,
+    seatNumber: selectedSeats.length,
+    status: "true",
+    busLineId: getLineId(selectedFrom, selectedTo),
+    userId: 2, //a bejelentkezett felhasználó ID-je
+  };
+
+  async function handleSubmitConfirm(e) {
+    e.preventDefault();
+
+    try {
+      const response = await sendReservation(reservationData);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  //------------------------------------------------------------------
+
   return (
     <>
       <div className={classes.planContainer}>
@@ -161,6 +270,7 @@ export default function PlanningPage() {
             <div className={classes.tripDiv}>
               <h2>Plan your trip</h2>
 
+              {/* FROM */}
               <label>
                 From:
                 <div className={classes.dropDownBox}>
@@ -169,7 +279,7 @@ export default function PlanningPage() {
                     onChange={handleSelectFromChange}
                     value={selectedFrom}
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Choose your starting place
                     </option>
                     {busLines.map((busLine) => {
@@ -185,6 +295,7 @@ export default function PlanningPage() {
                 </div>
               </label>
 
+              {/* TO */}
               <label>
                 To:
                 <div className={classes.dropDownBox}>
@@ -193,7 +304,7 @@ export default function PlanningPage() {
                     onChange={handleSelectToChange}
                     value={selectedTo}
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Choose your destination place
                     </option>
                     {busLines
@@ -213,6 +324,7 @@ export default function PlanningPage() {
                 </div>
               </label>
 
+              {/* DATE */}
               <label>
                 Available dates:
                 <div className={classes.dropDownBox}>
@@ -221,11 +333,10 @@ export default function PlanningPage() {
                     onChange={handleSelectDateChange}
                     value={selectedDate}
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Choose a date
                     </option>
-                    {selectedFrom &&
-                      selectedTo &&
+                    {selectedTo &&
                       groupedDatesByLineId[
                         getLineId(selectedFrom, selectedTo)
                       ]?.map((date) => (
@@ -237,6 +348,31 @@ export default function PlanningPage() {
                 </div>
               </label>
 
+              {/* TIME */}
+              <label>
+                Available times:
+                <div className={classes.dropDownBox}>
+                  <select
+                    className={classes.select}
+                    onChange={handleSelectTimeChange}
+                    value={selectedTime}
+                  >
+                    <option value="" disabled>
+                      Choose a time
+                    </option>
+                    {selectedDate &&
+                      groupedTimesByLineId[
+                        getLineId(selectedFrom, selectedTo)
+                      ]?.map((time) => (
+                        <option key={time} value={time}>
+                          {time}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </label>
+
+              {/* PRICE */}
               <label>
                 Price:
                 <div>
@@ -254,6 +390,7 @@ export default function PlanningPage() {
               </label>
             </div>
 
+            {/* SEATS */}
             <div className={classes.seatsDiv}>
               <div className={classes.seatsDivHeader}>
                 <p>Available seats:</p>
@@ -261,13 +398,14 @@ export default function PlanningPage() {
                   <TbTrash onClick={handleClearSelectedSeats} />
                 </span>
               </div>
-              {!selectedDate && (
+              {!selectedTime && (
                 <p className={classes.noItemMessage}>No seats available</p>
               )}
               <div className={classes.seats}>
                 {selectedFrom &&
                   selectedTo &&
                   selectedDate &&
+                  selectedTime &&
                   groupedDatesByLineId[getLineId(selectedFrom, selectedTo)] &&
                   groupedDatesByLineId[getLineId(selectedFrom, selectedTo)]
                     .filter((date) => date.busLine)
@@ -284,6 +422,7 @@ export default function PlanningPage() {
               </div>
             </div>
 
+            {/* DEATAILS */}
             <div className={classes.detailsDiv}>
               <ul>
                 <li>Free 🟩</li>
@@ -291,25 +430,32 @@ export default function PlanningPage() {
                 <li>Selected ⬛</li>
               </ul>
 
-              {/*   <div>
+              {/* TOTAL */}
+              <div>
                 <p>Total: {calculateTotalPrice()} Ft</p>
-              </div> */}
+              </div>
             </div>
           </div>
           <div className={classes.planBoxFooter}>
-            <button onClick={openConfirm}>Submit</button>
+            <button onClick={openConfirm} type="button">
+              Send
+            </button>
           </div>
-          <div className={classes.infoDiv}>
+          {/* <div className={classes.infoDiv}>
             <TbInfoCircle className={classes.infoIcon} />
             <div className={classes.hide}>
               <BusInfo />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
       <Modal open={isModalOpen} className={modalClasses.modalContainer}>
-        <Confirm onCloseConfirm={closeConfirm} selectedData={selectedData} />
+        <Confirm
+          onCloseConfirm={closeConfirm}
+          selectedData={selectedData}
+          onSubmitConfirm={handleSubmitConfirm}
+        />
       </Modal>
     </>
   );

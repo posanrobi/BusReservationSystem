@@ -45,5 +45,3 @@ function App() {
 export default App;
 
 //TODO
-// - home page
-// - plan page

@@ -11,7 +11,7 @@ import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
 import BusInfo from "../components/BusInfo";
 import axios from "axios";
-import { sendReservation } from "../services/auth.service";
+import { getCurrentUser, createReservation } from "../services/auth.service";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
@@ -240,24 +240,31 @@ export default function PlanningPage() {
   };
 
   //---------------------------------------------------------------
+  const userId = getCurrentUser().id;
+  const busLineId = getLineId(selectedFrom, selectedTo);
+
   const reservationData = {
     price: calculateTotalPrice(),
-    reservationDate: selectedDate,
-    reservationTime: selectedTime,
-    seatNumber: selectedSeats.length,
+    reservation_date: selectedDate,
+    reservation_time: selectedTime,
+    seat_number: selectedSeats.length,
     status: "true",
-    busLineId: getLineId(selectedFrom, selectedTo),
-    userId: 2, //a bejelentkezett felhasználó ID-je
+    user: { id: userId },
+    busLine: { id: busLineId },
   };
 
-  async function handleSubmitConfirm(e) {
-    e.preventDefault();
-
+  async function handleSubmitConfirm() {
     try {
-      const response = await sendReservation(reservationData);
+      const response = await createReservation(reservationData);
       console.log(response.data);
     } catch (error) {
-      console.error(error);
+      if (error.response) {
+        console.error("Server Error:", error.response.data);
+      } else if (error.request) {
+        console.error("No response received from the server");
+      } else {
+        console.error("Error:", error.message);
+      }
     }
   }
   //------------------------------------------------------------------

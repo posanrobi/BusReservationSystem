@@ -5,7 +5,7 @@ import authHeader from "./auth-header";
 
 const AUTH_API_URL = "http://localhost:8080/api/auth/";
 const BUS_LINE_API_URL = "http://localhost:8080/api/bus-lines/";
-const RESERVATION_API_URL = "http://localhost:8080/api/reservations/";
+const RESERVATION_API_URL = "http://localhost:8080/api/reservations";
 
 //login
 export async function login(formData) {
@@ -33,12 +33,27 @@ export function getCurrentUser() {
 }
 
 //reservation data
-export async function sendReservation(reservationData) {
+export async function createReservation(reservationData) {
   const response = await axios.post(RESERVATION_API_URL, reservationData, {
     headers: authHeader(),
   });
   return response;
 }
+
+//reservation data
+/* export async function createReservation(reservationData) {
+  const headers = authHeader();
+
+  try {
+    const response = await axios.post(RESERVATION_API_URL, reservationData, {
+      headers,
+    });
+    return response;
+  } catch (error) {
+    console.error("Error creating reservation:", error);
+    throw error; // dobja vissza a hibát a hívónak
+  }
+} */
 
 //user role
 export function getUserRole() {

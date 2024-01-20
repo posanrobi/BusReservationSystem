@@ -7,8 +7,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReservationService {
+
+    private final ReservationRepository reservationRepository;
+
     @Autowired
-    private ReservationRepository reservationRepository;
+    public ReservationService(ReservationRepository reservationRepository) {
+        this.reservationRepository = reservationRepository;
+    }
 
     public Reservation createReservation(Reservation reservation) {
 

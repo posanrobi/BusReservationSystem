@@ -34,6 +34,11 @@ export default function Confirm({
           {selectedData.numberOfSelectedSeats}
         </li>
       </ul> */}
+      {/*  <p>
+          <span className={classes.confirmItem}>Final price: </span>
+          {selectedData.totalPrice} Ft
+        </p> */}
+
       <p>
         {selectedData.numberOfSelectedSeats > 0
           ? `You have reserved ${selectedData.numberOfSelectedSeats}
@@ -42,10 +47,6 @@ export default function Confirm({
           : "You haven't made any reservations yet."}
       </p>
 
-      {/*  <p>
-        <span className={classes.confirmItem}>Final price: </span>
-        {selectedData.totalPrice} Ft
-      </p> */}
       <div className={classes.actionButtons}>
         <button type="text" onClick={handleClose} className={classes.cancelBtn}>
           Cancel

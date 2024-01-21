@@ -45,8 +45,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<Reservation> reservations = new ArrayList<>();
+    /*@OneToMany(mappedBy = "user")
+    private List<Reservation> reservations = new ArrayList<>();*/
 
     public User() {}
 
@@ -140,11 +140,11 @@ public class User {
         this.roles = roles;
     }
 
-    public List<Reservation> getReservations() {
+    /*public List<Reservation> getReservations() {
         return reservations;
     }
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
-    }
+    }*/
 }

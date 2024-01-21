@@ -52,3 +52,14 @@ export async function getAllReservations() {
     throw new Error("Unauthorized access");
   }
 }
+
+// get user by id
+export async function getUserById(userId) {
+  try {
+    return await axios.get(API_URL + "users/" + userId, {
+      headers: authHeader(),
+    });
+  } catch (error) {
+    throw new Error("Can not find user by id");
+  }
+}

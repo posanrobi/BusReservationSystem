@@ -12,16 +12,19 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonIgnore
+    /*@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "bus_line_id")
-    private BusLine busLine;
+    private BusLine busLine;*/
     private LocalDate reservation_date;
     private LocalTime reservation_time;
+    private String bus_line;
+
+    private String user;
 
     private int seat_number;
     private int price;
@@ -35,7 +38,7 @@ public class Reservation {
         this.id = id;
     }
 
-    public User getUser() {
+ /*   public User getUser() {
         return user;
     }
 
@@ -49,7 +52,7 @@ public class Reservation {
 
     public void setBusLine(BusLine busLine) {
         this.busLine = busLine;
-    }
+    }*/
 
     public LocalDate getReservation_date() {
         return reservation_date;
@@ -89,5 +92,21 @@ public class Reservation {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getBus_line() {
+        return bus_line;
+    }
+
+    public void setBus_line(String bus_line) {
+        this.bus_line = bus_line;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

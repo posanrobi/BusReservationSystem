@@ -3,6 +3,7 @@ import Modal from "../components/Modal";
 import {
   getAllBusLineDatesAndTimes,
   getAllBusLines,
+  getUserById,
 } from "../services/user.service";
 import { useState, useEffect } from "react";
 import { TbTrash, TbInfoCircle } from "react-icons/tb";
@@ -240,22 +241,58 @@ export default function PlanningPage() {
   };
 
   //---------------------------------------------------------------
-  const userId = getCurrentUser().id;
-  const busLineId = getLineId(selectedFrom, selectedTo);
+  //user: { id: userId },
+  //busLine: { id: busLineId },
 
-  const reservationData = {
-    price: calculateTotalPrice(),
-    reservation_date: selectedDate,
-    reservation_time: selectedTime,
-    seat_number: selectedSeats.length,
-    status: "true",
-    user: { id: userId },
-    busLine: { id: busLineId },
-  };
+  //...........................................ööööö
+  //const busLineId = getLineId(selectedFrom, selectedTo);
+  //const selectedBusLine = busLines.find((busLine) => busLine.id === busLineId);
+
+  //console.log(busLines);
+  //...........................................ööööö
 
   // Send Data
   async function handleSubmitConfirm() {
     try {
+      const user = getCurrentUser();
+      const userId = user.id;
+
+      const currentUserResponse = await getUserById(userId);
+      const currentUser = currentUserResponse.data;
+      const userName = currentUser.lastname + " " + currentUser.firstname;
+
+      //_-------
+      /* const busLineId = getLineId(selectedFrom, selectedTo);
+
+      const lines = busLines.map((l) => {
+        if (l.id === busLineId) return l.name;
+      });
+      let finalArray = [];
+      lines.map((lr) => {
+        if (lr !== undefined) finalArray.push(lr);
+      });
+
+      const lineStr = "" + finalArray.slice(0, 1);
+      console.log("Selected busline: ", lineStr); */
+
+      //---PRÓBA EGYSZ----
+      const busLineId = getLineId(selectedFrom, selectedTo);
+      const selectedBusLine =
+        busLines.find((l) => l.id === busLineId)?.name || null;
+
+      console.log("Selected busline: ", selectedBusLine);
+      //-----------
+
+      const reservationData = {
+        bus_line: selectedBusLine,
+        price: calculateTotalPrice(),
+        reservation_date: selectedDate,
+        reservation_time: selectedTime,
+        seat_number: selectedSeats.length,
+        status: "true",
+        user: userName,
+      };
+
       const response = await createReservation(reservationData);
       console.log(response.data);
 

@@ -4,6 +4,29 @@
   align-items: center;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addNew {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  background-color: rgb(29, 29, 123);
+  color: white;
+  padding: 0.5rem 1rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.addNew p {
+  margin: 0;
+}
+
 .resBox {
   background-color: rgb(121, 154, 207);
   width: 60rem;
@@ -19,7 +42,6 @@
 
 .resDataList {
   list-style-type: none;
-  cursor: pointer;
   background-color: rgb(43, 82, 158);
   padding: 1rem 2rem;
   border-radius: 1rem;
@@ -28,4 +50,14 @@
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   color: white;
+}
+
+.deleteIcon {
+  color: black;
+  margin-left: 5rem;
+  cursor: pointer;
+}
+
+.deleteIcon:hover {
+  color: red;
 }

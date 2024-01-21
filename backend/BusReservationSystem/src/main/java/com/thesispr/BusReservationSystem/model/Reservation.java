@@ -1,5 +1,6 @@
 package com.thesispr.BusReservationSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -11,9 +12,11 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "bus_line_id")
     private BusLine busLine;

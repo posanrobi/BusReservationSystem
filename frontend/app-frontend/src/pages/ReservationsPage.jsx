@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllReservations } from "../services/user.service";
-import authHeader from "../services/auth-header";
+
+import classes from "./ReservationPage.module.css";
 
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState([]);
@@ -21,11 +22,11 @@ export default function ReservationsPage() {
 
   return (
     <>
-      <div>
-        <div>
-          <div>
+      <div className={classes.pageContainer}>
+        <div className={classes.resBox}>
+          <div className={classes.resDiv}>
             {reservations.map((res) => (
-              <ul key={res.id}>
+              <ul key={res.id} className={classes.resDataList}>
                 <li>{res.reservation_date}</li>
                 <li>{res.reservation_time}</li>
                 <li>{res.seat_number}</li>

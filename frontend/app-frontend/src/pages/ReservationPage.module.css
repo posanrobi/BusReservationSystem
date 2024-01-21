@@ -1,0 +1,31 @@
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resBox {
+  background-color: rgb(121, 154, 207);
+  width: 60rem;
+  height: 33rem;
+  border-radius: 1rem;
+  margin-top: 4rem;
+  padding: 1rem;
+}
+
+.resDiv {
+  display: flex;
+}
+
+.resDataList {
+  list-style-type: none;
+  cursor: pointer;
+  background-color: rgb(43, 82, 158);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  margin: 1rem;
+  width: fit-content;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  color: white;
+}

@@ -5,6 +5,8 @@ import com.thesispr.BusReservationSystem.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReservationService {
 
@@ -19,5 +21,7 @@ public class ReservationService {
 
         return reservationRepository.save(reservation);
     }
+
+    public List<Reservation> getAllReservations() {return reservationRepository.findAll();}
 
 }

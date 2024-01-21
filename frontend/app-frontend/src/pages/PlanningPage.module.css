@@ -58,7 +58,7 @@
 }
 
 .tripDiv h2 {
-  margin-top: 0;
+  margin-top: 4.5rem;
   margin-bottom: 2rem;
 }
 
@@ -84,7 +84,7 @@
 
 .seats {
   max-height: 15rem;
-  width: 27rem;
+  width: 21rem;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -212,5 +212,5 @@
   width: 100%; /* Adjust the width of the corridor as needed */
   height: 35px; /* Adjust the height of the seats */
   /* Adjust the margin to create space around the corridor */
-  background-color: rgb(0, 64, 255); /* Color of the corridor */
+  /*background-color: rgb(0, 64, 255); /* Color of the corridor */
 }

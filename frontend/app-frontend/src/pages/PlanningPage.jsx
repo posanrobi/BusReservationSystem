@@ -9,11 +9,11 @@ import { TbTrash, TbInfoCircle } from "react-icons/tb";
 
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
-import BusInfo from "../components/BusInfo";
-import axios from "axios";
 import { getCurrentUser, createReservation } from "../services/auth.service";
 
 export default function PlanningPage() {
+  const [successMessage, setSuccessMessage] = useState("");
+
   const [busLines, setBusLines] = useState([]);
   const [busLineDateTime, setBusLineDateTime] = useState([]);
 
@@ -101,7 +101,7 @@ export default function PlanningPage() {
   const renderSeats = (busLineId, seatNum) => {
     const seatDivs = [];
     const seatsPerRow = 4;
-    const totalSeats = 31;
+    const totalSeats = 32; //31 a jó
 
     const rows = Math.ceil(totalSeats / seatsPerRow);
 
@@ -129,7 +129,7 @@ export default function PlanningPage() {
             </div>
           );
 
-          if (col === 2 && row !== rows) {
+          if (col === 2 /* && row !== rows */) {
             rowDivs.push(
               <div
                 key={`empty-space-${busLineId}-${row}`}
@@ -215,12 +215,12 @@ export default function PlanningPage() {
   //Grouping Time by id
   const groupedTimesByLineId = busLineDateTime.reduce((grouped, time) => {
     const lineId = time.busLine.id;
-    //const formattedTime = time.time.split(":").slice(0, 2).join(":");
-    const formattedTime = time.time
+    const formattedTime = time.time.split(":").slice(0, 2).join(":");
+    /* const formattedTime = time.time
       .split(":")
       .slice(0, 2)
       .join(":")
-      .replace(/^0/, "");
+      .replace(/^0/, ""); */
 
     if (!grouped[lineId]) {
       grouped[lineId] = [];
@@ -253,10 +253,15 @@ export default function PlanningPage() {
     busLine: { id: busLineId },
   };
 
+  // Send Data
   async function handleSubmitConfirm() {
     try {
       const response = await createReservation(reservationData);
       console.log(response.data);
+
+      setTimeout(() => {
+        closeConfirm();
+      }, 2000);
     } catch (error) {
       if (error.response) {
         console.error("Server Error:", error.response.data);
@@ -265,6 +270,13 @@ export default function PlanningPage() {
       } else {
         console.error("Error:", error.message);
       }
+    } finally {
+      setSelectedFrom("");
+      setSelectedTo("");
+      setSelectedDate("");
+      setSelectedTime("");
+      setSelectedSeats([]);
+      calculateTotalPrice();
     }
   }
   //------------------------------------------------------------------
@@ -445,7 +457,7 @@ export default function PlanningPage() {
           </div>
           <div className={classes.planBoxFooter}>
             <button onClick={openConfirm} type="button">
-              Send
+              Create reservation
             </button>
           </div>
           {/* <div className={classes.infoDiv}>

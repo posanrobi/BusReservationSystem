@@ -42,3 +42,13 @@ export async function getAllBusLineDatesAndTimes() {
     throw new Error("Unauthorized access");
   }
 }
+
+export async function getAllReservations() {
+  try {
+    return await axios.get(API_URL + "reservations", {
+      headers: authHeader(),
+    });
+  } catch (error) {
+    throw new Error("Unauthorized access");
+  }
+}

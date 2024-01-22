@@ -16,8 +16,6 @@ export default function ReservationsPage() {
       try {
         const reservationsResponse = await getAllReservations();
         setReservations(reservationsResponse.data);
-
-        console.log(reservationsResponse.data);
       } catch (error) {
         console.error("Error while fetching data", error);
       }

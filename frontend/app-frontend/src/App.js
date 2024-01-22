@@ -45,3 +45,26 @@ function App() {
 export default App;
 
 //TODO
+//PLAN:
+// getAllReservations() - összes foglalás lekérése
+// aktuális felhasználó foglalásainak lekérése
+// az összesből kiszűrni a felhasználójét és azt disable-lé tenni
+// null foglalást ne lehessen küldeni -> errort ad ki most
+// busz rajz?
+// confirm enterre
+
+// succes message a confirm után
+
+//RESERVAITON:
+//ures res esetén üzenet
+//ülések számának megjelenítése
+
+//MAINNAVIGATION:
+//linkek változása navigációkor
+
+//PROFILE
+
+//ADMIN PAGE
+//felül statisztika div-ek megjelenítése pl. összes foglalás
+
+// Refaktorálás, design!!!

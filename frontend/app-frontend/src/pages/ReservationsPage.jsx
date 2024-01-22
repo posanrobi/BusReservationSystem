@@ -36,6 +36,8 @@ export default function ReservationsPage() {
     }
   };
 
+  const noReservations = reservations.length === 0;
+
   return (
     <>
       <div className={classes.pageContainer}>
@@ -50,36 +52,40 @@ export default function ReservationsPage() {
             </Link>
           </header>
           <div className={classes.resBoxBody}>
-            {reservations.map((res) => (
-              <ul key={res.id} className={classes.resDataList}>
-                <li>
-                  <MdOutlineDirectionsBus />
-                  {res.bus_line}
-                </li>
-                <li>
-                  <TbCalendar />
-                  {res.reservation_date}
-                </li>
-                <li>
-                  <TbClock />
-                  {res.reservation_time.split(":").slice(0, 2).join(":")}
-                </li>
-                <li>
-                  <TbUser />
-                  {res.seat_number}
-                </li>
-                <li>
-                  <TbCoins />
-                  {res.price} Ft
-                </li>
-                <span
-                  className={classes.deleteIcon}
-                  onClick={() => handleDelete(res.id)}
-                >
-                  <TbTrash />
-                </span>
-              </ul>
-            ))}
+            {noReservations ? (
+              <p>No reservations yet</p>
+            ) : (
+              reservations.map((res) => (
+                <ul key={res.id} className={classes.resDataList}>
+                  <li>
+                    <MdOutlineDirectionsBus />
+                    {res.bus_line}
+                  </li>
+                  <li>
+                    <TbCalendar />
+                    {res.reservation_date}
+                  </li>
+                  <li>
+                    <TbClock />
+                    {res.reservation_time.split(":").slice(0, 2).join(":")}
+                  </li>
+                  <li>
+                    <TbUser />
+                    {res.seat_number}
+                  </li>
+                  <li>
+                    <TbCoins />
+                    {res.price} Ft
+                  </li>
+                  <span
+                    className={classes.deleteIcon}
+                    onClick={() => handleDelete(res.id)}
+                  >
+                    <TbTrash />
+                  </span>
+                </ul>
+              ))
+            )}
           </div>
         </div>
       </div>

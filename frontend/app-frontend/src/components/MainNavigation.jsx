@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { logout } from "../services/auth.service";
 import { getUserRole } from "../services/auth.service";
+import { RiLogoutBoxRLine } from "react-icons/ri";
 
 import classes from "./MainNavigation.module.css";
 
@@ -13,6 +14,7 @@ export default function MainNavigation() {
 
   return (
     <header className={classes.header}>
+      <p className={classes.logo}>LOGO</p>
       <nav className={classes.nav}>
         {!isAdmin && (
           <>
@@ -51,9 +53,11 @@ export default function MainNavigation() {
           </>
         )}
 
-        <NavLink to="/" onClick={handleLogout}>
-          Logout
-        </NavLink>
+        <div className={classes.logoutDiv}>
+          <NavLink to="/" onClick={handleLogout}>
+            <RiLogoutBoxRLine />
+          </NavLink>
+        </div>
       </nav>
     </header>
   );

@@ -64,6 +64,7 @@ export default function Confirm({
           type="text"
           onClick={onCloseConfirm}
           className={classes.cancelBtn}
+          disabled={isReservationCreated}
         >
           Cancel
         </button>

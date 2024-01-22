@@ -8,6 +8,7 @@
   background-color: white;
   padding: 0 1rem 1rem 1rem;
   border-radius: 1rem;
+  width: 20rem;
 }
 
 .actionButtons {
@@ -37,6 +38,11 @@
 
 .confirmBtn:hover {
   background-color: rgba(78, 78, 154, 0.779);
+}
+
+.confirmBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .infoList {

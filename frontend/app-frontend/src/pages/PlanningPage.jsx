@@ -13,8 +13,6 @@ import modalClasses from "../components/Modal.module.css";
 import { getCurrentUser, createReservation } from "../services/auth.service";
 
 export default function PlanningPage() {
-  const [successMessage, setSuccessMessage] = useState("");
-
   const [busLines, setBusLines] = useState([]);
   const [busLineDateTime, setBusLineDateTime] = useState([]);
 
@@ -290,7 +288,6 @@ export default function PlanningPage() {
       calculateTotalPrice();
     }
   }
-  //------------------------------------------------------------------
 
   return (
     <>

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import classes from "./Confirm.module.css";
 
 export default function Confirm({
@@ -5,9 +6,27 @@ export default function Confirm({
   selectedData,
   onSubmitConfirm,
 }) {
-  function handleClose() {
-    onCloseConfirm();
-  }
+  const [isReservationCreated, setReservationCreated] = useState(false);
+
+  useEffect(() => {
+    if (isReservationCreated) {
+      const timeoutId = setTimeout(() => {
+        onCloseConfirm();
+        setReservationCreated(false);
+      }, 2000);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isReservationCreated, onCloseConfirm]);
+
+  const hasEmptyValues = Object.values(selectedData).some(
+    (value) => value === "" || value.length === 0 || value === 0
+  );
+
+  const handleConfirm = async () => {
+    await onSubmitConfirm();
+    setReservationCreated(true);
+  };
 
   return (
     <div className={classes.confirmContainer}>
@@ -40,27 +59,27 @@ export default function Confirm({
         <span className={classes.confirmItem}>Final price: </span>
         {selectedData.totalPrice} Ft
       </p>
-
-      {/*    <p>
-        {selectedData.numberOfSelectedSeats > 0
-          ? `You have reserved ${selectedData.numberOfSelectedSeats}
-    ${selectedData.numberOfSelectedSeats === 1 ? "seat" : "seats"} for 
-    ${selectedData.totalPrice} Ft.`
-          : "You haven't made any reservations yet."}
-      </p>
- */}
       <div className={classes.actionButtons}>
-        <button type="text" onClick={handleClose} className={classes.cancelBtn}>
+        <button
+          type="text"
+          onClick={onCloseConfirm}
+          className={classes.cancelBtn}
+        >
           Cancel
         </button>
 
-        <button
-          className={classes.confirmBtn}
-          type="button"
-          onClick={onSubmitConfirm}
-        >
-          Confirm
-        </button>
+        {isReservationCreated ? (
+          <p>Reservation created successfully!</p>
+        ) : (
+          <button
+            className={classes.confirmBtn}
+            type="button"
+            onClick={handleConfirm}
+            disabled={hasEmptyValues}
+          >
+            Confirm
+          </button>
+        )}
       </div>
     </div>
   );

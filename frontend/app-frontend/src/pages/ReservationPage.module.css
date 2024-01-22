@@ -46,6 +46,7 @@
 }
 
 .resDataList {
+  height: fit-content;
   width: 11rem;
   list-style-type: none;
   background-color: rgb(43, 82, 158);

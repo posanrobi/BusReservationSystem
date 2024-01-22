@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
-import { getAllReservations, getAllBusLines } from "../services/user.service";
+import { getAllReservations } from "../services/user.service";
 import { TbTrash, TbCalendar, TbClock, TbUser, TbCoins } from "react-icons/tb";
 import { RiAddCircleLine } from "react-icons/ri";
 import { MdOutlineDirectionsBus } from "react-icons/md";
+import { deleteReservation } from "../services/user.service";
 
 import classes from "./ReservationPage.module.css";
+import { Link } from "react-router-dom";
 
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState([]);
-  const [lines, setLines] = useState([]);
 
   useEffect(() => {
     async function getReservations() {
       try {
         const reservationsResponse = await getAllReservations();
-        //const linesResponse = await getAllBusLines();
-
         setReservations(reservationsResponse.data);
-        //setLines(linesResponse.data);
 
         console.log(reservationsResponse.data);
       } catch (error) {
@@ -28,11 +26,16 @@ export default function ReservationsPage() {
     getReservations();
   }, []);
 
-  const handleDelete = () => {};
+  const handleDelete = async (resId) => {
+    try {
+      await deleteReservation(resId); // Törlés a backend-en
 
-  const getLineName = (busLineId) => {
-    const busLine = lines.find((line) => line.id === busLineId);
-    return busLine ? busLine.name : "";
+      setReservations(
+        (prevReservations) => prevReservations.filter((res) => res.id !== resId) // Törlés a frontend-en
+      );
+    } catch (error) {
+      console.error("Error deleting reservation", error);
+    }
   };
 
   return (
@@ -43,17 +46,16 @@ export default function ReservationsPage() {
             <div>
               <h2>Your reservations</h2>
             </div>
-            <div className={classes.addNew}>
+            <Link to="/plan" className={classes.addNew}>
               <p>New</p>
               <RiAddCircleLine />
-            </div>
+            </Link>
           </header>
-          <div className={classes.resDiv}>
+          <div className={classes.resBoxBody}>
             {reservations.map((res) => (
               <ul key={res.id} className={classes.resDataList}>
                 <li>
                   <MdOutlineDirectionsBus />
-                  {/* {getLineName(res.bus_line_id)} */}
                   {res.bus_line}
                 </li>
                 <li>
@@ -62,7 +64,7 @@ export default function ReservationsPage() {
                 </li>
                 <li>
                   <TbClock />
-                  {res.reservation_time}
+                  {res.reservation_time.split(":").slice(0, 2).join(":")}
                 </li>
                 <li>
                   <TbUser />
@@ -72,7 +74,10 @@ export default function ReservationsPage() {
                   <TbCoins />
                   {res.price} Ft
                 </li>
-                <span className={classes.deleteIcon} onClick={handleDelete}>
+                <span
+                  className={classes.deleteIcon}
+                  onClick={() => handleDelete(res.id)}
+                >
                   <TbTrash />
                 </span>
               </ul>

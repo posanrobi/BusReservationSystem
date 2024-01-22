@@ -71,9 +71,9 @@ export default function PlanningPage() {
     }
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     console.log(selectedSeats);
-  }, [selectedSeats]);
+  }, [selectedSeats]); */
 
   /*   // render seats
   const renderSeats = (busLineId, seatNum) => {
@@ -240,16 +240,8 @@ export default function PlanningPage() {
     return totalPrice;
   };
 
-  //---------------------------------------------------------------
   //user: { id: userId },
   //busLine: { id: busLineId },
-
-  //...........................................ööööö
-  //const busLineId = getLineId(selectedFrom, selectedTo);
-  //const selectedBusLine = busLines.find((busLine) => busLine.id === busLineId);
-
-  //console.log(busLines);
-  //...........................................ööööö
 
   // Send Data
   async function handleSubmitConfirm() {
@@ -261,27 +253,9 @@ export default function PlanningPage() {
       const currentUser = currentUserResponse.data;
       const userName = currentUser.lastname + " " + currentUser.firstname;
 
-      //_-------
-      /* const busLineId = getLineId(selectedFrom, selectedTo);
-
-      const lines = busLines.map((l) => {
-        if (l.id === busLineId) return l.name;
-      });
-      let finalArray = [];
-      lines.map((lr) => {
-        if (lr !== undefined) finalArray.push(lr);
-      });
-
-      const lineStr = "" + finalArray.slice(0, 1);
-      console.log("Selected busline: ", lineStr); */
-
-      //---PRÓBA EGYSZ----
       const busLineId = getLineId(selectedFrom, selectedTo);
       const selectedBusLine =
         busLines.find((l) => l.id === busLineId)?.name || null;
-
-      console.log("Selected busline: ", selectedBusLine);
-      //-----------
 
       const reservationData = {
         bus_line: selectedBusLine,

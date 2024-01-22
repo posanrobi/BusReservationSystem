@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -30,4 +31,16 @@ public class ReservationController {
 
     @GetMapping
     public List<Reservation> getAllReservations() { return reservationService.getAllReservations(); }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteReservation(@PathVariable Long id) {
+        try {
+            reservationService.deleteReservation(id);
+            return new ResponseEntity<>("Reservation deleted successfully", HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("Reservation not found", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred while deleting the reservation", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

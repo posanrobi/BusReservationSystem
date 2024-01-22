@@ -63,3 +63,14 @@ export async function getUserById(userId) {
     throw new Error("Can not find user by id");
   }
 }
+
+// delete reservation by id
+export async function deleteReservation(resId) {
+  try {
+    return await axios.delete(API_URL + "reservations/" + resId, {
+      headers: authHeader(),
+    });
+  } catch (error) {
+    throw new Error("Could not delete reservation");
+  }
+}

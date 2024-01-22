@@ -2,6 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 87vh;
+  width: 100%;
 }
 
 .header {
@@ -29,24 +31,27 @@
 
 .resBox {
   background-color: rgb(121, 154, 207);
-  width: 60rem;
-  height: 33rem;
+  width: 70%;
+  height: 36rem;
   border-radius: 1rem;
-  margin-top: 4rem;
+
   padding: 1rem;
 }
 
-.resDiv {
+.resBoxBody {
   display: flex;
+  flex-wrap: wrap;
+  height: 32rem;
+  overflow-y: auto;
 }
 
 .resDataList {
+  width: 11rem;
   list-style-type: none;
   background-color: rgb(43, 82, 158);
-  padding: 1rem 2rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 1rem;
-  margin: 1rem;
-  width: fit-content;
+  margin: 0.5rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   color: white;
@@ -54,7 +59,9 @@
 
 .deleteIcon {
   color: black;
-  margin-left: 5rem;
+  /* margin-left: 5rem; */
+  display: flex;
+  justify-content: flex-end;
   cursor: pointer;
 }
 

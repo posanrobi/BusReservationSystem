@@ -48,7 +48,7 @@
   /* border-radius: 0.5rem; */
   /* padding: 0.3rem 0.8rem; */
   color: rgba(177, 179, 186, 0.789);
-  border-bottom: 2px solid black;
+  /* border-bottom: 2px solid black; */
 }
 
 .nav a.active:hover {

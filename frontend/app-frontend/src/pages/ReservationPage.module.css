@@ -8,8 +8,14 @@
 
 .header {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
+  padding: 0 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.resTitle {
+  margin: 0;
 }
 
 .addNew {
@@ -23,6 +29,11 @@
   padding: 0.5rem 1rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  text-decoration: none;
+}
+
+.addNew:hover {
+  background-color: rgba(62, 62, 146, 0.677);
 }
 
 .addNew p {
@@ -31,17 +42,21 @@
 
 .resBox {
   background-color: rgb(121, 154, 207);
-  width: 70%;
+  width: 60rem;
   height: 36rem;
   border-radius: 1rem;
-
   padding: 1rem;
+
+  /*   display: flex;
+  flex-direction: column;
+  align-items: center; */
 }
 
 .resBoxBody {
   display: flex;
   flex-wrap: wrap;
-  height: 32rem;
+  justify-content: left;
+  /*  height: 32rem; */
   overflow-y: auto;
 }
 
@@ -58,9 +73,14 @@
   color: white;
 }
 
+.resDataList li {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
 .deleteIcon {
   color: black;
-  /* margin-left: 5rem; */
   display: flex;
   justify-content: flex-end;
   cursor: pointer;

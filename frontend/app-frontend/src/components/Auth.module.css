@@ -26,7 +26,14 @@
 }
 
 .loginContainer {
-  background-color: rgb(160, 179, 224);
+  background: rgb(127, 158, 207);
+  background: linear-gradient(
+    90deg,
+    rgba(127, 158, 207, 1) 0%,
+    rgba(103, 125, 173, 1) 24%,
+    rgba(80, 112, 166, 1) 59%,
+    rgba(76, 105, 138, 1) 100%
+  );
   border-radius: 1rem;
   width: 20rem;
   padding: 0 2rem 2rem 2rem;

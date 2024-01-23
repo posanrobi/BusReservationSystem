@@ -40,21 +40,6 @@ export async function createReservation(reservationData) {
   return response;
 }
 
-//reservation data
-/* export async function createReservation(reservationData) {
-  const headers = authHeader();
-
-  try {
-    const response = await axios.post(RESERVATION_API_URL, reservationData, {
-      headers,
-    });
-    return response;
-  } catch (error) {
-    console.error("Error creating reservation:", error);
-    throw error; // dobja vissza a hibát a hívónak
-  }
-} */
-
 //user role
 export function getUserRole() {
   const user = getCurrentUser();

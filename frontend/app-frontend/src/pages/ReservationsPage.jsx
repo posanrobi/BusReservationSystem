@@ -26,10 +26,10 @@ export default function ReservationsPage() {
 
   const handleDelete = async (resId) => {
     try {
-      await deleteReservation(resId); // Törlés a backend-en
+      await deleteReservation(resId);
 
-      setReservations(
-        (prevReservations) => prevReservations.filter((res) => res.id !== resId) // Törlés a frontend-en
+      setReservations((prevReservations) =>
+        prevReservations.filter((res) => res.id !== resId)
       );
     } catch (error) {
       console.error("Error deleting reservation", error);
@@ -44,7 +44,7 @@ export default function ReservationsPage() {
         <div className={classes.resBox}>
           <header className={classes.header}>
             <div>
-              <h2>Your reservations</h2>
+              <h2 className={classes.resTitle}>Your reservations</h2>
             </div>
             <Link to="/plan" className={classes.addNew}>
               <p>New</p>

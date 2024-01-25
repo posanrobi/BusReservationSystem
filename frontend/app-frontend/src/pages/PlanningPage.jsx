@@ -11,6 +11,7 @@ import { TbTrash, TbInfoCircle } from "react-icons/tb";
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
 import { getCurrentUser, createReservation } from "../services/auth.service";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
@@ -97,7 +98,7 @@ export default function PlanningPage() {
   }; */
 
   //----------------------------------------------------------------
-  const renderSeats = (busLineId, seatNum) => {
+  /* const renderSeats = (busLineId, seatNum) => {
     const seatDivs = [];
     const seatsPerRow = 4;
     const totalSeats = 32; //31 a jó
@@ -128,7 +129,7 @@ export default function PlanningPage() {
             </div>
           );
 
-          if (col === 2 /* && row !== rows */) {
+          if (col === 2) {
             rowDivs.push(
               <div
                 key={`empty-space-${busLineId}-${row}`}
@@ -147,7 +148,75 @@ export default function PlanningPage() {
     }
 
     return seatDivs;
+  }; */
+
+  //-------------------------------------
+
+  //---
+  const tableStyle = {
+    borderCollapse: "collapse",
+    border: "1px solid black",
+    margin: 0,
   };
+
+  const cellStyle = {
+    border: "1px solid black",
+    padding: "6px",
+    textAlign: "center",
+    width: "1.5rem",
+    height: "1.5rem",
+    backgroundColor: "lightgreen",
+  };
+
+  const disabledCellStyle = {
+    ...cellStyle,
+    backgroundColor: "lightgray",
+    cursor: "not-allowed",
+  };
+
+  const renderSeats = () => {
+    const table = [];
+
+    let seatNumber = 1; // Kezdeti szám az első üléshez
+
+    for (let row = 0; row < 5; row++) {
+      const columns = [];
+
+      for (let col = 0; col < 8; col++) {
+        const isDisabled = row === 2 && col !== 7;
+        const isUnnumbered = row === 2 && (col === 4 || col === 12);
+        const isLastTwoRows = row >= 3;
+        const isLastTwoRowsColumn = isLastTwoRows && col === 3;
+
+        const currentCellStyle = isDisabled
+          ? { ...disabledCellStyle, visibility: "hidden" }
+          : isLastTwoRowsColumn
+          ? { ...disabledCellStyle, visibility: "hidden" }
+          : cellStyle;
+
+        columns.push(
+          <div
+            key={col}
+            onClick={() => console.log(`Clicked: ${seatNumber}`)}
+            style={currentCellStyle}
+          >
+            {!isDisabled && !isUnnumbered && !isLastTwoRowsColumn && seatNumber}
+          </div>
+        );
+
+        if (!isDisabled && !isUnnumbered && !isLastTwoRowsColumn) {
+          // Inkrementáljuk a számot csak akkor, ha a cella beszámozható
+          seatNumber++;
+        }
+      }
+
+      table.push(<div key={row}>{columns}</div>);
+    }
+
+    return table;
+  };
+
+  //-----------
 
   function handleClearSelectedSeats() {
     setSelectedSeats([]);
@@ -255,6 +324,13 @@ export default function PlanningPage() {
       const selectedBusLine =
         busLines.find((l) => l.id === busLineId)?.name || null;
 
+      //--TEST
+      const reservedSeats = selectedSeats
+        .map((seat) => seat.seatContent)
+        .join(", ");
+      console.log(reservedSeats);
+      //------
+
       const reservationData = {
         bus_line: selectedBusLine,
         price: calculateTotalPrice(),
@@ -262,6 +338,7 @@ export default function PlanningPage() {
         reservation_time: selectedTime,
         seat_number: selectedSeats.length,
         status: "true",
+        //status: reservedSeats, //TEST
         user: userName,
       };
 
@@ -438,13 +515,15 @@ export default function PlanningPage() {
                     .filter((date) => date.busLine)
                     .slice(0, 1)
                     .map((date) =>
-                      renderSeats(
+                      /*  renderSeats(
                         getLineId(
                           date.busLine.name.split("-")[0].trim(),
                           date.busLine.name.split("-")[1].trim()
                         ),
                         date.busLine.seatNum
-                      )
+                      ) */
+
+                      renderSeats()
                     )}
               </div>
             </div>

@@ -46,7 +46,7 @@ export default function AdminBoard() {
               <td>{user.username}</td>
               <td>{user.email}</td>
               <td>busline</td>
-              <td>{user.reservations.length}</td>
+              {/* <td>{user.reservations.length}</td> */}
             </tr>
           ))}
         </tbody>

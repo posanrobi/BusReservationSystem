@@ -6,7 +6,7 @@
 }
 
 .planBox {
-  height: 28rem;
+  height: 34rem;
   width: 55rem;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@
 .planBoxBody {
   display: flex;
   gap: 6rem;
-  height: 20rem;
+  height: 27rem;
 }
 
 .planBoxFooter {
@@ -31,7 +31,8 @@
 
 .planBoxFooter button {
   font-size: 1rem;
-  margin-top: 4rem;
+  /* margin-top: 4rem; */
+  margin-top: 3rem;
   border-radius: 1rem;
   padding: 0.5rem 2rem;
   border: none;
@@ -70,7 +71,7 @@
   display: flex;
   align-items: center;
   gap: 10rem;
-  margin-top: 3rem;
+  /* margin-top: 3rem; */
 }
 
 .seatsDivHeader span {
@@ -83,7 +84,8 @@
 }
 
 .seats {
-  max-height: 15rem;
+  /* max-height: 15rem; */
+  height: 24rem;
   width: 21rem;
   overflow-y: auto;
   display: flex;
@@ -111,7 +113,7 @@
 }
 
 .selected {
-  background-color: black;
+  background-color: black !important;
   color: white;
 }
 
@@ -208,9 +210,27 @@
  */
 
 /*---------Render seats------*/
-.corridor {
-  width: 100%; /* Adjust the width of the corridor as needed */
-  height: 35px; /* Adjust the height of the seats */
-  /* Adjust the margin to create space around the corridor */
-  /*background-color: rgb(0, 64, 255); /* Color of the corridor */
+/* .corridor {
+  width: 100%; 
+  height: 35px; 
+} */
+
+/*---------Render seats------*/
+.cellStyle {
+  border: 1px solid black;
+  margin: 0.5rem 0rem;
+  padding: 6px;
+  text-align: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: lightgreen;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+.disabledCellStyle {
+  visibility: hidden;
+}
+
+.rowStyle {
 }

@@ -11,7 +11,6 @@ import { TbTrash, TbInfoCircle } from "react-icons/tb";
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
 import { getCurrentUser, createReservation } from "../services/auth.service";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
@@ -70,32 +69,9 @@ export default function PlanningPage() {
     }
   };
 
-  /*   useEffect(() => {
+  useEffect(() => {
     console.log(selectedSeats);
-  }, [selectedSeats]); */
-
-  /*   // render seats
-  const renderSeats = (busLineId, seatNum) => {
-    const seatDivs = [];
-    for (let i = 0; i < seatNum; i++) {
-      const seatContent = i + 1;
-      const isSelected = selectedSeats.some(
-        (seat) =>
-          seat.busLineId === busLineId && seat.seatContent === seatContent
-      );
-
-      seatDivs.push(
-        <div
-          onClick={() => handleClick(busLineId, seatContent)}
-          className={`${classes.seat} ${isSelected ? classes.selected : ""}`}
-          key={`${busLineId}-${i}`}
-        >
-          {seatContent}
-        </div>
-      );
-    }
-    return seatDivs;
-  }; */
+  }, [selectedSeats]);
 
   //----------------------------------------------------------------
   /* const renderSeats = (busLineId, seatNum) => {
@@ -152,32 +128,11 @@ export default function PlanningPage() {
 
   //-------------------------------------
 
-  //---
-  const tableStyle = {
-    borderCollapse: "collapse",
-    border: "1px solid black",
-    margin: 0,
-  };
+  //Render seats
+  const renderSeats = (busLineId) => {
+    const seatDiv = [];
 
-  const cellStyle = {
-    border: "1px solid black",
-    padding: "6px",
-    textAlign: "center",
-    width: "1.5rem",
-    height: "1.5rem",
-    backgroundColor: "lightgreen",
-  };
-
-  const disabledCellStyle = {
-    ...cellStyle,
-    backgroundColor: "lightgray",
-    cursor: "not-allowed",
-  };
-
-  const renderSeats = () => {
-    const table = [];
-
-    let seatNumber = 1; // Kezdeti szám az első üléshez
+    let seatNumber = 1;
 
     for (let row = 0; row < 5; row++) {
       const columns = [];
@@ -188,35 +143,53 @@ export default function PlanningPage() {
         const isLastTwoRows = row >= 3;
         const isLastTwoRowsColumn = isLastTwoRows && col === 3;
 
+        const isClickable =
+          !isDisabled && !isUnnumbered && !isLastTwoRowsColumn;
+
         const currentCellStyle = isDisabled
-          ? { ...disabledCellStyle, visibility: "hidden" }
+          ? [classes.cellStyle, classes.disabledCellStyle].join(" ")
           : isLastTwoRowsColumn
-          ? { ...disabledCellStyle, visibility: "hidden" }
-          : cellStyle;
+          ? [classes.cellStyle, classes.disabledCellStyle].join(" ")
+          : classes.cellStyle;
+
+        const isSelected = selectedSeats.some(
+          (seat) =>
+            seat.busLineId === busLineId && seat.seatContent === seatNumber
+        );
+
+        const seatClickHandler = isClickable
+          ? (
+              (num) => () =>
+                handleClick(busLineId, num)
+            )(seatNumber)
+          : null;
 
         columns.push(
           <div
-            key={col}
-            onClick={() => console.log(`Clicked: ${seatNumber}`)}
-            style={currentCellStyle}
+            key={`${busLineId}-${row}-${col}`}
+            onClick={seatClickHandler}
+            className={`${currentCellStyle} ${
+              isSelected ? classes.selected : ""
+            }`}
           >
-            {!isDisabled && !isUnnumbered && !isLastTwoRowsColumn && seatNumber}
+            {isClickable && seatNumber}
           </div>
         );
 
-        if (!isDisabled && !isUnnumbered && !isLastTwoRowsColumn) {
-          // Inkrementáljuk a számot csak akkor, ha a cella beszámozható
+        if (isClickable) {
           seatNumber++;
         }
       }
 
-      table.push(<div key={row}>{columns}</div>);
+      seatDiv.push(
+        <div key={row} className={classes.rowStyle}>
+          {columns}
+        </div>
+      );
     }
 
-    return table;
+    return seatDiv;
   };
-
-  //-----------
 
   function handleClearSelectedSeats() {
     setSelectedSeats([]);
@@ -514,8 +487,9 @@ export default function PlanningPage() {
                   groupedDatesByLineId[getLineId(selectedFrom, selectedTo)]
                     .filter((date) => date.busLine)
                     .slice(0, 1)
-                    .map((date) =>
-                      /*  renderSeats(
+                    .map(
+                      (date) =>
+                        /*  renderSeats(
                         getLineId(
                           date.busLine.name.split("-")[0].trim(),
                           date.busLine.name.split("-")[1].trim()
@@ -523,7 +497,14 @@ export default function PlanningPage() {
                         date.busLine.seatNum
                       ) */
 
-                      renderSeats()
+                        //--
+                        renderSeats(
+                          getLineId(
+                            date.busLine.name.split("-")[0].trim(),
+                            date.busLine.name.split("-")[1].trim()
+                          )
+                        )
+                      //--
                     )}
               </div>
             </div>

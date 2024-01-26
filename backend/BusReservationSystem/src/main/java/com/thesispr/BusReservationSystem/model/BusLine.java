@@ -15,7 +15,7 @@ public class BusLine {
     private String name;
     //@OneToMany(mappedBy = "busLine", cascade = CascadeType.ALL, orphanRemoval = true)
     //private List<BusLineDate> available_dates = new ArrayList<>();
-    private int seatNum;
+    //private int seatNum;
     private int price;
 
     public Long getId() {
@@ -42,13 +42,13 @@ public class BusLine {
         this.available_dates = available_dates;
     }*/
 
-    public int getSeatNum() {
+    /*public int getSeatNum() {
         return seatNum;
     }
 
     public void setSeatNum(int seatNum) {
         this.seatNum = seatNum;
-    }
+    }*/
 
     public int getPrice() {
         return price;

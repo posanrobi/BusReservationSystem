@@ -68,10 +68,10 @@ export default function PlanningPage() {
       setSelectedSeats((prevSeats) => [...prevSeats, selectedSeat]);
     }
   };
-
+  /* 
   useEffect(() => {
     console.log(selectedSeats);
-  }, [selectedSeats]);
+  }, [selectedSeats]); */
 
   //----------------------------------------------------------------
   /* const renderSeats = (busLineId, seatNum) => {
@@ -300,8 +300,8 @@ export default function PlanningPage() {
       //--TEST
       const reservedSeats = selectedSeats
         .map((seat) => seat.seatContent)
+        .sort((a, b) => a - b)
         .join(", ");
-      console.log(reservedSeats);
       //------
 
       const reservationData = {
@@ -311,7 +311,7 @@ export default function PlanningPage() {
         reservation_time: selectedTime,
         seat_number: selectedSeats.length,
         status: "true",
-        //status: reservedSeats, //TEST
+        selected_seats: reservedSeats,
         user: userName,
       };
 

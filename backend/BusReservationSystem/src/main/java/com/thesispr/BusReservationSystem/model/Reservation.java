@@ -29,6 +29,7 @@ public class Reservation {
     private int seat_number;
     private int price;
     private boolean status;
+    private String selected_seats;
 
     public Long getId() {
         return id;
@@ -108,5 +109,13 @@ public class Reservation {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getSelected_seats() {
+        return selected_seats;
+    }
+
+    public void setSelected_seats(String selected_seats) {
+        this.selected_seats = selected_seats;
     }
 }

@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { getAllReservations } from "../services/user.service";
 import { TbTrash, TbCalendar, TbClock, TbUser, TbCoins } from "react-icons/tb";
 import { RiAddCircleLine } from "react-icons/ri";
-import { MdOutlineDirectionsBus } from "react-icons/md";
+import {
+  MdOutlineDirectionsBus,
+  MdAirlineSeatReclineNormal,
+} from "react-icons/md";
+
 import { deleteReservation } from "../services/user.service";
 
 import classes from "./ReservationPage.module.css";
@@ -72,6 +76,10 @@ export default function ReservationsPage() {
                   <li>
                     <TbUser />
                     {res.seat_number}
+                  </li>
+                  <li>
+                    <MdAirlineSeatReclineNormal />
+                    {res.selected_seats}
                   </li>
                   <li>
                     <TbCoins />

@@ -27,7 +27,6 @@ export default function PlanningPage() {
   const [selectedSeats, setSelectedSeats] = useState([]);
 
   const [alreadyReserved, setAlreadyReserved] = useState({}); // ADDED
-  const [reservationsLoaded, setReservationsLoaded] = useState(false); // ADDED2
 
   const [selectedData, setSelectedData] = useState({
     startingCity: "",
@@ -77,67 +76,8 @@ export default function PlanningPage() {
     console.log(selectedSeats);
   }, [selectedSeats]); */
 
-  //----------------------------------------------------------------
-  /* const renderSeats = (busLineId, seatNum) => {
-    const seatDivs = [];
-    const seatsPerRow = 4;
-    const totalSeats = 32; //31 a jó
-
-    const rows = Math.ceil(totalSeats / seatsPerRow);
-
-    for (let row = 1; row <= rows; row++) {
-      const rowDivs = [];
-
-      for (let col = 1; col <= seatsPerRow; col++) {
-        const seatNumber = col + (row - 1) * seatsPerRow;
-
-        if (seatNumber <= totalSeats) {
-          const isSelected = selectedSeats.some(
-            (seat) =>
-              seat.busLineId === busLineId && seat.seatContent === seatNumber
-          );
-
-          rowDivs.push(
-            <div
-              onClick={() => handleClick(busLineId, seatNumber)}
-              className={`${classes.seat} ${
-                isSelected ? classes.selected : ""
-              }`}
-              key={`${busLineId}-${row}-${col}`}
-            >
-              {seatNumber}
-            </div>
-          );
-
-          if (col === 2) {
-            rowDivs.push(
-              <div
-                key={`empty-space-${busLineId}-${row}`}
-                className={classes.corridor}
-              />
-            );
-          }
-        }
-      }
-
-      seatDivs.push(
-        <div className={classes.seatRow} key={`${busLineId}-${row}`}>
-          {rowDivs}
-        </div>
-      );
-    }
-
-    return seatDivs;
-  }; */
-
-  //-------------------------------------
-
   //Render seats
   const renderSeats = (busLineId) => {
-    if (!reservationsLoaded) {
-      return <p>Loading seats...</p>;
-    } // ADDED
-
     const seatDiv = [];
 
     let seatNumber = 1;
@@ -206,32 +146,6 @@ export default function PlanningPage() {
 
         const datetimeResponse = await getAllBusLineDatesAndTimes();
         setBusLineDateTime(datetimeResponse.data);
-
-        //------TEST
-        const reservationsResponse = await getAllReservations();
-
-        const reservedSeatsData = {};
-
-        reservationsResponse.data.forEach((res) => {
-          const lineId = getLineId(
-            res.bus_line.split("-")[0].trim(),
-            res.bus_line.split("-")[1].trim()
-          );
-
-          if (lineId !== null) {
-            if (!reservedSeatsData[lineId]) {
-              reservedSeatsData[lineId] = [];
-            }
-
-            reservedSeatsData[lineId].push(
-              ...res.selected_seats.split(",").map(Number)
-            );
-          }
-        });
-
-        setAlreadyReserved(reservedSeatsData);
-        setReservationsLoaded(true); // ADDED2
-        //----END TEST-----------
       } catch (error) {
         console.error("Error while fetching data", error);
       }
@@ -240,11 +154,47 @@ export default function PlanningPage() {
     fetchData();
   }, []);
 
-  // ************************************
+  //----------------------------------------------------------------------------------------
   useEffect(() => {
     console.log("Already reserved:", alreadyReserved);
-  }, [alreadyReserved, reservationsLoaded]);
-  // ************************************
+  }, [alreadyReserved]);
+  //----------------------------------------------------------------------------------------
+  useEffect(() => {
+    async function fetchReservedSeats() {
+      try {
+        if (selectedFrom && selectedTo && selectedDate && selectedTime) {
+          const busLineId = getLineId(selectedFrom, selectedTo);
+          const reservationsResponse = await getAllReservations();
+
+          const reservedSeatsData = {};
+
+          reservationsResponse.data.forEach((res) => {
+            const lineId = getLineId(
+              res.bus_line.split("-")[0].trim(),
+              res.bus_line.split("-")[1].trim()
+            );
+
+            if (lineId !== null && lineId === busLineId) {
+              if (!reservedSeatsData[lineId]) {
+                reservedSeatsData[lineId] = [];
+              }
+
+              reservedSeatsData[lineId].push(
+                ...res.selected_seats.split(",").map(Number)
+              );
+            }
+          });
+
+          setAlreadyReserved(reservedSeatsData);
+        }
+      } catch (error) {
+        console.error("Error while fetching reserved seats data", error);
+      }
+    }
+
+    fetchReservedSeats();
+  }, [selectedFrom, selectedTo, selectedDate, selectedTime]);
+  //----------------------------------------------------------------------------------------
 
   function handleClearSelectedSeats() {
     setSelectedSeats([]);
@@ -515,27 +465,13 @@ export default function PlanningPage() {
                   groupedDatesByLineId[getLineId(selectedFrom, selectedTo)]
                     .filter((date) => date.busLine)
                     .slice(0, 1)
-                    .map(
-                      (date) => {
-                        const busLineId = getLineId(
-                          date.busLine.name.split("-")[0].trim(),
-                          date.busLine.name.split("-")[1].trim()
-                        );
-
-                        // Render seats only if reservations data for the specific bus line is available
-                        return alreadyReserved[busLineId] ? (
-                          renderSeats(busLineId)
-                        ) : (
-                          <p>Loading seats...</p>
-                        );
-                      }
-                      /*   renderSeats(
-                        getLineId(
-                          date.busLine.name.split("-")[0].trim(),
-                          date.busLine.name.split("-")[1].trim()
-                        )
-                      ) */
-                    )}
+                    .map((date) => {
+                      const busLineId = getLineId(
+                        date.busLine.name.split("-")[0].trim(),
+                        date.busLine.name.split("-")[1].trim()
+                      );
+                      return renderSeats(busLineId);
+                    })}
               </div>
             </div>
 

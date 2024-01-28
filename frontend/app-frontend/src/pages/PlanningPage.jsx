@@ -155,9 +155,9 @@ export default function PlanningPage() {
   }, []);
 
   //----------------------------------------------------------------------------------------
-  useEffect(() => {
+  /*  useEffect(() => {
     console.log("Already reserved:", alreadyReserved);
-  }, [alreadyReserved]);
+  }, [alreadyReserved]); */
   //----------------------------------------------------------------------------------------
   useEffect(() => {
     async function fetchReservedSeats() {
@@ -406,12 +406,26 @@ export default function PlanningPage() {
                     <option value="" disabled>
                       Choose a date
                     </option>
-                    {selectedTo &&
+                    {/*-------------------------------------------- */}
+                    {/*   {selectedTo &&
                       groupedDatesByLineId[
                         getLineId(selectedFrom, selectedTo)
                       ]?.map((date) => (
                         <option key={date.id} value={date.date}>
                           {date.date}
+                        </option>
+                      ))} */}
+                    {/*-------------------------------------------- */}
+                    {selectedTo &&
+                      Array.from(
+                        new Set(
+                          groupedDatesByLineId[
+                            getLineId(selectedFrom, selectedTo)
+                          ]?.map((date) => date.date) || []
+                        )
+                      ).map((date) => (
+                        <option key={date} value={date}>
+                          {date}
                         </option>
                       ))}
                   </select>
@@ -430,10 +444,25 @@ export default function PlanningPage() {
                     <option value="" disabled>
                       Choose a time
                     </option>
-                    {selectedDate &&
+                    {/*-------------------------------------------- */}
+                    {/*  {selectedDate &&
                       groupedTimesByLineId[
                         getLineId(selectedFrom, selectedTo)
                       ]?.map((time) => (
+                        <option key={time} value={time}>
+                          {time}
+                        </option>
+                      ))} */}
+                    {/*-------------------------------------------- */}
+
+                    {selectedDate &&
+                      Array.from(
+                        new Set(
+                          groupedTimesByLineId[
+                            getLineId(selectedFrom, selectedTo)
+                          ]?.map((time) => time) || []
+                        )
+                      ).map((time) => (
                         <option key={time} value={time}>
                           {time}
                         </option>

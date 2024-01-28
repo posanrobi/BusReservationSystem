@@ -225,6 +225,7 @@ export default function PlanningPage() {
     setSelectedTime(value);
   }
 
+  //Get lineId
   const getLineId = (from, to) => {
     const line = `${from}-${to}`;
     const busLine = busLines.find((bl) => bl.name === line);
@@ -337,7 +338,21 @@ export default function PlanningPage() {
                     <option value="" disabled>
                       Choose your starting place
                     </option>
-                    {busLines.map((busLine) => {
+                    {/*ADDED*/}
+                    {Array.from(
+                      new Set(
+                        busLines.map((busLine) =>
+                          busLine.name.split("-")[0].trim()
+                        )
+                      )
+                    ).map((startingPlace) => (
+                      <option key={startingPlace} value={startingPlace}>
+                        {startingPlace}
+                      </option>
+                    ))}
+                    {/*{busLines.map((busLine) => {
+
+
                       const startingPlace = busLine.name.split("-")[0].trim();
 
                       return (
@@ -345,7 +360,7 @@ export default function PlanningPage() {
                           {startingPlace}
                         </option>
                       );
-                    })}
+                    })}*/}
                   </select>
                 </div>
               </label>

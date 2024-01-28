@@ -345,11 +345,13 @@ export default function PlanningPage() {
                           busLine.name.split("-")[0].trim()
                         )
                       )
-                    ).map((startingPlace) => (
-                      <option key={startingPlace} value={startingPlace}>
-                        {startingPlace}
-                      </option>
-                    ))}
+                    )
+                      .sort()
+                      .map((startingPlace) => (
+                        <option key={startingPlace} value={startingPlace}>
+                          {startingPlace}
+                        </option>
+                      ))}
                     {/*{busLines.map((busLine) => {
 
 
@@ -382,6 +384,11 @@ export default function PlanningPage() {
                         (busLine) =>
                           busLine.name.split("-")[0].trim() === selectedFrom
                       )
+                      .sort((a, b) => {
+                        const cityA = a.name.split("-")[1].trim();
+                        const cityB = b.name.split("-")[1].trim();
+                        return cityA.localeCompare(cityB);
+                      })
                       .map((busLine) => (
                         <option
                           key={busLine.id}
@@ -423,11 +430,13 @@ export default function PlanningPage() {
                             getLineId(selectedFrom, selectedTo)
                           ]?.map((date) => date.date) || []
                         )
-                      ).map((date) => (
-                        <option key={date} value={date}>
-                          {date}
-                        </option>
-                      ))}
+                      )
+                        .sort()
+                        .map((date) => (
+                          <option key={date} value={date}>
+                            {date}
+                          </option>
+                        ))}
                   </select>
                 </div>
               </label>
@@ -462,11 +471,13 @@ export default function PlanningPage() {
                             getLineId(selectedFrom, selectedTo)
                           ]?.map((time) => time) || []
                         )
-                      ).map((time) => (
-                        <option key={time} value={time}>
-                          {time}
-                        </option>
-                      ))}
+                      )
+                        .sort()
+                        .map((time) => (
+                          <option key={time} value={time}>
+                            {time}
+                          </option>
+                        ))}
                   </select>
                 </div>
               </label>

@@ -58,14 +58,10 @@
   margin-bottom: 2rem;
 }
 
-/* .seatsDiv {
-  width: 25rem;
-} */
-
 .seatsDivHeader {
   display: flex;
   align-items: center;
-  gap: 10rem;
+  gap: 8rem;
   /* margin-top: 3rem; */
 }
 
@@ -81,7 +77,7 @@
 .seats {
   /* max-height: 15rem; */
   height: 24rem;
-  width: 21rem;
+  width: 15rem;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
@@ -129,7 +125,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 5rem;
-  width: 8rem;
+  width: 10rem;
 }
 
 .detailsDiv ul {

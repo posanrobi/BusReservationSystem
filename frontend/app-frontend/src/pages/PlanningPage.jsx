@@ -174,7 +174,18 @@ export default function PlanningPage() {
               res.bus_line.split("-")[1].trim()
             );
 
-            if (lineId !== null && lineId === busLineId) {
+            console.log("Reservation Date:", res.reservation_date);
+            console.log("Reservation Time:", res.reservation_time);
+            console.log("Selected Date:", selectedDate);
+            console.log("Selected Time:", selectedTime);
+
+            if (
+              lineId !== null &&
+              lineId === busLineId &&
+              res.reservation_date === selectedDate &&
+              res.reservation_time.split(":").slice(0, 2).join(":") ===
+                selectedTime
+            ) {
               if (!reservedSeatsData[lineId]) {
                 reservedSeatsData[lineId] = [];
               }

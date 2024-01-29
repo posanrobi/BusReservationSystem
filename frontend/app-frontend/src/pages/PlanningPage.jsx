@@ -11,7 +11,8 @@ import { TbTrash } from "react-icons/tb";
 
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
-import { getCurrentUser, createReservation } from "../services/auth.service";
+import { getCurrentUser } from "../services/auth.service";
+import { createReservation } from "../services/user.service";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
@@ -37,6 +38,7 @@ export default function PlanningPage() {
     numberOfSelectedSeats: [],
   });
 
+  // open modal
   const openConfirm = () => {
     const total = calculateTotalPrice();
     setSelectedData({
@@ -48,8 +50,11 @@ export default function PlanningPage() {
     });
     setIsModalOpen(true);
   };
+
+  // close modal
   const closeConfirm = () => setIsModalOpen(false);
 
+  // click on seats
   const handleClick = (busLineId, seatContent) => {
     const selectedSeat = { busLineId, seatContent };
 
@@ -350,17 +355,6 @@ export default function PlanningPage() {
                           {startingPlace}
                         </option>
                       ))}
-                    {/*{busLines.map((busLine) => {
-
-
-                      const startingPlace = busLine.name.split("-")[0].trim();
-
-                      return (
-                        <option key={busLine.id} value={startingPlace}>
-                          {startingPlace}
-                        </option>
-                      );
-                    })}*/}
                   </select>
                 </div>
               </label>
@@ -411,16 +405,7 @@ export default function PlanningPage() {
                     <option value="" disabled>
                       Choose a date
                     </option>
-                    {/*-------------------------------------------- */}
-                    {/*   {selectedTo &&
-                      groupedDatesByLineId[
-                        getLineId(selectedFrom, selectedTo)
-                      ]?.map((date) => (
-                        <option key={date.id} value={date.date}>
-                          {date.date}
-                        </option>
-                      ))} */}
-                    {/*-------------------------------------------- */}
+
                     {selectedTo &&
                       Array.from(
                         new Set(
@@ -451,16 +436,6 @@ export default function PlanningPage() {
                     <option value="" disabled>
                       Choose a time
                     </option>
-                    {/*-------------------------------------------- */}
-                    {/*  {selectedDate &&
-                      groupedTimesByLineId[
-                        getLineId(selectedFrom, selectedTo)
-                      ]?.map((time) => (
-                        <option key={time} value={time}>
-                          {time}
-                        </option>
-                      ))} */}
-                    {/*-------------------------------------------- */}
 
                     {selectedDate &&
                       Array.from(

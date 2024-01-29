@@ -1,11 +1,8 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { redirect } from "react-router-dom";
-import authHeader from "./auth-header";
 
 const AUTH_API_URL = "http://localhost:8080/api/auth/";
-const BUS_LINE_API_URL = "http://localhost:8080/api/bus-lines/";
-const RESERVATION_API_URL = "http://localhost:8080/api/reservations";
 
 //login
 export async function login(formData) {
@@ -30,14 +27,6 @@ export function logout() {
 //current user
 export function getCurrentUser() {
   return JSON.parse(localStorage.getItem("user"));
-}
-
-//reservation data
-export async function createReservation(reservationData) {
-  const response = await axios.post(RESERVATION_API_URL, reservationData, {
-    headers: authHeader(),
-  });
-  return response;
 }
 
 //user role
@@ -70,15 +59,6 @@ export function useEnterKeyEffect(handleSubmit) {
     };
   }, [handleSubmit]);
 }
-
-//loaded token
-/* export function checkAuthLoader() {
-  const token = getAuthToken();
-  if (!token) {
-    return redirect("/");
-  }
-  return null;
-} */
 
 //protect routes
 export function checkAuthLoader() {

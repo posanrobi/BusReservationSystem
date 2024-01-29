@@ -28,7 +28,7 @@ public class Reservation {
 
     private int seat_number;
     private int price;
-    private boolean status;
+    private String username;
     private String selected_seats;
 
     public Long getId() {
@@ -87,13 +87,13 @@ public class Reservation {
         this.price = price;
     }
 
-    public boolean isStatus() {
+    /*public boolean isStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
+    }*/
 
     public String getBus_line() {
         return bus_line;
@@ -117,5 +117,13 @@ public class Reservation {
 
     public void setSelected_seats(String selected_seats) {
         this.selected_seats = selected_seats;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

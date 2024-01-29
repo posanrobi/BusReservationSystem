@@ -174,11 +174,6 @@ export default function PlanningPage() {
               res.bus_line.split("-")[1].trim()
             );
 
-            console.log("Reservation Date:", res.reservation_date);
-            console.log("Reservation Time:", res.reservation_time);
-            console.log("Selected Date:", selectedDate);
-            console.log("Selected Time:", selectedTime);
-
             if (
               lineId !== null &&
               lineId === busLineId &&
@@ -282,8 +277,10 @@ export default function PlanningPage() {
       const userId = user.id;
 
       const currentUserResponse = await getUserById(userId);
-      const currentUser = currentUserResponse.data;
-      const userName = currentUser.lastname + " " + currentUser.firstname;
+      const currentUserData = currentUserResponse.data;
+      const currentUser =
+        currentUserData.lastname + " " + currentUserData.firstname;
+      const currentUsername = currentUserData.username;
 
       const busLineId = getLineId(selectedFrom, selectedTo);
       const selectedBusLine =
@@ -300,9 +297,9 @@ export default function PlanningPage() {
         reservation_date: selectedDate,
         reservation_time: selectedTime,
         seat_number: selectedSeats.length,
-        status: "true",
+        username: currentUsername,
         selected_seats: reservedSeats,
-        user: userName,
+        user: currentUser,
       };
 
       const response = await createReservation(reservationData);

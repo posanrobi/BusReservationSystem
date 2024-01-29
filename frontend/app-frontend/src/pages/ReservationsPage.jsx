@@ -11,15 +11,24 @@ import { deleteReservation } from "../services/user.service";
 
 import classes from "./ReservationPage.module.css";
 import { Link } from "react-router-dom";
+import { getCurrentUser } from "../services/auth.service";
 
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState([]);
+
+  const currentUser = getCurrentUser();
+  const username = currentUser ? currentUser.username : "";
 
   useEffect(() => {
     async function getReservations() {
       try {
         const reservationsResponse = await getAllReservations();
-        setReservations(reservationsResponse.data);
+
+        const userReservations = reservationsResponse.data.filter(
+          (reservation) => reservation.username === username
+        );
+
+        setReservations(userReservations);
       } catch (error) {
         console.error("Error while fetching data", error);
       }

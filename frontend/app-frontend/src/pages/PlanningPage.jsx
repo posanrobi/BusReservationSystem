@@ -26,7 +26,7 @@ export default function PlanningPage() {
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
-  const [alreadyReserved, setAlreadyReserved] = useState({}); // ADDED
+  const [alreadyReserved, setAlreadyReserved] = useState({});
 
   const [selectedData, setSelectedData] = useState({
     startingCity: "",
@@ -71,10 +71,6 @@ export default function PlanningPage() {
       setSelectedSeats((prevSeats) => [...prevSeats, selectedSeat]);
     }
   };
-  /* 
-  useEffect(() => {
-    console.log(selectedSeats);
-  }, [selectedSeats]); */
 
   //Render seats
   const renderSeats = (busLineId) => {
@@ -112,7 +108,7 @@ export default function PlanningPage() {
             )(seatNumber)
           : null;
 
-        const isReserved = alreadyReserved[busLineId]?.includes(seatNumber); //ADDED
+        const isReserved = alreadyReserved[busLineId]?.includes(seatNumber);
 
         columns.push(
           <div
@@ -120,7 +116,7 @@ export default function PlanningPage() {
             onClick={seatClickHandler}
             className={`${currentCellStyle} ${
               isSelected ? classes.selected : ""
-            } ${isReserved ? classes.reserved : ""}`} //ADDED
+            } ${isReserved ? classes.reserved : ""}`}
           >
             {isClickable && seatNumber}
           </div>
@@ -154,11 +150,6 @@ export default function PlanningPage() {
     fetchData();
   }, []);
 
-  //----------------------------------------------------------------------------------------
-  /*  useEffect(() => {
-    console.log("Already reserved:", alreadyReserved);
-  }, [alreadyReserved]); */
-  //----------------------------------------------------------------------------------------
   useEffect(() => {
     async function fetchReservedSeats() {
       try {
@@ -200,7 +191,6 @@ export default function PlanningPage() {
 
     fetchReservedSeats();
   }, [selectedFrom, selectedTo, selectedDate, selectedTime]);
-  //----------------------------------------------------------------------------------------
 
   function handleClearSelectedSeats() {
     setSelectedSeats([]);

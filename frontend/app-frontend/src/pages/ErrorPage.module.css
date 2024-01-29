@@ -1,20 +1,18 @@
 .errorContainer {
+  font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: center;
   height: 100vh;
-
-  background: rgb(196, 199, 204);
+  background: rgb(209, 225, 238);
   background: linear-gradient(
     180deg,
-    rgba(196, 199, 204, 1) 0%,
-    rgba(165, 169, 182, 1) 19%,
-    rgba(90, 95, 107, 1) 59%,
-    rgba(1, 2, 3, 1) 100%
+    rgba(209, 225, 238, 1) 0%,
+    rgba(77, 117, 171, 1) 100%
   );
 }
 
 .errorBox {
-  margin-top: 8rem;
+  margin-top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +31,29 @@
 }
 
 .backToDiv {
+  cursor: pointer;
+  background-color: rgb(49, 55, 146);
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+  margin-top: 5rem;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 1.2rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+
+.backToDiv:hover {
+  background-color: rgba(49, 56, 146, 0.563);
+}
+
+.errorSign {
+  font-size: 8rem;
+  margin: 3rem 0 1rem 0;
+  color: rgb(188, 36, 41);
+}
+
+.errorDescription {
+  margin-top: 2rem;
+  text-align: center;
 }

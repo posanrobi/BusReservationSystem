@@ -109,6 +109,7 @@ export default function Register({ closeRegisterModal }) {
         ) : (
           <form onSubmit={handleSubmit}>
             <Input
+              className={classes.input}
               label={"Firstname"}
               type={"text"}
               name={"firstname"}
@@ -118,6 +119,7 @@ export default function Register({ closeRegisterModal }) {
               error={errors.firstname}
             />
             <Input
+              className={classes.input}
               label={"Lastname"}
               type={"text"}
               name={"lastname"}
@@ -127,6 +129,7 @@ export default function Register({ closeRegisterModal }) {
               error={errors.lastname}
             />
             <Input
+              className={classes.input}
               label={"Username"}
               type={"text"}
               name={"username"}
@@ -136,6 +139,7 @@ export default function Register({ closeRegisterModal }) {
               error={errors.username}
             />
             <Input
+              className={classes.input}
               label={"Email"}
               type={"text"}
               name={"email"}
@@ -145,6 +149,7 @@ export default function Register({ closeRegisterModal }) {
               error={errors.email}
             />
             <Input
+              className={classes.input}
               label={"Password"}
               type={"password"}
               name={"password"}

@@ -12,6 +12,7 @@
   justify-content: center;
   margin-top: 5rem;
   padding: 1rem;
+  background-color: rgb(232, 225, 217);
 }
 
 .profileBoxHeader {
@@ -43,4 +44,12 @@
 
 .saveBtn:hover {
   background-color: rgb(203, 153, 88);
+}
+.profileInput {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  width: 15rem;
+  font-weight: 500;
+  background-color: rgb(240, 243, 234);
+
+  border-radius: 1rem;
 }

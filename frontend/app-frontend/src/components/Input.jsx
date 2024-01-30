@@ -9,6 +9,7 @@ export default function Input({
   onChange,
   error,
   placeholder = "",
+  className = "",
 }) {
   return (
     <div className={classes.labelInput}>
@@ -16,7 +17,8 @@ export default function Input({
         {label}
       </label>
       <input
-        className={classes.input}
+        /* className={classes.input} */
+        className={className}
         type={type}
         name={name}
         id={id}

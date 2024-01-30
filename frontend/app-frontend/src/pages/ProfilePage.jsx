@@ -6,10 +6,15 @@ import { CgProfile } from "react-icons/cg";
 import { FaRegEdit } from "react-icons/fa";
 
 import classes from "./ProfilePage.module.css";
-import { getUserById, updatePassword } from "../services/user.service";
+import {
+  getUserById,
+  updatePassword,
+  updateUser,
+} from "../services/user.service";
 
 export default function ProfilePage() {
-  const [fullname, setFullname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
 
@@ -21,33 +26,47 @@ export default function ProfilePage() {
   const userId = currentUser ? currentUser.id : "";
 
   useEffect(() => {
-    async function getFullname() {
+    async function getUserData() {
       try {
         const currentUserResponse = await getUserById(userId);
         const currentUserData = currentUserResponse.data;
-        const fullName =
-          currentUserData.lastname + " " + currentUserData.firstname;
 
-        setFullname(fullName);
+        setFirstname(currentUserData.firstname);
+        setLastname(currentUserData.lastname);
         setUsername(currentUserData.username);
         setEmail(currentUserData.email);
       } catch (error) {
         console.error("Error while getting user", error);
       }
     }
-    getFullname();
-  });
+    getUserData();
+  }, [userId]);
 
   async function handleSave() {
     try {
-      await updatePassword(userId, {
-        currentPassword: password,
-        newPassword: newPassword,
-        confirmPassword: confirmPassword,
+      await updateUser(userId, {
+        username: username,
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
       });
-      console.log("Password changed successfully");
+
+      if (
+        newPassword &&
+        newPassword !== "" &&
+        confirmPassword &&
+        confirmPassword !== ""
+      ) {
+        await updatePassword(userId, {
+          currentPassword: password,
+          newPassword: newPassword,
+          confirmPassword: confirmPassword,
+        });
+      }
+
+      console.log("User updated successfully!");
     } catch (error) {
-      console.error("Failed to change password", error);
+      console.error("Failed to change user data", error);
     }
 
     setPassword("");
@@ -58,8 +77,11 @@ export default function ProfilePage() {
   const handleInputChange = (fieldName) => (e) => {
     const value = e.target.value;
     switch (fieldName) {
-      case "fullname":
-        setFullname(value);
+      case "firstname":
+        setFirstname(value);
+        break;
+      case "lastname":
+        setLastname(value);
         break;
       case "username":
         setUsername(value);
@@ -96,60 +118,76 @@ export default function ProfilePage() {
             <form className={classes.profileForm}>
               <div>
                 <Input
-                  label={"Fullname"}
+                  className={classes.profileInput}
+                  label={"Firstname"}
                   type={"text"}
-                  name={"profileFullname"}
-                  id={"profileFullname"}
-                  value={fullname}
-                  onChange={() => handleInputChange("fullname")}
+                  name={"profileFirstname"}
+                  id={"profileFirstname"}
+                  value={firstname}
+                  onChange={(e) => handleInputChange("firstname")(e)}
                   error={""}
                 />
                 <Input
+                  className={classes.profileInput}
+                  label={"Lastname"}
+                  type={"text"}
+                  name={"profileLastname"}
+                  id={"profileLastname"}
+                  value={lastname}
+                  onChange={(e) => handleInputChange("lastname")(e)}
+                  error={""}
+                />
+                <Input
+                  className={classes.profileInput}
                   label={"Username"}
                   type={"text"}
                   name={"profileUsername"}
                   id={"profileUsername"}
                   value={username}
-                  onChange={() => handleInputChange("profileUsername")}
+                  onChange={(e) => handleInputChange("username")(e)}
                   error={""}
                 />
                 <Input
+                  className={classes.profileInput}
                   label={"Email"}
                   type={"email"}
                   name={"profileEmail"}
                   id={"profileEmail"}
                   value={email}
-                  onChange={() => handleInputChange("profileEmail")}
+                  onChange={(e) => handleInputChange("email")(e)}
                   error={""}
                 />
               </div>
               <div>
                 <p>Change password?</p>
                 <Input
+                  className={classes.profileInput}
                   label={"Current password"}
                   type={"password"}
                   name={"currentPassword"}
                   id={"currentPassword"}
                   value={password}
-                  onChange={() => handleInputChange("currentPassword")}
+                  onChange={(e) => handleInputChange("password")(e)}
                   error={""}
                 />
                 <Input
+                  className={classes.profileInput}
                   label={"New password"}
                   type={"password"}
                   name={"newPassword"}
                   id={"newPassword"}
                   value={newPassword}
-                  onChange={() => handleInputChange("newPassword")}
+                  onChange={(e) => handleInputChange("newPassword")(e)}
                   error={""}
                 />
                 <Input
+                  className={classes.profileInput}
                   label={"Confirm new password"}
                   type={"password"}
                   name={"confirmPassword"}
                   id={"confirmPassword"}
                   value={confirmPassword}
-                  onChange={() => handleInputChange("confirmPassword")}
+                  onChange={(e) => handleInputChange("confirmPassword")(e)}
                   error={""}
                 />
               </div>

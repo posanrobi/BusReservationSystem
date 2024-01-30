@@ -85,3 +85,14 @@ export async function updatePassword(userId, passwordData) {
     throw new Error("Could not update password");
   }
 }
+
+// update user (firstname, lastname, username, email)
+export async function updateUser(userId, userData) {
+  try {
+    return await axios.put(API_URL + "users/" + userId, userData, {
+      headers: authHeader(),
+    });
+  } catch (error) {
+    throw new Error("Could not update user");
+  }
+}

@@ -38,12 +38,20 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
-    @PutMapping("/{userId}")
+   /* @PutMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User user) {
         user.setId(userId);
         User updatedUser = userService.saveUser(user);
         return ResponseEntity.ok(updatedUser);
+    }*/
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User user) {
+        user.setId(userId);
+        userService.updateUser(userId, user);
+        return ResponseEntity.ok(user);
     }
+
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {

@@ -91,6 +91,7 @@ export default function Login({ closeLoginModal }) {
         ) : (
           <form onSubmit={handleSubmit}>
             <Input
+              className={classes.input}
               label={"Username"}
               type={"text"}
               name={"username"}
@@ -100,6 +101,7 @@ export default function Login({ closeLoginModal }) {
               error={errors.username}
             />
             <Input
+              className={classes.input}
               label={"Password"}
               type={"password"}
               name={"password"}

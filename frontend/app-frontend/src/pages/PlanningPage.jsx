@@ -7,12 +7,12 @@ import {
   getUserById,
 } from "../services/user.service";
 import { useState, useEffect } from "react";
+import { getCurrentUser } from "../services/auth.service";
+import { createReservation } from "../services/user.service";
 import { TbTrash } from "react-icons/tb";
 
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
-import { getCurrentUser } from "../services/auth.service";
-import { createReservation } from "../services/user.service";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);

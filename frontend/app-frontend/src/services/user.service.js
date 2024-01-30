@@ -72,3 +72,16 @@ export async function getUserById(userId) {
     throw new Error("Can not find user by id");
   }
 }
+
+// update password
+export async function updatePassword(userId, passwordData) {
+  try {
+    return await axios.put(
+      API_URL + "users/" + userId + "/update-password",
+      passwordData,
+      { headers: authHeader() }
+    );
+  } catch (error) {
+    throw new Error("Could not update password");
+  }
+}

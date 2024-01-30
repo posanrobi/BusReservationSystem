@@ -1,8 +1,11 @@
 package com.thesispr.BusReservationSystem.service;
 
+import com.thesispr.BusReservationSystem.UpdatePasswordRequest;
 import com.thesispr.BusReservationSystem.model.User;
 import com.thesispr.BusReservationSystem.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +13,19 @@ import java.util.List;
 @Service
 public class UserService {
 
+    //@Autowired
+    private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    /*public UserService() {
+    }*/
+
     @Autowired
-    private UserRepository userRepository;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -27,6 +41,22 @@ public class UserService {
 
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    public void updatePassword(Long userId, UpdatePasswordRequest updatePasswordRequest) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        if (!passwordEncoder.matches(updatePasswordRequest.getCurrentPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Current password is incorrect");
+        }
+
+        if (!updatePasswordRequest.getNewPassword().equals(updatePasswordRequest.getConfirmPassword())) {
+            throw new IllegalArgumentException("New password and confirmation do not match");
+        }
+
+        user.setPassword(passwordEncoder.encode(updatePasswordRequest.getNewPassword()));
+        userRepository.save(user);
     }
 }
 

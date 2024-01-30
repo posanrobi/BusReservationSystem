@@ -33,7 +33,7 @@
 }
 
 .addNew:hover {
-  background-color: rgba(62, 62, 146, 0.677);
+  background-color: rgba(86, 106, 147, 0.677);
 }
 
 .addNew p {
@@ -41,7 +41,7 @@
 }
 
 .resBox {
-  background-color: rgb(121, 154, 207);
+  background-color: #748abc;
   width: 60rem;
   height: 36rem;
   border-radius: 1rem;
@@ -64,13 +64,13 @@
   height: fit-content;
   width: 11rem;
   list-style-type: none;
-  background-color: rgb(43, 82, 158);
+  background-color: #4c63a3;
   padding: 0.5rem 1.5rem;
   border-radius: 1rem;
   margin: 0.5rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-  color: white;
+  color: black;
 }
 
 .resDataList li {

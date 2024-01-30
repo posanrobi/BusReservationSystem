@@ -1,5 +1,6 @@
 package com.thesispr.BusReservationSystem.controller;
 
+import com.thesispr.BusReservationSystem.UpdatePasswordRequest;
 import com.thesispr.BusReservationSystem.model.User;
 import com.thesispr.BusReservationSystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,19 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{userId}/update-password")
+    public ResponseEntity<?> updatePassword(
+            @PathVariable Long userId,
+            @RequestBody UpdatePasswordRequest updatePasswordRequest) {
+
+        try {
+            userService.updatePassword(userId, updatePasswordRequest);
+            return ResponseEntity.ok("Password updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to update password");
+        }
     }
 
 }

@@ -22,6 +22,8 @@ export default function ProfilePage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [errors, setErrors] = useState({});
+
   const currentUser = getCurrentUser();
   const userId = currentUser ? currentUser.id : "";
 
@@ -66,7 +68,12 @@ export default function ProfilePage() {
 
       console.log("User updated successfully!");
     } catch (error) {
-      console.error("Failed to change user data", error);
+      if (error.message) {
+        console.log(error.message);
+        setErrors({ ...errors, message: error.message });
+      } else {
+        console.log("Could not update password");
+      }
     }
 
     setPassword("");
@@ -169,6 +176,7 @@ export default function ProfilePage() {
                   value={password}
                   onChange={(e) => handleInputChange("password")(e)}
                   error={""}
+                  placeholder={"Enter your current password"}
                 />
                 <Input
                   className={classes.profileInput}
@@ -179,6 +187,7 @@ export default function ProfilePage() {
                   value={newPassword}
                   onChange={(e) => handleInputChange("newPassword")(e)}
                   error={""}
+                  placeholder={"Enter your new password"}
                 />
                 <Input
                   className={classes.profileInput}
@@ -188,7 +197,8 @@ export default function ProfilePage() {
                   id={"confirmPassword"}
                   value={confirmPassword}
                   onChange={(e) => handleInputChange("confirmPassword")(e)}
-                  error={""}
+                  error={errors.message}
+                  placeholder={"Confirm your new password"}
                 />
               </div>
             </form>

@@ -52,7 +52,6 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
@@ -64,11 +63,19 @@ public class UserController {
             @PathVariable Long userId,
             @RequestBody UpdatePasswordRequest updatePasswordRequest) {
 
-        try {
+        /*try {
             userService.updatePassword(userId, updatePasswordRequest);
             return ResponseEntity.ok("Password updated successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to update password");
+        }*/
+        try {
+            userService.updatePassword(userId, updatePasswordRequest);
+            return ResponseEntity.ok("Password updated successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update password");
         }
     }
 

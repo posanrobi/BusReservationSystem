@@ -74,7 +74,7 @@ export async function getUserById(userId) {
 }
 
 // update password
-export async function updatePassword(userId, passwordData) {
+/* export async function updatePassword(userId, passwordData) {
   try {
     return await axios.put(
       API_URL + "users/" + userId + "/update-password",
@@ -83,6 +83,23 @@ export async function updatePassword(userId, passwordData) {
     );
   } catch (error) {
     throw new Error("Could not update password");
+  }
+} */
+
+// update password
+export async function updatePassword(userId, passwordData) {
+  try {
+    return await axios.put(
+      API_URL + "users/" + userId + "/update-password",
+      passwordData,
+      { headers: authHeader() }
+    );
+  } catch (error) {
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data);
+    } else {
+      throw new Error("Could not update password");
+    }
   }
 }
 

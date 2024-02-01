@@ -10,6 +10,7 @@ export default function Input({
   error,
   placeholder = "",
   className = "",
+  disabled = false,
 }) {
   return (
     <div className={classes.labelInput}>
@@ -17,7 +18,6 @@ export default function Input({
         {label}
       </label>
       <input
-        /* className={classes.input} */
         className={className}
         type={type}
         name={name}
@@ -25,6 +25,7 @@ export default function Input({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        disabled={disabled}
       />
       {error && <div className={classes.error}>{error}</div>}
     </div>

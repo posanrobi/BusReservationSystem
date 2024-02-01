@@ -36,6 +36,8 @@ export default function ProfilePage() {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  const [isEditing, setIsEditing] = useState(false);
+
   useEffect(() => {
     async function getUserData() {
       try {
@@ -168,16 +170,15 @@ export default function ProfilePage() {
               "Could not update user. Server response:",
               error.response.data
             );
-            setErrors({ ...errors, userDataMessage: error.response.data });
+            setErrors({ ...errors, userDataMessage: error.response.data }); //WORKS
           }
         } else {
           console.error("Could not update user. No response data received.");
         }
       } else if (error.message) {
-        // The request was made but no response was received
         console.error("Could not update user. Error message:", error.message);
+        setErrors({ ...errors, message: error.message });
       } else {
-        // Something happened in setting up the request
         console.error("Could not update user. Error:", error);
       }
       //------------------
@@ -279,9 +280,9 @@ export default function ProfilePage() {
     }
   };
 
-  function handleEditClick() {
-    setHasChanges(false);
-  }
+  const handleEditClick = () => {
+    setIsEditing(!isEditing);
+  };
 
   return (
     <>
@@ -306,6 +307,7 @@ export default function ProfilePage() {
                   value={firstname}
                   onChange={(e) => handleInputChange("firstname")(e)}
                   error={""}
+                  disabled={!isEditing}
                 />
                 <Input
                   className={classes.profileInput}
@@ -316,6 +318,7 @@ export default function ProfilePage() {
                   value={lastname}
                   onChange={(e) => handleInputChange("lastname")(e)}
                   error={""}
+                  disabled={!isEditing}
                 />
                 <Input
                   className={classes.profileInput}
@@ -326,6 +329,7 @@ export default function ProfilePage() {
                   value={username}
                   onChange={(e) => handleInputChange("username")(e)}
                   error={""}
+                  disabled={!isEditing}
                 />
                 <Input
                   className={classes.profileInput}
@@ -336,6 +340,7 @@ export default function ProfilePage() {
                   value={email}
                   onChange={(e) => handleInputChange("email")(e)}
                   error={errors.userDataMessage}
+                  disabled={!isEditing}
                 />
               </div>
               <div>
@@ -350,6 +355,7 @@ export default function ProfilePage() {
                   onChange={(e) => handleInputChange("password")(e)}
                   error={""}
                   placeholder={"Enter your current password"}
+                  disabled={!isEditing}
                 />
                 <Input
                   className={classes.profileInput}
@@ -361,6 +367,7 @@ export default function ProfilePage() {
                   onChange={(e) => handleInputChange("newPassword")(e)}
                   error={""}
                   placeholder={"Enter your new password"}
+                  disabled={!isEditing}
                 />
                 <Input
                   className={classes.profileInput}
@@ -372,6 +379,7 @@ export default function ProfilePage() {
                   onChange={(e) => handleInputChange("confirmPassword")(e)}
                   error={`${errors.message ? errors.message : ""}`}
                   placeholder={"Confirm your new password"}
+                  disabled={!isEditing}
                 />
               </div>
             </form>

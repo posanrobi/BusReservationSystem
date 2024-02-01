@@ -168,6 +168,7 @@ export default function ProfilePage() {
               "Could not update user. Server response:",
               error.response.data
             );
+            setErrors({ ...errors, userDataMessage: error.response.data });
           }
         } else {
           console.error("Could not update user. No response data received.");

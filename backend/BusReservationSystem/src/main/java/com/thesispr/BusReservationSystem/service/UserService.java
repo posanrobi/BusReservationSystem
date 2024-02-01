@@ -43,6 +43,27 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    /*public void updateUser(Long userId, User updatedUserData) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        user.setUsername(updatedUserData.getUsername());
+        user.setFirstname(updatedUserData.getFirstname());
+        user.setLastname(updatedUserData.getLastname());
+        user.setEmail(updatedUserData.getEmail());
+
+        //if (updatedUserData.getPassword() != null && !updatedUserData.getPassword().isEmpty()) {
+         //   user.setPassword(passwordEncoder.encode(updatedUserData.getPassword()));
+        //}
+
+        if (updatedUserData.getPassword() != null && !updatedUserData.getPassword().trim().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(updatedUserData.getPassword()));
+        }
+
+
+        userRepository.save(user);
+    }*/
+
     public void updateUser(Long userId, User updatedUserData) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
@@ -52,17 +73,13 @@ public class UserService {
         user.setLastname(updatedUserData.getLastname());
         user.setEmail(updatedUserData.getEmail());
 
-        /*if (updatedUserData.getPassword() != null && !updatedUserData.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(updatedUserData.getPassword()));
-        }*/
-
         if (updatedUserData.getPassword() != null && !updatedUserData.getPassword().trim().isEmpty()) {
             user.setPassword(passwordEncoder.encode(updatedUserData.getPassword()));
         }
 
-
         userRepository.save(user);
     }
+
 
     public void updatePassword(Long userId, UpdatePasswordRequest updatePasswordRequest) {
         User user = userRepository.findById(userId)

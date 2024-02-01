@@ -34,6 +34,8 @@ export default function ProfilePage() {
   const currentUser = getCurrentUser();
   const userId = currentUser ? currentUser.id : "";
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   useEffect(() => {
     async function getUserData() {
       try {
@@ -87,14 +89,14 @@ export default function ProfilePage() {
   async function handleSave() {
     try {
       setErrors({
-        noFieldMessage: "",
+        userDataMessage: "",
         message: "",
       });
 
       if (noUSerData) {
         setErrors({
           ...errors,
-          noFieldMessage: "Please fill in all required fields.",
+          userDataMessage: "Please fill in all required fields.",
         });
         return;
       }
@@ -102,6 +104,14 @@ export default function ProfilePage() {
         setErrors({
           ...errors,
           message: "Please fill in all required fields.",
+        });
+        return;
+      }
+
+      if (!emailRegex.test(email)) {
+        setErrors({
+          ...errors,
+          userDataMessage: "Invalid email format.",
         });
         return;
       }
@@ -154,7 +164,7 @@ export default function ProfilePage() {
 
   /* const handleInputChange = (fieldName) => (e) => {
     setErrors({
-      noFieldMessage: "",
+      userDataMessage: "",
       message: "",
     });
 
@@ -195,7 +205,7 @@ export default function ProfilePage() {
 
   const handleInputChange = (fieldName) => (e) => {
     setErrors({
-      noFieldMessage: "",
+      userDataMessage: "",
       message: "",
     });
 
@@ -295,7 +305,7 @@ export default function ProfilePage() {
                   id={"profileEmail"}
                   value={email}
                   onChange={(e) => handleInputChange("email")(e)}
-                  error={errors.noFieldMessage}
+                  error={errors.userDataMessage}
                 />
               </div>
               <div>

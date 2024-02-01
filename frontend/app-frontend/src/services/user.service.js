@@ -104,12 +104,23 @@ export async function updatePassword(userId, passwordData) {
 }
 
 // update user (firstname, lastname, username, email)
-export async function updateUser(userId, userData) {
+/* export async function updateUser(userId, userData) {
   try {
     return await axios.put(API_URL + "users/" + userId, userData, {
       headers: authHeader(),
     });
   } catch (error) {
     throw new Error("Could not update user");
+  }
+} */
+
+export async function updateUser(userId, userData) {
+  try {
+    return await axios.put(API_URL + "users/" + userId, userData, {
+      headers: authHeader(),
+    });
+  } catch (error) {
+    console.error("Error in updateUser:", error);
+    throw error; // Rethrow the error to keep the original behavior
   }
 }

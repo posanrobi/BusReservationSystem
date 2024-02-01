@@ -5,6 +5,7 @@ import com.thesispr.BusReservationSystem.model.User;
 import com.thesispr.BusReservationSystem.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,21 +53,29 @@ public class UserService {
         user.setLastname(updatedUserData.getLastname());
         user.setEmail(updatedUserData.getEmail());
 
-        //if (updatedUserData.getPassword() != null && !updatedUserData.getPassword().isEmpty()) {
-         //   user.setPassword(passwordEncoder.encode(updatedUserData.getPassword()));
-        //}
-
         if (updatedUserData.getPassword() != null && !updatedUserData.getPassword().trim().isEmpty()) {
             user.setPassword(passwordEncoder.encode(updatedUserData.getPassword()));
         }
 
-
         userRepository.save(user);
     }*/
 
+    //ADDED
     public void updateUser(Long userId, User updatedUserData) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        // Check if the new username is already taken
+        if (!user.getUsername().equals(updatedUserData.getUsername()) &&
+                userRepository.existsByUsername(updatedUserData.getUsername())) {
+            throw new DuplicateKeyException("Username is already taken");
+        }
+
+        // Check if the new email is already taken
+        if (!user.getEmail().equals(updatedUserData.getEmail()) &&
+                userRepository.existsByEmail(updatedUserData.getEmail())) {
+            throw new DuplicateKeyException("Email is already taken");
+        }
 
         user.setUsername(updatedUserData.getUsername());
         user.setFirstname(updatedUserData.getFirstname());
@@ -79,6 +88,7 @@ public class UserService {
 
         userRepository.save(user);
     }
+
 
 
     public void updatePassword(Long userId, UpdatePasswordRequest updatePasswordRequest) {

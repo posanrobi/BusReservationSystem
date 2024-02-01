@@ -143,17 +143,46 @@ export default function ProfilePage() {
 
       console.log("User updated successfully!");
     } catch (error) {
-      if (error.message) {
-        setErrors({ ...errors, message: error.message });
+      // if (error.message) {
+      //  setErrors({ ...errors, message: error.message });
+      //} else {
+      //  console.error("Could not update password");
+      //}
+
+      //-------------
+      if (error.response) {
+        if (error.response.data) {
+          if (error.response.data.message) {
+            const errorMessage = error.response.data.message;
+
+            if (
+              errorMessage === "Username is already taken" ||
+              errorMessage === "Email is already taken"
+            ) {
+              setErrors({ ...errors, userDataMessage: errorMessage });
+            } else {
+              setErrors({ ...errors, message: errorMessage });
+            }
+          } else {
+            console.error(
+              "Could not update user. Server response:",
+              error.response.data
+            );
+          }
+        } else {
+          console.error("Could not update user. No response data received.");
+        }
+      } else if (error.message) {
+        // The request was made but no response was received
+        console.error("Could not update user. Error message:", error.message);
       } else {
-        console.error("Could not update password");
+        // Something happened in setting up the request
+        console.error("Could not update user. Error:", error);
       }
+      //------------------
     }
 
     setHasChanges(false);
-    /* setPassword("");
-    setNewPassword("");
-    setConfirmPassword(""); */
   }
 
   useEffect(() => {

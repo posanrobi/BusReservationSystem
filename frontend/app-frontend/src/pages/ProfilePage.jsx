@@ -145,43 +145,18 @@ export default function ProfilePage() {
 
       console.log("User updated successfully!");
     } catch (error) {
-      // if (error.message) {
-      //  setErrors({ ...errors, message: error.message });
-      //} else {
-      //  console.error("Could not update password");
-      //}
-
-      //-------------
       if (error.response) {
-        if (error.response.data) {
-          if (error.response.data.message) {
-            const errorMessage = error.response.data.message;
-
-            if (
-              errorMessage === "Username is already taken" ||
-              errorMessage === "Email is already taken"
-            ) {
-              setErrors({ ...errors, userDataMessage: errorMessage });
-            } else {
-              setErrors({ ...errors, message: errorMessage });
-            }
-          } else {
-            console.error(
-              "Could not update user. Server response:",
-              error.response.data
-            );
-            setErrors({ ...errors, userDataMessage: error.response.data }); //WORKS
-          }
-        } else {
-          console.error("Could not update user. No response data received.");
-        }
+        console.error(
+          "Could not update user. Server response:",
+          error.response.data
+        );
+        setErrors({ ...errors, userDataMessage: error.response.data });
       } else if (error.message) {
         console.error("Could not update user. Error message:", error.message);
         setErrors({ ...errors, message: error.message });
       } else {
         console.error("Could not update user. Error:", error);
       }
-      //------------------
     }
 
     setHasChanges(false);
@@ -193,47 +168,6 @@ export default function ProfilePage() {
     setConfirmPassword("");
   }, [isModalOpen]);
 
-  /* const handleInputChange = (fieldName) => (e) => {
-    setErrors({
-      userDataMessage: "",
-      message: "",
-    });
-
-    const value = e.target.value;
-    switch (fieldName) {
-      case "firstname":
-        setFirstname(value);
-        //setHasChanges(true);
-        break;
-      case "lastname":
-        setLastname(value);
-        //setHasChanges(true);
-        break;
-      case "username":
-        setUsername(value);
-        //setHasChanges(true);
-        break;
-      case "email":
-        setEmail(value);
-        //setHasChanges(true);
-        break;
-      case "password":
-        setPassword(value);
-        //setHasChanges(true);
-        break;
-      case "newPassword":
-        setNewPassword(value);
-        //setHasChanges(true);
-        break;
-      case "confirmPassword":
-        setConfirmPassword(value);
-        //setHasChanges(true);
-        break;
-      default:
-        break;
-    }
-  }; */
-
   const handleInputChange = (fieldName) => (e) => {
     setErrors({
       userDataMessage: "",
@@ -241,8 +175,6 @@ export default function ProfilePage() {
     });
 
     const value = e.target.value;
-
-    // Check if the new value is different from the original data
     const isValueChanged = originalData[fieldName] !== value;
 
     switch (fieldName) {
@@ -264,7 +196,6 @@ export default function ProfilePage() {
         break;
       case "password":
         setPassword(value);
-        // For the password field, always set hasChanges to true
         setHasChanges(true);
         break;
       case "newPassword":

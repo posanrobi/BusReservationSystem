@@ -298,7 +298,6 @@ export default function PlanningPage() {
       };
 
       const response = await createReservation(reservationData);
-      console.log(response.data);
 
       setTimeout(() => {
         closeConfirm();

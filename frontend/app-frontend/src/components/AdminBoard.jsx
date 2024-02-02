@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { getAllUsers } from "../services/user.service";
 
+import classes from "./AdminBoard.module.css";
+
 export default function AdminBoard() {
   const [users, setUsers] = useState([]);
 
@@ -23,9 +25,9 @@ export default function AdminBoard() {
   );
 
   return (
-    <div>
+    <div className={classes.adminContainer}>
       <h2>User list</h2>
-      <table>
+      <table className={classes.table}>
         <thead>
           <tr>
             <th>Id</th>

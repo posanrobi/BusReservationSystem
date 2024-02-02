@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   background-color: rgba(233, 222, 209, 0.701);
 
-  height: 90vh;
+  height: 89vh;
 }
 
 .table {
@@ -19,6 +19,9 @@
 .scrollDiv {
   height: 15rem;
   overflow-y: scroll;
+  border-radius: 0.5rem;
+
+  background-color: white;
 }
 
 .userTableStat {
@@ -55,4 +58,8 @@
 .deleteIcon:hover {
   color: rgb(242, 108, 108);
   color: red;
+}
+
+.tableTitle {
+  margin-bottom: 0.5rem;
 }

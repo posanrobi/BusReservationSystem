@@ -36,7 +36,7 @@ export default function StatisticsTable() {
     <table className={classes.table}>
       <thead className={classes.tableHeader}>
         <tr>
-          <th>System statistics</th>
+          <th>Summary statistics</th>
           <th></th>
         </tr>
       </thead>

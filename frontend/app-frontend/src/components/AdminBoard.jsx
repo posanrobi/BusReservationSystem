@@ -7,14 +7,21 @@ import classes from "./AdminBoard.module.css";
 export default function AdminBoard() {
   return (
     <div className={classes.adminContainer}>
-      <h2>User details</h2>
       <div className={classes.userTableStat}>
-        <UserTable />
-        <StatisticsTable />
+        <div>
+          <h3 className={classes.tableTitle}>User details</h3>
+          <UserTable />
+        </div>
+        <div>
+          <h3 className={classes.tableTitle}>System details</h3>
+          <StatisticsTable />
+        </div>
       </div>
-      <h2>Reservation details</h2>
-      <div className={classes.scrollDiv}>
-        <ReservationsTable />
+      <div>
+        <h3 className={classes.tableTitle}>Reservation details</h3>
+        <div className={classes.scrollDiv}>
+          <ReservationsTable />
+        </div>
       </div>
     </div>
   );

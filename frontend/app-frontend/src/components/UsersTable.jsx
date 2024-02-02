@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getAllUsers } from "../services/user.service";
+import { MdDelete } from "react-icons/md";
 
 import classes from "./AdminBoard.module.css";
 
@@ -44,7 +45,7 @@ export default function UserTable() {
             <td>{user.username}</td>
             <td>{user.email}</td>
             <td>
-              <button className={classes.deleteBtn}>Delete</button>
+              <MdDelete className={classes.deleteIcon} />
             </td>
           </tr>
         ))}

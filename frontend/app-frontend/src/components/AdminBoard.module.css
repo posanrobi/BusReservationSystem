@@ -3,10 +3,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: rgba(233, 222, 209, 0.701);
+
+  height: 90vh;
 }
 
 .table {
   border-collapse: collapse;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+/* TEMPORARY */
+.scrollDiv {
+  height: 15rem;
+  overflow-y: scroll;
 }
 
 .userTableStat {
@@ -14,16 +26,9 @@
   gap: 5rem;
 }
 
-.table tr
-/* .table td */ {
-  border: 1px solid black;
-}
-
 .table th {
-  /*  border: 2px solid black; */
   background-color: rgb(60, 57, 57);
   color: white;
-  text-transform: capitalize;
   text-align: left;
   padding: 1rem;
 }
@@ -37,13 +42,17 @@
   background-color: #f2f2f2;
 }
 
-.deleteBtn {
-  background-color: red;
-  padding: 0.5rem 1.2rem;
-  border-radius: 0.5rem;
+.tableBody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.deleteIcon {
+  padding-left: 2rem;
+  font-size: 1.3rem;
   cursor: pointer;
 }
 
-.deleteBtn:hover {
-  background-color: rgb(242, 108, 108);
+.deleteIcon:hover {
+  color: rgb(242, 108, 108);
+  color: red;
 }

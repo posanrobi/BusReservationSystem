@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { getAllReservations } from "../services/user.service";
+import {
+  deleteReservation,
+  getAllReservations,
+} from "../services/user.service";
+import { MdDelete } from "react-icons/md";
 
 import classes from "./AdminBoard.module.css";
 
@@ -19,6 +23,18 @@ export default function ReservationsTable() {
     fetchData();
   }, []);
 
+  const handleDelete = async (resId) => {
+    try {
+      await deleteReservation(resId);
+
+      setReservations((prevReservations) =>
+        prevReservations.filter((res) => res.id !== resId)
+      );
+    } catch (error) {
+      console.error("Error deleting reservation", error);
+    }
+  };
+
   return (
     <table className={classes.table}>
       <thead className={classes.tableHeader}>
@@ -27,7 +43,7 @@ export default function ReservationsTable() {
           <th>Bus line</th>
           <th>Date</th>
           <th>Time</th>
-          <th>Rserved seats</th>
+          <th>Seat(s)</th>
           <th>Price</th>
           <th>Full name</th>
           <th>Username</th>
@@ -46,7 +62,10 @@ export default function ReservationsTable() {
             <td>{res.user}</td>
             <td>{res.username}</td>
             <td>
-              <button className={classes.deleteBtn}>Delete</button>
+              <MdDelete
+                className={classes.deleteIcon}
+                onClick={() => handleDelete(res.id)}
+              />
             </td>
           </tr>
         ))}

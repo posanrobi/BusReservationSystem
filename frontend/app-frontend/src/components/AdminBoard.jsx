@@ -13,7 +13,9 @@ export default function AdminBoard() {
         <StatisticsTable />
       </div>
       <h2>Reservation details</h2>
-      <ReservationsTable />
+      <div className={classes.scrollDiv}>
+        <ReservationsTable />
+      </div>
     </div>
   );
 }

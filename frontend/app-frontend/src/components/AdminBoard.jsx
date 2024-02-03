@@ -10,7 +10,9 @@ export default function AdminBoard() {
       <div className={classes.userTableStat}>
         <div>
           <h3 className={classes.tableTitle}>User details</h3>
-          <UserTable />
+          <div className={classes.scrollDiv}>
+            <UserTable />
+          </div>
         </div>
         <div>
           <h3 className={classes.tableTitle}>System details</h3>

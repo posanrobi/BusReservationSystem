@@ -9,6 +9,7 @@ import classes from "./AdminBoard.module.css";
 
 export default function ReservationsTable() {
   const [reservations, setReservations] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -17,6 +18,8 @@ export default function ReservationsTable() {
         setReservations(response.data);
       } catch (error) {
         console.error("Error while fetching reservations", error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -51,24 +54,30 @@ export default function ReservationsTable() {
         </tr>
       </thead>
       <tbody className={classes.tableBody}>
-        {reservations.map((res) => (
-          <tr key={res.id}>
-            <td>{res.id}</td>
-            <td>{res.bus_line}</td>
-            <td>{res.reservation_date}</td>
-            <td>{res.reservation_time.split(":").slice(0, 2).join(":")}</td>
-            <td>{res.seat_number}</td>
-            <td>{res.price} Ft</td>
-            <td>{res.user}</td>
-            <td>{res.username}</td>
-            <td>
-              <MdDelete
-                className={classes.deleteIcon}
-                onClick={() => handleDelete(res.id)}
-              />
-            </td>
+        {loading ? (
+          <tr>
+            <td colSpan="9">Loading reservations...</td>
           </tr>
-        ))}
+        ) : (
+          reservations.map((res) => (
+            <tr key={res.id}>
+              <td>{res.id}</td>
+              <td>{res.bus_line}</td>
+              <td>{res.reservation_date}</td>
+              <td>{res.reservation_time.split(":").slice(0, 2).join(":")}</td>
+              <td>{res.seat_number}</td>
+              <td>{res.price} Ft</td>
+              <td>{res.user}</td>
+              <td>{res.username}</td>
+              <td>
+                <MdDelete
+                  className={classes.deleteIcon}
+                  onClick={() => handleDelete(res.id)}
+                />
+              </td>
+            </tr>
+          ))
+        )}
       </tbody>
     </table>
   );

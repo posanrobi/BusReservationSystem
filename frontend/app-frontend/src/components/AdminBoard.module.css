@@ -15,9 +15,8 @@
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-/* TEMPORARY */
 .scrollDiv {
-  max-height: 16rem;
+  max-height: 16.5rem;
   overflow-y: auto;
   border-radius: 0.5rem;
 
@@ -46,11 +45,12 @@
 .scrollDiv::-webkit-scrollbar-button {
   display: none;
 }
-/*SCROLLBAR*/
 
 .userTableStat {
   display: flex;
   gap: 5rem;
+  width: 100%;
+  justify-content: center;
 }
 
 .table th {

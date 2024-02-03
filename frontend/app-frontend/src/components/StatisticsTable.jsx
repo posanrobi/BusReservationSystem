@@ -23,10 +23,15 @@ export default function StatisticsTable() {
     fetchData();
   }, []);
 
+  const onlyUsers = users.filter((user) =>
+    user.roles.some((role) => role.roleName === "ROLE_USER")
+  );
+
   const totalReservedSeats = reservations.reduce(
     (total, reservation) => total + reservation.seat_number,
     0
   );
+
   const totalReservationPrices = reservations.reduce(
     (total, reservation) => total + reservation.price,
     0
@@ -43,7 +48,7 @@ export default function StatisticsTable() {
       <tbody className={classes.tableBody}>
         <tr>
           <td>Number of users</td>
-          <td>{users.length}</td>
+          <td>{onlyUsers.length}</td>
         </tr>
         <tr>
           <td>Number of reservations</td>

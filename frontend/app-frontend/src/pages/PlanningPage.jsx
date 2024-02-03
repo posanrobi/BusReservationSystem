@@ -29,6 +29,8 @@ export default function PlanningPage() {
 
   const [alreadyReserved, setAlreadyReserved] = useState({});
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [selectedData, setSelectedData] = useState({
     startingCity: "",
     destinationCity: "",

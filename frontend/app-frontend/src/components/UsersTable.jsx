@@ -6,6 +6,7 @@ import classes from "./AdminBoard.module.css";
 
 export default function UserTable() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -14,6 +15,8 @@ export default function UserTable() {
         setUsers(response.data);
       } catch (error) {
         console.error("Error while fetching users", error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -37,6 +40,11 @@ export default function UserTable() {
         </tr>
       </thead>
       <tbody className={classes.tableBody}>
+        {loading && (
+          <tr>
+            <td colSpan="6">Loading users...</td>
+          </tr>
+        )}
         {onlyUsers.map((user) => (
           <tr key={user.id}>
             <td>{user.id}</td>

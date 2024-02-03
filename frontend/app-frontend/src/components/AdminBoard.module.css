@@ -22,7 +22,31 @@
   border-radius: 0.5rem;
 
   background-color: white;
+
+  scrollbar-color: #6969dd #e0e0e0;
+  scrollbar-width: thin;
+  transition: scrollbar-color 0.3s ease-out;
 }
+
+/*SCROLLBAR*/
+.scrollDiv::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollDiv::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 5px;
+}
+
+.scrollDiv::-webkit-scrollbar-track {
+  background-color: #ddd;
+  border: 1px solid #ccc;
+}
+
+.scrollDiv::-webkit-scrollbar-button {
+  display: none;
+}
+/*SCROLLBAR*/
 
 .userTableStat {
   display: flex;

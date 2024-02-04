@@ -4,7 +4,12 @@ import { MdDelete } from "react-icons/md";
 
 import classes from "./AdminBoard.module.css";
 
-const UserTable = ({ users, setUsers, reservations, setReservations }) => {
+export default function UserTable({
+  users,
+  setUsers,
+  reservations,
+  setReservations,
+}) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -75,6 +80,4 @@ const UserTable = ({ users, setUsers, reservations, setReservations }) => {
       </tbody>
     </table>
   );
-};
-
-export default UserTable;
+}

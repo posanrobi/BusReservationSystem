@@ -21,7 +21,7 @@ export default function StatisticsTable() {
     }
 
     fetchData();
-  }, []);
+  }, [users, reservations]);
 
   const onlyUsers = users.filter((user) =>
     user.roles.some((role) => role.roleName === "ROLE_USER")

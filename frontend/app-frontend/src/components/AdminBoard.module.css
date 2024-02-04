@@ -80,11 +80,11 @@
   padding-left: 2rem;
   font-size: 1.3rem;
   cursor: pointer;
+  color: red;
 }
 
 .deleteIcon:hover {
   color: rgb(242, 108, 108);
-  color: red;
 }
 
 .tableTitle {

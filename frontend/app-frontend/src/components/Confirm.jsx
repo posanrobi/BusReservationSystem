@@ -38,7 +38,7 @@ export default function Confirm({
             {selectedData.startingCity}
           </li>
           <li>
-            <span className={classes.confirmItem}>Destination: </span>
+            <span className={classes.confirmItem}>Destination city: </span>
             {selectedData.destinationCity}
           </li>
           <li>

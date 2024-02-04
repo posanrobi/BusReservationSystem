@@ -7,8 +7,7 @@ import { MdDelete } from "react-icons/md";
 
 import classes from "./AdminBoard.module.css";
 
-export default function ReservationsTable() {
-  const [reservations, setReservations] = useState([]);
+const ReservationsTable = ({ reservations, setReservations }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -53,6 +52,7 @@ export default function ReservationsTable() {
           <th></th>
         </tr>
       </thead>
+
       <tbody className={classes.tableBody}>
         {loading ? (
           <tr>
@@ -81,4 +81,6 @@ export default function ReservationsTable() {
       </tbody>
     </table>
   );
-}
+};
+
+export default ReservationsTable;

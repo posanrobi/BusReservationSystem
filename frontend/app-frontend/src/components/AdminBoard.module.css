@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: start;
   background-color: rgba(233, 222, 209, 0.701);
-
   height: 89vh;
 }
 
@@ -15,11 +14,16 @@
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+/*-----------------------*/
+/* .tableHeader {
+  position: sticky;
+} */
+/*-----------------------*/
+
 .scrollDiv {
   max-height: 16.5rem;
   overflow-y: auto;
   border-radius: 0.5rem;
-
   background-color: white;
 
   scrollbar-color: #6969dd #e0e0e0;
@@ -27,7 +31,6 @@
   transition: scrollbar-color 0.3s ease-out;
 }
 
-/*SCROLLBAR*/
 .scrollDiv::-webkit-scrollbar {
   width: 10px;
 }
@@ -42,7 +45,7 @@
   border: 1px solid #ccc;
 }
 
-.scrollDiv::-webkit-scrollbar-button {
+.tableBody::-webkit-scrollbar-button {
   display: none;
 }
 

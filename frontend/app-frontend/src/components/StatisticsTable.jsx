@@ -1,41 +1,30 @@
 import { useState, useEffect } from "react";
-import { getAllUsers, getAllReservations } from "../services/user.service";
 
 import classes from "./AdminBoard.module.css";
 
-export default function StatisticsTable() {
-  const [users, setUsers] = useState([]);
-  const [reservations, setReservations] = useState([]);
+export default function StatisticsTable({ users, reservations }) {
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalReservations, setTotalReservations] = useState(0);
+  const [totalReservedSeats, setTotalReservedSeats] = useState(0);
+  const [totalReservationPrices, setTotalReservationPrices] = useState(0);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const usersResponse = await getAllUsers();
-        setUsers(usersResponse.data);
+    const calculatedTotalUsers = users.length;
+    const calculatedTotalReservations = reservations.length;
+    const calculatedTotalReservedSeats = reservations.reduce(
+      (total, reservation) => total + reservation.seat_number,
+      0
+    );
+    const calculatedTotalReservationPrices = reservations.reduce(
+      (total, reservation) => total + reservation.price,
+      0
+    );
 
-        const reservationsResponse = await getAllReservations();
-        setReservations(reservationsResponse.data);
-      } catch (error) {
-        console.error("Error while fetching data", error);
-      }
-    }
-
-    fetchData();
+    setTotalUsers(calculatedTotalUsers);
+    setTotalReservations(calculatedTotalReservations);
+    setTotalReservedSeats(calculatedTotalReservedSeats);
+    setTotalReservationPrices(calculatedTotalReservationPrices);
   }, [users, reservations]);
-
-  const onlyUsers = users.filter((user) =>
-    user.roles.some((role) => role.roleName === "ROLE_USER")
-  );
-
-  const totalReservedSeats = reservations.reduce(
-    (total, reservation) => total + reservation.seat_number,
-    0
-  );
-
-  const totalReservationPrices = reservations.reduce(
-    (total, reservation) => total + reservation.price,
-    0
-  );
 
   return (
     <table className={classes.table}>
@@ -48,11 +37,11 @@ export default function StatisticsTable() {
       <tbody className={classes.tableBody}>
         <tr>
           <td>Number of users</td>
-          <td>{onlyUsers.length}</td>
+          <td>{totalUsers}</td>
         </tr>
         <tr>
           <td>Number of reservations</td>
-          <td>{reservations.length}</td>
+          <td>{totalReservations}</td>
         </tr>
         <tr>
           <td>All reserved seats</td>

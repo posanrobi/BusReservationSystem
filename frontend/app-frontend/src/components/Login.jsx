@@ -47,8 +47,6 @@ export default function Login({ closeLoginModal }) {
       try {
         const response = await login(formData);
 
-        console.log(response.data);
-
         setSubmitted(true);
         setTimeout(() => {
           if (getUserRole() === "ROLE_USER") {

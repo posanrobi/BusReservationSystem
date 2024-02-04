@@ -37,7 +37,7 @@ export default function UserTable({
       }
 
       setReservations((prevReservations) =>
-        prevReservations.filter((res) => res.username !== deleteUser.username)
+        prevReservations.filter((res) => res.username !== deletedUser.username)
       );
     } catch (error) {
       console.error("Error deleting user and associated reservations", error);

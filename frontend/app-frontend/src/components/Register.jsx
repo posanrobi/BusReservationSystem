@@ -60,8 +60,6 @@ export default function Register({ closeRegisterModal }) {
       try {
         const response = await register(formData);
 
-        console.log(response.data);
-
         setSubmitted(true);
         setTimeout(() => {
           closeRegisterModal();

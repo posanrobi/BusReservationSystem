@@ -42,7 +42,12 @@ export default function AdminBoard() {
         </div>
         <div>
           <h3 className={classes.tableTitle}>System details</h3>
-          <StatisticsTable />
+          <StatisticsTable
+            users={users}
+            setUsers={setUsers}
+            reservations={reservations}
+            setReservations={setReservations}
+          />
         </div>
       </div>
       <div>

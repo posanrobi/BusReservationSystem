@@ -9,7 +9,11 @@ export default function StatisticsTable({ users, reservations }) {
   const [totalReservationPrices, setTotalReservationPrices] = useState(0);
 
   useEffect(() => {
-    const calculatedTotalUsers = users.length;
+    const onlyUsers = users.filter((user) =>
+      user.roles.some((role) => role.roleName === "ROLE_USER")
+    );
+
+    const calculatedTotalUsers = onlyUsers.length;
     const calculatedTotalReservations = reservations.length;
     const calculatedTotalReservedSeats = reservations.reduce(
       (total, reservation) => total + reservation.seat_number,
@@ -48,7 +52,7 @@ export default function StatisticsTable({ users, reservations }) {
           <td>{totalReservedSeats}</td>
         </tr>
         <tr>
-          <td>Amount of reservation prices</td>
+          <td>Total revenue</td>
           <td>{totalReservationPrices} Ft</td>
         </tr>
       </tbody>

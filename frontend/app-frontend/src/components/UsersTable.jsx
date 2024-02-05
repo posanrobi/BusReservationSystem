@@ -9,6 +9,7 @@ export default function UserTable({
   setUsers,
   reservations,
   setReservations,
+  onDeleteMessage,
 }) {
   const [loading, setLoading] = useState(true);
 
@@ -39,6 +40,10 @@ export default function UserTable({
       setReservations((prevReservations) =>
         prevReservations.filter((res) => res.username !== deletedUser.username)
       );
+
+      setTimeout(() => {
+        onDeleteMessage("User successfully deleted!");
+      }, 1000);
     } catch (error) {
       console.error("Error deleting user and associated reservations", error);
     }

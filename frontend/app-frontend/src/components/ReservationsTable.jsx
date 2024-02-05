@@ -7,7 +7,11 @@ import { MdDelete } from "react-icons/md";
 
 import classes from "./AdminBoard.module.css";
 
-export default function ReservationsTable({ reservations, setReservations }) {
+export default function ReservationsTable({
+  reservations,
+  setReservations,
+  onDeleteMessage,
+}) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,6 +36,10 @@ export default function ReservationsTable({ reservations, setReservations }) {
       setReservations((prevReservations) =>
         prevReservations.filter((res) => res.id !== resId)
       );
+
+      setTimeout(() => {
+        onDeleteMessage("Reservation successfully deleted!");
+      }, 1000);
     } catch (error) {
       console.error("Error deleting reservation", error);
     }

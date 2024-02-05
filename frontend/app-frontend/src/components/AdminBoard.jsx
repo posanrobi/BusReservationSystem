@@ -9,6 +9,24 @@ import classes from "./AdminBoard.module.css";
 export default function AdminBoard() {
   const [users, setUsers] = useState([]);
   const [reservations, setReservations] = useState([]);
+  const [userDeleteMessage, setUserDeleteMessage] = useState("");
+  const [reservationDeleteMessage, setReservationDeleteMessage] = useState("");
+
+  const handleUserDeleteMessage = (message) => {
+    setUserDeleteMessage(message);
+
+    setTimeout(() => {
+      setUserDeleteMessage("");
+    }, 2500);
+  };
+
+  const handleReservationDeleteMessage = (message) => {
+    setReservationDeleteMessage(message);
+
+    setTimeout(() => {
+      setReservationDeleteMessage("");
+    }, 2500);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -30,13 +48,19 @@ export default function AdminBoard() {
     <div className={classes.adminContainer}>
       <div className={classes.userTableStat}>
         <div>
-          <h3 className={classes.tableTitle}>User details</h3>
+          <div className={classes.tableTitleDiv}>
+            <h3 className={classes.tableTitle}>User details</h3>
+            {userDeleteMessage && (
+              <p className={classes.deleteMessage}>{userDeleteMessage}</p>
+            )}
+          </div>
           <div className={classes.scrollDiv}>
             <UserTable
               users={users}
               setUsers={setUsers}
               reservations={reservations}
               setReservations={setReservations}
+              onDeleteMessage={handleUserDeleteMessage}
             />
           </div>
         </div>
@@ -51,11 +75,17 @@ export default function AdminBoard() {
         </div>
       </div>
       <div>
-        <h3 className={classes.tableTitle}>Reservation details</h3>
+        <div className={classes.tableTitleDiv}>
+          <h3 className={classes.tableTitle}>Reservation details</h3>
+          {reservationDeleteMessage && (
+            <p className={classes.deleteMessage}>{reservationDeleteMessage}</p>
+          )}
+        </div>
         <div className={classes.scrollDiv}>
           <ReservationsTable
             reservations={reservations}
             setReservations={setReservations}
+            onDeleteMessage={handleReservationDeleteMessage}
           />
         </div>
       </div>

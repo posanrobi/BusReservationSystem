@@ -23,6 +23,7 @@ export default function Login({ closeLoginModal }) {
       ...prevData,
       [name]: value,
     }));
+    setErrors({});
   }
 
   function validateForm() {

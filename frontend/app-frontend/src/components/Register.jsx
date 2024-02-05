@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigation } from "react-router-dom";
 import { register, useEnterKeyEffect } from "../services/auth.service";
 import Input from "./Input";
 
@@ -17,8 +17,6 @@ export default function Register({ closeRegisterModal }) {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
-  const navigate = useNavigate();
-
   const navigation = useNavigation();
   const isSubmitting =
     navigation.state === "submitting" ? "Submitting..." : "Create a user";
@@ -29,6 +27,7 @@ export default function Register({ closeRegisterModal }) {
       ...prevData,
       [name]: value,
     }));
+    setErrors({});
   }
 
   function validateForm() {
@@ -63,7 +62,6 @@ export default function Register({ closeRegisterModal }) {
         setSubmitted(true);
         setTimeout(() => {
           closeRegisterModal();
-          //openLoginModal();
         }, 2000);
       } catch (error) {
         setErrors({
@@ -79,7 +77,6 @@ export default function Register({ closeRegisterModal }) {
 
   function closeHandler(e) {
     e.preventDefault();
-    //navigate("..");
     setErrors("");
     closeRegisterModal();
   }

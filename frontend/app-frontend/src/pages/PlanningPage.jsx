@@ -299,7 +299,7 @@ export default function PlanningPage() {
         user: currentUser,
       };
 
-      const response = await createReservation(reservationData);
+      await createReservation(reservationData);
 
       setTimeout(() => {
         closeConfirm();

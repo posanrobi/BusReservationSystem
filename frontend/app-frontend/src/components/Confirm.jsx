@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import classes from "./Confirm.module.css";
 
 export default function Confirm({
@@ -8,20 +8,26 @@ export default function Confirm({
 }) {
   const [isReservationCreated, setReservationCreated] = useState(false);
 
-  useEffect(() => {
-    if (isReservationCreated) {
-      const timeoutId = setTimeout(() => {
-        onCloseConfirm();
-        setReservationCreated(false);
-      }, 2000);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [isReservationCreated, onCloseConfirm]);
-
   const hasEmptyValues = Object.values(selectedData).some(
     (value) => value === "" || value.length === 0 || value === 0
   );
+
+  const timeoutIdRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutIdRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isReservationCreated) {
+      timeoutIdRef.current = setTimeout(() => {
+        onCloseConfirm();
+        setReservationCreated(false);
+      }, 2000);
+    }
+  }, [isReservationCreated, onCloseConfirm]);
 
   const handleConfirm = async () => {
     await onSubmitConfirm();

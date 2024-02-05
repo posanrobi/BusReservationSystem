@@ -49,6 +49,8 @@ export default function UserTable({
     }
   };
 
+  const noUsers = onlyUsers.length === 0;
+
   return (
     <table className={classes.table}>
       <thead className={classes.tableHeader}>
@@ -65,6 +67,11 @@ export default function UserTable({
         {loading && (
           <tr>
             <td colSpan="6">Loading users...</td>
+          </tr>
+        )}
+        {noUsers && (
+          <tr>
+            <td colSpan="6">No users available</td>
           </tr>
         )}
         {onlyUsers.map((user) => (

@@ -45,6 +45,8 @@ export default function ReservationsTable({
     }
   };
 
+  const noReservations = reservations.length === 0;
+
   return (
     <table className={classes.table}>
       <thead className={classes.tableHeader}>
@@ -62,6 +64,11 @@ export default function ReservationsTable({
       </thead>
 
       <tbody className={classes.tableBody}>
+        {noReservations && (
+          <tr>
+            <td colSpan="9">No reservations available</td>
+          </tr>
+        )}
         {loading ? (
           <tr>
             <td colSpan="9">Loading reservations...</td>

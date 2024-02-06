@@ -41,7 +41,6 @@
 }
 
 .ctaTitle {
-  /* padding-top: 7rem; */
   width: 23rem;
   margin-bottom: 1rem;
 }
@@ -141,10 +140,9 @@
 }
 
 .successMessage {
-  color: green;
-  background-color: lightgreen;
-  border-radius: 1rem;
-  padding: 0.5rem 1.2rem;
+  color: rgb(7, 145, 7);
+  font-weight: 500;
+  font-size: 1.5rem;
 }
 
 @keyframes buttonHover {

@@ -13,7 +13,7 @@ export default function HomePage() {
           the hassle of traditional reservation processes and hello to a more{" "}
           <span className={classes.outLineText}>comfortable</span> and{" "}
           <span className={classes.outLineText}>convenient</span> way of
-          traveling. Experience the future of bus travel with Bookera today!
+          traveling. Experience the future of bus travel with Bookerra today!
         </p>
         <div className={classes.navBoxContainer}>
           <Link to="/plan" className={classes.navBox}>

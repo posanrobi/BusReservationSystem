@@ -1,20 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap");
+
 .header {
   height: 5rem;
   width: 100%;
-  background: rgb(2, 0, 36);
+  background: rgb(164, 209, 238);
   background: linear-gradient(
     90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(69, 69, 157, 1) 30%,
-    rgba(26, 61, 74, 1) 100%
+    rgba(164, 209, 238, 1) 0%,
+    rgba(90, 145, 179, 1) 31%,
+    rgba(47, 101, 136, 1) 67%,
+    rgba(26, 73, 103, 1) 100%
   );
   display: flex;
   justify-content: space-between;
+  font-family: "Roboto", sans-serif;
 }
 
 .logo {
   color: white;
   padding: 0.5rem 0 0 2rem;
+  height: 70%;
 }
 
 .nav {

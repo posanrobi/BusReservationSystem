@@ -1,8 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap");
+
 .planContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 4rem;
+  margin-top: 3rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .planBox {
@@ -10,10 +13,9 @@
   width: 55rem;
   display: flex;
   flex-direction: column;
-  background-color: rgba(147, 173, 232, 0.577);
+  background-color: #a4d1ee;
   border-radius: 1rem;
   padding: 2rem 2rem 0 2rem;
-  /* padding-bottom: 0; */
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -36,14 +38,14 @@
   border-radius: 1rem;
   padding: 0.5rem 2rem;
   border: none;
-  background-color: rgb(49, 75, 132);
+  background-color: #1a4967;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .planBoxFooter button:hover {
   cursor: pointer;
-  background-color: rgba(49, 75, 132, 0.795);
+  background-color: #2f6588;
 }
 
 .tripDiv {
@@ -128,6 +130,13 @@
   width: 10rem;
 }
 
+.detailsDiv li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
 .detailsDiv ul {
   list-style-type: none;
   padding-left: 0;
@@ -139,7 +148,22 @@
 
 .noItemMessage {
   font-style: italic;
-  color: grey;
+  color: rgba(90, 89, 89, 0.832);
+}
+
+.greenIndicatorIcon {
+  font-size: 2rem;
+  color: lightgreen;
+}
+
+.redIndicatorIcon {
+  font-size: 2rem;
+  color: red;
+}
+
+.blackIndicatorIcon {
+  font-size: 2rem;
+  color: black;
 }
 
 /*---------Render seats------*/

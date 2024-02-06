@@ -4,6 +4,7 @@ import { getUserRole } from "../services/auth.service";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
 import classes from "./MainNavigation.module.css";
+import logo from "../images/logo.png";
 
 export default function MainNavigation() {
   function handleLogout() {
@@ -14,7 +15,7 @@ export default function MainNavigation() {
 
   return (
     <header className={classes.header}>
-      <p className={classes.logo}>LOGO</p>
+      <img src={logo} alt="Logo" className={classes.logo} />
       <nav className={classes.nav}>
         {!isAdmin && (
           <>

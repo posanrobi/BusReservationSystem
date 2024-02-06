@@ -6,14 +6,15 @@ import {
   getAllReservations,
   getUserById,
 } from "../services/user.service";
+import TokenExpired from "../components/TokenExpired";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../services/auth.service";
 import { createReservation } from "../services/user.service";
 import { TbTrash } from "react-icons/tb";
+import { FaSquare, FaRegSquare } from "react-icons/fa";
 
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
-import TokenExpired from "../components/TokenExpired";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
@@ -513,9 +514,15 @@ export default function PlanningPage() {
             {/* DEATAILS */}
             <div className={classes.detailsDiv}>
               <ul>
-                <li>Free 🟩</li>
-                <li>Booked 🟥</li>
-                <li>Selected ⬛</li>
+                <li>
+                  Free <FaSquare className={classes.greenIndicatorIcon} />
+                </li>
+                <li>
+                  Booked <FaSquare className={classes.redIndicatorIcon} />
+                </li>
+                <li>
+                  Selected <FaSquare className={classes.blackIndicatorIcon} />
+                </li>
               </ul>
 
               {/* TOTAL */}

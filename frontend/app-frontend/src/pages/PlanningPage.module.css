@@ -10,7 +10,7 @@
 
 .planBox {
   height: 34rem;
-  width: 55rem;
+  width: 53rem;
   display: flex;
   flex-direction: column;
   background-color: #a4d1ee;
@@ -23,6 +23,7 @@
   display: flex;
   gap: 6rem;
   height: 27rem;
+  justify-content: space-around;
 }
 
 .planBoxFooter {
@@ -33,7 +34,6 @@
 
 .planBoxFooter button {
   font-size: 1rem;
-  /* margin-top: 4rem; */
   margin-top: 3rem;
   border-radius: 1rem;
   padding: 0.5rem 2rem;
@@ -52,19 +52,26 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
 }
 
 .tripDiv h2 {
-  margin-top: 4.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+.seatsDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 28rem;
 }
 
 .seatsDivHeader {
   display: flex;
   align-items: center;
-  gap: 8rem;
-  /* margin-top: 3rem; */
+  gap: 3rem;
 }
 
 .seatsDivHeader span {
@@ -72,19 +79,21 @@
 }
 
 .seatsDivHeader span:hover {
-  color: red;
+  color: rgb(194, 25, 25);
   cursor: pointer;
+  animation: scaling 0.2s ease-in;
 }
 
 .seats {
-  /* max-height: 15rem; */
   height: 24rem;
   width: 15rem;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
-  /*  gap: 0.5rem;*/
   padding: 0.5rem;
+
+  display: flex;
+  justify-content: center;
 }
 
 .seat {
@@ -125,9 +134,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  margin-top: 5rem;
-  width: 10rem;
+  align-items: stretch;
+  width: 7rem;
+  margin-top: 2rem;
 }
 
 .detailsDiv li {
@@ -151,6 +160,21 @@
   color: rgba(90, 89, 89, 0.832);
 }
 
+.noSeats {
+  margin-top: 9rem;
+}
+
+.noPrice {
+  color: white;
+}
+
+.noSeatsDiv {
+  height: 26rem;
+  width: 15rem;
+  padding: 0 8px;
+  text-align: center;
+}
+
 .greenIndicatorIcon {
   font-size: 2rem;
   color: lightgreen;
@@ -166,7 +190,31 @@
   color: black;
 }
 
-/*---------Render seats------*/
+.totalDiv {
+  text-align: center;
+  background-color: #2f6588;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0;
+}
+
+.priceDiv {
+  text-align: center;
+  background-color: #2f6588;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 1rem 0;
+  margin: 1rem 0;
+}
+
+.priceDiv p {
+  margin: 0;
+}
+
+.seatPrice {
+  padding-bottom: 1rem;
+}
+
 .cellStyle {
   border: 1px solid black;
   margin: 0.5rem 0rem;
@@ -187,4 +235,14 @@
   background-color: red;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+@keyframes scaling {
+  from {
+    transform: scale(0.8);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }

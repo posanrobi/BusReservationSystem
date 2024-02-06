@@ -349,7 +349,6 @@ export default function PlanningPage() {
                     <option value="" disabled>
                       Choose your starting place
                     </option>
-                    {/*ADDED*/}
                     {Array.from(
                       new Set(
                         busLines.map((busLine) =>
@@ -464,9 +463,9 @@ export default function PlanningPage() {
               </label>
 
               {/* PRICE */}
-              <label>
-                Price:
-                <div>
+              {/*     <label>
+                <div className={classes.priceDiv}>
+                  <p className={classes.seatPrice}>Price:</p>
                   {busLines.map((busLine) => {
                     const selectedLine = getLineId(selectedFrom, selectedTo);
 
@@ -478,7 +477,7 @@ export default function PlanningPage() {
                     <p className={classes.noItemMessage}>No price available</p>
                   )}
                 </div>
-              </label>
+              </label> */}
             </div>
 
             {/* SEATS */}
@@ -489,26 +488,31 @@ export default function PlanningPage() {
                   <TbTrash onClick={handleClearSelectedSeats} />
                 </span>
               </div>
-              {!selectedTime && (
-                <p className={classes.noItemMessage}>No seats available</p>
+              {!selectedTime ? (
+                <div className={classes.noSeatsDiv}>
+                  <p className={`${classes.noItemMessage} ${classes.noSeats}`}>
+                    No seats available
+                  </p>
+                </div>
+              ) : (
+                <div className={classes.seats}>
+                  {selectedFrom &&
+                    selectedTo &&
+                    selectedDate &&
+                    selectedTime &&
+                    groupedDatesByLineId[getLineId(selectedFrom, selectedTo)] &&
+                    groupedDatesByLineId[getLineId(selectedFrom, selectedTo)]
+                      .filter((date) => date.busLine)
+                      .slice(0, 1)
+                      .map((date) => {
+                        const busLineId = getLineId(
+                          date.busLine.name.split("-")[0].trim(),
+                          date.busLine.name.split("-")[1].trim()
+                        );
+                        return renderSeats(busLineId);
+                      })}
+                </div>
               )}
-              <div className={classes.seats}>
-                {selectedFrom &&
-                  selectedTo &&
-                  selectedDate &&
-                  selectedTime &&
-                  groupedDatesByLineId[getLineId(selectedFrom, selectedTo)] &&
-                  groupedDatesByLineId[getLineId(selectedFrom, selectedTo)]
-                    .filter((date) => date.busLine)
-                    .slice(0, 1)
-                    .map((date) => {
-                      const busLineId = getLineId(
-                        date.busLine.name.split("-")[0].trim(),
-                        date.busLine.name.split("-")[1].trim()
-                      );
-                      return renderSeats(busLineId);
-                    })}
-              </div>
             </div>
 
             {/* DEATAILS */}
@@ -525,9 +529,25 @@ export default function PlanningPage() {
                 </li>
               </ul>
 
+              {/* PRICE */}
+              <label>
+                <div className={classes.priceDiv}>
+                  <p className={classes.seatPrice}>Seat price:</p>
+                  {busLines.map((busLine) => {
+                    const selectedLine = getLineId(selectedFrom, selectedTo);
+
+                    if (busLine.id === selectedLine) {
+                      return <p key={busLine.id}>{busLine.price} Ft</p>;
+                    }
+                  })}
+                  {!selectedTo && <p className={classes.noPrice}>0 Ft</p>}
+                </div>
+              </label>
+
               {/* TOTAL */}
-              <div>
-                <p>Total: {calculateTotalPrice()} Ft</p>
+              <div className={classes.totalDiv}>
+                <p>Total price:</p>
+                <p>{calculateTotalPrice()} Ft</p>
               </div>
             </div>
           </div>

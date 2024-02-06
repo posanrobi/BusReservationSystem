@@ -3,14 +3,18 @@ import UserTable from "./UsersTable";
 import ReservationsTable from "./ReservationsTable";
 import StatisticsTable from "./StatisticsTable";
 import { getAllUsers, getAllReservations } from "../services/user.service";
+import Modal from "./Modal";
+import TokenExpired from "./TokenExpired";
 
 import classes from "./AdminBoard.module.css";
+import modalClasses from "../components/Modal.module.css";
 
 export default function AdminBoard() {
   const [users, setUsers] = useState([]);
   const [reservations, setReservations] = useState([]);
   const [userDeleteMessage, setUserDeleteMessage] = useState("");
   const [reservationDeleteMessage, setReservationDeleteMessage] = useState("");
+  const [openExpiredModal, setOpenExpiredModal] = useState(false);
 
   const handleUserDeleteMessage = (message) => {
     setUserDeleteMessage(message);
@@ -37,7 +41,12 @@ export default function AdminBoard() {
         setUsers(userResponse.data);
         setReservations(reservationResponse.data);
       } catch (error) {
-        console.error("Error while fetching data", error);
+        //console.error("Error while fetching data", error);
+        if (error.message === "Your token is expired. Please login again.") {
+          setOpenExpiredModal(true);
+        } else {
+          console.error("Error while fetching data", error);
+        }
       }
     }
 
@@ -89,6 +98,12 @@ export default function AdminBoard() {
           />
         </div>
       </div>
+
+      {openExpiredModal && (
+        <Modal open={openExpiredModal} className={modalClasses.modalContainer}>
+          <TokenExpired />
+        </Modal>
+      )}
     </div>
   );
 }

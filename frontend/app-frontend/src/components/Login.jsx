@@ -60,6 +60,7 @@ export default function Login({ closeLoginModal }) {
         setErrors({
           message: error.response.data.message,
         });
+
         setSubmitted(false);
       }
     }

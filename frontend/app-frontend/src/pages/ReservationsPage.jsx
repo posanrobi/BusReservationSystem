@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { getAllReservations } from "../services/user.service";
+import {
+  getAllReservations,
+  deleteReservation,
+} from "../services/user.service";
+import { Link } from "react-router-dom";
+import { getCurrentUser } from "../services/auth.service";
+import Modal from "../components/Modal";
+import TokenExpired from "../components/TokenExpired";
+
 import { TbTrash, TbCalendar, TbClock, TbUser, TbCoins } from "react-icons/tb";
 import { RiAddCircleLine } from "react-icons/ri";
 import {
@@ -7,14 +15,13 @@ import {
   MdAirlineSeatReclineNormal,
 } from "react-icons/md";
 
-import { deleteReservation } from "../services/user.service";
-
 import classes from "./ReservationPage.module.css";
-import { Link } from "react-router-dom";
-import { getCurrentUser } from "../services/auth.service";
+import modalClasses from "../components/Modal.module.css";
 
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState([]);
+
+  const [openModal, setOpenModal] = useState(false);
 
   const currentUser = getCurrentUser();
   const username = currentUser ? currentUser.username : "";
@@ -30,7 +37,11 @@ export default function ReservationsPage() {
 
         setReservations(userReservations);
       } catch (error) {
-        console.error("Error while fetching data", error);
+        if (error.message === "Your token is expired. Please login again.") {
+          setOpenModal(true);
+        } else {
+          console.error("Error while fetching data", error);
+        }
       }
     }
 
@@ -106,6 +117,11 @@ export default function ReservationsPage() {
           </div>
         </div>
       </div>
+      {openModal && (
+        <Modal open={openModal} className={modalClasses.modalContainer}>
+          <TokenExpired />
+        </Modal>
+      )}
     </>
   );
 }

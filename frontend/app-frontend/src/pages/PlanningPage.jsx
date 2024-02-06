@@ -13,6 +13,7 @@ import { TbTrash } from "react-icons/tb";
 
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
+import TokenExpired from "../components/TokenExpired";
 
 export default function PlanningPage() {
   const [busLines, setBusLines] = useState([]);
@@ -29,7 +30,7 @@ export default function PlanningPage() {
 
   const [alreadyReserved, setAlreadyReserved] = useState({});
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [openExpiredModal, setOpenExpiredModal] = useState(false);
 
   const [selectedData, setSelectedData] = useState({
     startingCity: "",
@@ -150,7 +151,12 @@ export default function PlanningPage() {
         const datetimeResponse = await getAllBusLineDatesAndTimes();
         setBusLineDateTime(datetimeResponse.data);
       } catch (error) {
-        console.error("Error while fetching data", error);
+        //console.error("Error while fetching data", error);
+        if (error.message === "Your token is expired. Please login again.") {
+          setOpenExpiredModal(true);
+        } else {
+          console.error("Error while fetching data", error);
+        }
       }
     }
 
@@ -533,6 +539,12 @@ export default function PlanningPage() {
           onSubmitConfirm={handleSubmitConfirm}
         />
       </Modal>
+
+      {openExpiredModal && (
+        <Modal open={openExpiredModal} className={modalClasses.modalContainer}>
+          <TokenExpired />
+        </Modal>
+      )}
     </>
   );
 }

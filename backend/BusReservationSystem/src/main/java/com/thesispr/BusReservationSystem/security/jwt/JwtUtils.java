@@ -3,6 +3,7 @@ package com.thesispr.BusReservationSystem.security.jwt;
 import java.security.Key;
 import java.util.Date;
 
+import com.thesispr.BusReservationSystem.CustomJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,7 +46,7 @@ public class JwtUtils {
                 .parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateJwtToken(String authToken) {
+    /*public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);
             return true;
@@ -60,5 +61,24 @@ public class JwtUtils {
         }
 
         return false;
+    }*/
+
+    public boolean validateJwtToken(String authToken) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);
+            return true;
+        } catch (MalformedJwtException e) {
+            logger.error("Invalid JWT token: {}", e.getMessage());
+            throw new CustomJwtException("Invalid JWT token");
+        } catch (ExpiredJwtException e) {
+            logger.error("JWT token is expired: {}", e.getMessage());
+            throw new CustomJwtException("JWT token is expired");
+        } catch (UnsupportedJwtException e) {
+            logger.error("JWT token is unsupported: {}", e.getMessage());
+            throw new CustomJwtException("Unsupported JWT token");
+        } catch (IllegalArgumentException e) {
+            logger.error("JWT claims string is empty: {}", e.getMessage());
+            throw new CustomJwtException("JWT claims string is empty");
+        }
     }
 }

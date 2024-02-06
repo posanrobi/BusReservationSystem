@@ -8,6 +8,9 @@ export async function getAllUsers() {
   try {
     return await axios.get(API_URL + "users", { headers: authHeader() });
   } catch (error) {
+    if (error.response && error.response.status === 401) {
+      throw new Error("Your token is expired. Please login again.");
+    }
     throw new Error("Unauthorized access");
   }
 }
@@ -17,6 +20,9 @@ export async function getAllBusLines() {
   try {
     return await axios.get(API_URL + "bus-lines", { headers: authHeader() });
   } catch (error) {
+    if (error.response && error.response.status === 401) {
+      throw new Error("Your token is expired. Please login again.");
+    }
     throw new Error("Unauthorized access");
   }
 }
@@ -28,6 +34,9 @@ export async function getAllBusLineDatesAndTimes() {
       headers: authHeader(),
     });
   } catch (error) {
+    if (error.response && error.response.status === 401) {
+      throw new Error("Your token is expired. Please login again.");
+    }
     throw new Error("Unauthorized access");
   }
 }
@@ -39,6 +48,9 @@ export async function getAllReservations() {
       headers: authHeader(),
     });
   } catch (error) {
+    if (error.response && error.response.status === 401) {
+      throw new Error("Your token is expired. Please login again.");
+    }
     throw new Error("Unauthorized access");
   }
 }
@@ -69,6 +81,9 @@ export async function getUserById(userId) {
       headers: authHeader(),
     });
   } catch (error) {
+    if (error.response && error.response.status === 401) {
+      throw new Error("Your token is expired. Please login again.");
+    }
     throw new Error("Can not find user by id");
   }
 }

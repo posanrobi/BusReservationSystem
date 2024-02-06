@@ -3,7 +3,7 @@ import { logout } from "../services/auth.service";
 
 import classes from "./LoggingOut.module.css";
 
-export default function LoggingOut() {
+export default function TokenExpired() {
   const [isLoading, setIsLoading] = useState(false);
 
   function handleLogout() {
@@ -19,11 +19,8 @@ export default function LoggingOut() {
     <div className={classes.logoutContainer}>
       {!isLoading ? (
         <div>
-          <h2>Profile successfully updated!</h2>
-          <p>
-            You will be logged out for security reasons. Please log in with the
-            updated data!
-          </p>
+          <h2>Oops! Your session has expired.</h2>
+          <p>Please sign in again to continue accessing your account.</p>
           <button className={classes.confirmLogoutBtn} onClick={handleLogout}>
             Okay
           </button>

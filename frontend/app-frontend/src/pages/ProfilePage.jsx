@@ -5,8 +5,6 @@ import { getCurrentUser } from "../services/auth.service";
 import { CgProfile } from "react-icons/cg";
 import { FaRegEdit } from "react-icons/fa";
 
-import classes from "./ProfilePage.module.css";
-import modalClasses from "../components/Modal.module.css";
 import {
   getUserById,
   updatePassword,
@@ -14,6 +12,10 @@ import {
 } from "../services/user.service";
 import Modal from "../components/Modal";
 import LoggingOut from "../components/LoggingOut";
+
+import classes from "./ProfilePage.module.css";
+import modalClasses from "../components/Modal.module.css";
+import TokenExpired from "../components/TokenExpired";
 
 export default function ProfilePage() {
   const [firstname, setFirstname] = useState("");
@@ -37,6 +39,7 @@ export default function ProfilePage() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const [isEditing, setIsEditing] = useState(false);
+  const [openExpiredModal, setOpenExpiredModal] = useState(false);
 
   useEffect(() => {
     async function getUserData() {
@@ -51,7 +54,12 @@ export default function ProfilePage() {
 
         setOriginalData(currentUserData);
       } catch (error) {
-        console.error("Error while getting user", error);
+        //console.error("Error while getting user", error);
+        if (error.message === "Your token is expired. Please login again.") {
+          setOpenExpiredModal(true);
+        } else {
+          console.error("Error while fetching data", error);
+        }
       }
     }
     getUserData();
@@ -331,6 +339,12 @@ export default function ProfilePage() {
       <Modal open={isModalOpen} className={modalClasses.modalContainer}>
         <LoggingOut />
       </Modal>
+
+      {openExpiredModal && (
+        <Modal open={openExpiredModal} className={modalClasses.modalContainer}>
+          <TokenExpired />
+        </Modal>
+      )}
     </>
   );
 }

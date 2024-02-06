@@ -6,17 +6,28 @@ const AUTH_API_URL = "http://localhost:8080/api/auth/";
 
 //login
 export async function login(formData) {
-  const response = await axios.post(AUTH_API_URL + "signin", formData);
-  if (response.data.accessToken) {
-    localStorage.setItem("user", JSON.stringify(response.data));
+  try {
+    const response = await axios.post(AUTH_API_URL + "signin", formData);
+    const { accessToken } = response.data;
+
+    if (accessToken) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
+    return response;
+  } catch (error) {
+    throw error;
   }
-  return response;
 }
 
 //register
 export async function register(formData) {
-  const response = await axios.post(AUTH_API_URL + "signup", formData);
-  return response;
+  try {
+    const response = await axios.post(AUTH_API_URL + "signup", formData);
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }
 
 //logout

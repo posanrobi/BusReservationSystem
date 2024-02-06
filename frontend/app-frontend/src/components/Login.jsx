@@ -58,7 +58,7 @@ export default function Login({ closeLoginModal }) {
         }, 2000);
       } catch (error) {
         setErrors({
-          message: error.response.data.message,
+          message: error.response.data.message.toLowerCase(),
         });
 
         setSubmitted(false);

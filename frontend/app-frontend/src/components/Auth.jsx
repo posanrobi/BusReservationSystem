@@ -1,40 +1,3 @@
-/* import { Link } from "react-router-dom";
-import { useState } from "react";
-
-import classes from "./Auth.module.css";
-import { getCurrentUser } from "../services/auth.service";
-
-export default function AuthenticationPage() {
-  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-  const openLoginModal = () => setLoginModalOpen(true);
-
-  const user = getCurrentUser();
-  if (user) localStorage.removeItem("user");
-
-  return (
-    <>
-      <div className={`${classes.authContainer} ${classes.authBackground}`}>
-        <div className={classes.textContainer}>
-          <h1 className={classes.title}>
-            Book your place before it's too late!
-          </h1>
-        </div>
-        <div className={classes.textContainer}>
-          <h1 className={classes.ctaTitle}>Do you have an account?</h1>
-          <Link to="signin" className={classes.authBtn}>
-            Sign in
-          </Link>
-          <h1>Or create a New One</h1>
-          <Link to="signup" className={classes.authBtn}>
-            Sign up
-          </Link>
-        </div>
-      </div>
-    </>
-  );
-}
- */
-
 import { useState } from "react";
 import Modal from "./Modal";
 import Login from "./Login";
@@ -61,16 +24,23 @@ export default function AuthenticationPage() {
     <>
       <div className={`${classes.authContainer} ${classes.authBackground}`}>
         <div className={classes.textContainer}>
+          <h1 className={classes.welcomeTitle}>
+            Welcome to <span className={classes.appName}>Bookerra</span>
+          </h1>
           <h1 className={classes.title}>
             Book your place before it's too late!
           </h1>
         </div>
         <div className={classes.textContainer}>
-          <h1 className={classes.ctaTitle}>Do you have an account?</h1>
+          <h1 className={`${classes.ctaTitle} ${classes.signInTitle}`}>
+            Do you have an account?
+          </h1>
           <button className={classes.authBtn} onClick={openLoginModal}>
             Sign in
           </button>
-          <h1>Or create a New One</h1>
+          <h1 className={`${classes.ctaTitle} ${classes.signUpTitle}`}>
+            Or create a new one
+          </h1>
           <button className={classes.authBtn} onClick={openRegisterModal}>
             Sign up
           </button>

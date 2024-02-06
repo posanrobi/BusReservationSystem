@@ -63,18 +63,18 @@ public class UserService {
     //ADDED
     public void updateUser(Long userId, User updatedUserData) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("user not found"));
 
         // Check if the new username is already taken
         if (!user.getUsername().equals(updatedUserData.getUsername()) &&
                 userRepository.existsByUsername(updatedUserData.getUsername())) {
-            throw new DuplicateKeyException("Username is already taken");
+            throw new DuplicateKeyException("username is already taken");
         }
 
         // Check if the new email is already taken
         if (!user.getEmail().equals(updatedUserData.getEmail()) &&
                 userRepository.existsByEmail(updatedUserData.getEmail())) {
-            throw new DuplicateKeyException("Email is already taken");
+            throw new DuplicateKeyException("email is already taken");
         }
 
         user.setUsername(updatedUserData.getUsername());
@@ -93,14 +93,14 @@ public class UserService {
 
     public void updatePassword(Long userId, UpdatePasswordRequest updatePasswordRequest) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("user not found"));
 
         if (!passwordEncoder.matches(updatePasswordRequest.getCurrentPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Current password is incorrect");
+            throw new IllegalArgumentException("current password is incorrect");
         }
 
         if (!updatePasswordRequest.getNewPassword().equals(updatePasswordRequest.getConfirmPassword())) {
-            throw new IllegalArgumentException("New password and confirmation do not match");
+            throw new IllegalArgumentException("new password and confirmation do not match");
         }
 
         user.setPassword(passwordEncoder.encode(updatePasswordRequest.getNewPassword()));

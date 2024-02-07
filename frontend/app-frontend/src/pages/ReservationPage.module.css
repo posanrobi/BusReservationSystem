@@ -13,6 +13,7 @@
   display: flex;
   align-items: start;
   justify-content: space-between;
+  width: 100%;
   padding: 0 1.5rem;
   margin-bottom: 1rem;
 }
@@ -45,28 +46,30 @@
 
 .resBox {
   background-color: #a4d1ee;
-  width: 62rem;
+  width: 65rem;
   height: 36rem;
   border-radius: 1rem;
   padding: 1rem;
-  height: 36rem;
-  overflow-y: auto;
+  height: 36.5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .resBoxBody {
   display: flex;
   flex-wrap: wrap;
+  /*  align-items: flex-start;
+  justify-content: flex-start; */
   justify-content: left;
   overflow-y: auto;
-  /*   height: 33rem; */
+  max-height: 33rem;
 }
 
 .resDataList {
-  /*  height: fit-content; */
-  max-height: 9.5rem;
-  width: 11rem;
-  overflow-y: auto;
-  overflow-x: hidden;
+  height: 9rem;
+  width: 12rem;
   list-style-type: none;
   background-color: #5a91b3;
   padding: 0.5rem 1.5rem;
@@ -77,10 +80,33 @@
   color: black;
 }
 
+.scrollDiv {
+  overflow-y: auto;
+  height: 9rem;
+}
+
+.scrollDiv::-webkit-scrollbar,
+.resBoxBody::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollDiv::-webkit-scrollbar-thumb,
+.resBoxBody::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 5px;
+}
+
+.scrollDiv::-webkit-scrollbar-track,
+.resBoxBody::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
 .resDataList li {
   display: flex;
   gap: 0.4rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .deleteIconContainer {
@@ -98,6 +124,12 @@
 .deleteIcon:hover {
   color: rgb(190, 33, 33);
   animation: scaling 0.2s ease-out;
+}
+
+.dataIcon {
+  height: 1.1rem;
+  width: 1.1rem;
+  flex-shrink: 0;
 }
 
 @keyframes scaling {

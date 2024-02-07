@@ -100,7 +100,7 @@ public class UserService {
         }
 
         if (!updatePasswordRequest.getNewPassword().equals(updatePasswordRequest.getConfirmPassword())) {
-            throw new IllegalArgumentException("new password and confirmation do not match");
+            throw new IllegalArgumentException("passwords do not match");
         }
 
         user.setPassword(passwordEncoder.encode(updatePasswordRequest.getNewPassword()));

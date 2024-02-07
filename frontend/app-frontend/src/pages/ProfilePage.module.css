@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap");
+
 .profileContainer {
   display: flex;
   justify-content: center;
+  font-family: "Roboto", sans-serif;
 }
 
 .profileBox {
@@ -12,8 +15,12 @@
   justify-content: center;
   margin-top: 4rem;
   padding: 1rem;
-  background-color: rgb(232, 225, 217);
+  background-color: #a4d1ee;
   width: 40rem;
+}
+
+.profileBox input {
+  font-family: "Roboto", sans-serif;
 }
 
 .profileBoxHeader {
@@ -29,7 +36,8 @@
 }
 
 .editDiv h2 {
-  padding-left: 2rem;
+  padding-left: 1.5rem;
+  font-size: 1.7rem;
 }
 
 .editIcon {
@@ -54,36 +62,50 @@
 .profileForm {
   display: flex;
   gap: 2rem;
-  align-items: end;
+  align-items: start;
+  height: 22rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 .profileBoxFooter {
-  margin: 3rem 0 1rem 0;
+  margin-bottom: 1rem;
+}
+
+.leftDiv,
+.rightDiv {
+  height: 20rem;
 }
 
 .saveBtn {
   border: none;
-  background-color: rgb(202, 142, 63);
+  background-color: #1a4967;
+  color: white;
   font-size: 1rem;
   padding: 0.6rem 1.7rem;
   border-radius: 1rem;
   cursor: pointer;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px, rgb(51, 51, 51) 0px 0px 0px 1.5px; */
 }
 
 .saveBtn:hover {
-  background-color: rgb(203, 153, 88);
+  background-color: #346483;
 }
 .profileInput {
   padding: 0.5rem 1rem 0.5rem 1rem;
   width: 15rem;
   font-weight: 500;
-  background-color: rgb(240, 243, 234);
+  background-color: #fff;
 
   border-radius: 1rem;
 }
 
 .changePassword {
+  margin-top: 1.3rem;
   margin-bottom: 2rem;
+}
+
+.disabledStyle {
+  background-color: #1a496790;
 }

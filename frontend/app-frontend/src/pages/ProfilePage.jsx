@@ -106,14 +106,14 @@ export default function ProfilePage() {
       if (noUSerData) {
         setErrors({
           ...errors,
-          userDataMessage: "Please fill in all required fields.",
+          userDataMessage: "please fill in all required fields",
         });
         return;
       }
       if (noPasswordData) {
         setErrors({
           ...errors,
-          message: "Please fill in all required fields.",
+          message: "please fill in all required fields",
         });
         return;
       }
@@ -121,7 +121,7 @@ export default function ProfilePage() {
       if (!emailRegex.test(email)) {
         setErrors({
           ...errors,
-          userDataMessage: "Invalid email format.",
+          userDataMessage: "invalid email format",
         });
         return;
       }
@@ -158,10 +158,13 @@ export default function ProfilePage() {
           "Could not update user. Server response:",
           error.response.data
         );
-        setErrors({ ...errors, userDataMessage: error.response.data });
+        setErrors({
+          ...errors,
+          userDataMessage: error.response.data.toLowerCase(),
+        });
       } else if (error.message) {
         console.error("Could not update user. Error message:", error.message);
-        setErrors({ ...errors, message: error.message });
+        setErrors({ ...errors, message: error.message.toLowerCase() });
       } else {
         console.error("Could not update user. Error:", error);
       }
@@ -325,7 +328,10 @@ export default function ProfilePage() {
           </div>
           <footer className={classes.profileBoxFooter}>
             <button
-              className={classes.saveBtn}
+              /* className={classes.saveBtn} */
+              className={`${classes.saveBtn} ${
+                !hasChanges ? classes.disabledStyle : ""
+              }`}
               onClick={handleSave}
               type="button"
               disabled={!hasChanges}

@@ -124,6 +124,12 @@
   padding: 0.3rem 2rem 0.3rem 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
+  font-family: "Roboto", sans-serif;
+}
+
+.select option:checked {
+  background-color: #1a4967;
+  color: white;
 }
 
 .dropDownBox {
@@ -142,7 +148,6 @@
 .detailsDiv li {
   display: flex;
   align-items: center;
-  gap: 1rem;
   justify-content: space-between;
 }
 
@@ -152,7 +157,7 @@
 }
 
 .detailsDiv ul li {
-  padding: 0.5rem 0;
+  padding: 0.25rem 0;
 }
 
 .noItemMessage {

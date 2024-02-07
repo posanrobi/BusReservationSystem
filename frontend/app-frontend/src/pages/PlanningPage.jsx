@@ -5,13 +5,13 @@ import {
   getAllBusLines,
   getAllReservations,
   getUserById,
+  createReservation,
 } from "../services/user.service";
 import TokenExpired from "../components/TokenExpired";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../services/auth.service";
-import { createReservation } from "../services/user.service";
 import { TbTrash } from "react-icons/tb";
-import { FaSquare, FaRegSquare } from "react-icons/fa";
+import { FaSquare } from "react-icons/fa";
 
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
@@ -152,7 +152,6 @@ export default function PlanningPage() {
         const datetimeResponse = await getAllBusLineDatesAndTimes();
         setBusLineDateTime(datetimeResponse.data);
       } catch (error) {
-        //console.error("Error while fetching data", error);
         if (error.message === "Your token is expired. Please login again.") {
           setOpenExpiredModal(true);
         } else {
@@ -216,6 +215,7 @@ export default function PlanningPage() {
 
     setSelectedTo("");
     setSelectedDate("");
+    setSelectedTime("");
   }
 
   function handleSelectToChange(e) {
@@ -223,11 +223,13 @@ export default function PlanningPage() {
     setSelectedTo(value);
 
     setSelectedDate("");
+    setSelectedTime("");
   }
 
   function handleSelectDateChange(e) {
     const { value } = e.target;
     setSelectedDate(value);
+    setSelectedTime("");
   }
 
   function handleSelectTimeChange(e) {
@@ -335,7 +337,7 @@ export default function PlanningPage() {
         <div className={classes.planBox}>
           <div className={classes.planBoxBody}>
             <div className={classes.tripDiv}>
-              <h2>Plan your trip</h2>
+              <h2>Plan your travel</h2>
 
               {/* FROM */}
               <label>
@@ -347,7 +349,7 @@ export default function PlanningPage() {
                     value={selectedFrom}
                   >
                     <option value="" disabled>
-                      Choose your starting place
+                      Choose starting place
                     </option>
                     {Array.from(
                       new Set(
@@ -376,7 +378,7 @@ export default function PlanningPage() {
                     value={selectedTo}
                   >
                     <option value="" disabled>
-                      Choose your destination place
+                      Choose destination place
                     </option>
                     {busLines
                       .filter(
@@ -461,23 +463,6 @@ export default function PlanningPage() {
                   </select>
                 </div>
               </label>
-
-              {/* PRICE */}
-              {/*     <label>
-                <div className={classes.priceDiv}>
-                  <p className={classes.seatPrice}>Price:</p>
-                  {busLines.map((busLine) => {
-                    const selectedLine = getLineId(selectedFrom, selectedTo);
-
-                    if (busLine.id === selectedLine) {
-                      return <p key={busLine.id}>{busLine.price} Ft / seat</p>;
-                    }
-                  })}
-                  {!selectedTo && (
-                    <p className={classes.noItemMessage}>No price available</p>
-                  )}
-                </div>
-              </label> */}
             </div>
 
             {/* SEATS */}

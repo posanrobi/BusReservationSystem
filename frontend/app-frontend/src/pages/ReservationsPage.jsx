@@ -106,10 +106,10 @@ export default function ReservationsPage() {
                     {res.price} Ft
                   </li>
                   <span
-                    className={classes.deleteIcon}
+                    className={classes.deleteIconContainer}
                     onClick={() => handleDelete(res.id)}
                   >
-                    <TbTrash />
+                    <TbTrash className={classes.deleteIcon} />
                   </span>
                 </ul>
               ))

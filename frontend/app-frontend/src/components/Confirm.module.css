@@ -25,19 +25,19 @@
 }
 
 .cancelBtn:hover {
-  color: rgb(19, 19, 146);
+  color: #5a91b3;
 }
 
 .confirmBtn {
   border-radius: 1rem;
   padding: 0.5rem 1.5rem;
   color: white;
-  background-color: rgb(53, 53, 127);
+  background-color: #1a4967;
   cursor: pointer;
 }
 
 .confirmBtn:hover {
-  background-color: rgba(78, 78, 154, 0.779);
+  background-color: #3d6c88;
 }
 
 .confirmBtn:disabled {

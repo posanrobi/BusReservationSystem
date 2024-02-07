@@ -77,7 +77,9 @@ export default function ReservationsPage() {
           </header>
           <div className={classes.resBoxBody}>
             {noReservations ? (
-              <p>No reservations yet</p>
+              <p className={classes.noReservationsMessage}>
+                No reservations yet
+              </p>
             ) : (
               reservations.map((res) => (
                 <ul key={res.id} className={classes.resDataList}>

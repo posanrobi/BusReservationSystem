@@ -19,8 +19,10 @@ export default function LoggingOut() {
     <div className={classes.logoutContainer}>
       {!isLoading ? (
         <div>
-          <h2>Profile successfully updated!</h2>
-          <p>
+          <h2 className={classes.successMessage}>
+            Profile successfully updated!
+          </h2>
+          <p className={classes.errorDescription}>
             You will be logged out for security reasons. Please log in with the
             updated data!
           </p>
@@ -29,7 +31,7 @@ export default function LoggingOut() {
           </button>
         </div>
       ) : (
-        <p>Logging out...</p>
+        <p className={classes.logoutMessage}>Logging out...</p>
       )}
     </div>
   );

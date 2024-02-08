@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
-import { useNavigation } from "react-router-dom";
 import { register, useEnterKeyEffect } from "../services/auth.service";
 import Input from "./Input";
 
 import classes from "./Auth.module.css";
 
+/**
+ * Component for user registration.
+ * @param {function} closeLoginModal - Close the registration modal.
+ * @returns {React.JSX.Element} - JSX element representing the registration form.
+ */
 export default function Register({ closeRegisterModal }) {
   const [formData, setFormData] = useState({
     firstname: "",
@@ -16,10 +20,6 @@ export default function Register({ closeRegisterModal }) {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
-
-  const navigation = useNavigation();
-  const isSubmitting =
-    navigation.state === "submitting" ? "Submitting..." : "Create a user";
 
   function handleInputChange(e) {
     const { name, value } = e.target;
@@ -57,7 +57,7 @@ export default function Register({ closeRegisterModal }) {
 
     if (validateForm(formData)) {
       try {
-        const response = await register(formData);
+        await register(formData);
 
         setSubmitted(true);
         setTimeout(() => {
@@ -72,7 +72,6 @@ export default function Register({ closeRegisterModal }) {
     }
   }
 
-  // enter submit
   useEnterKeyEffect(handleSubmit);
 
   function closeHandler(e) {
@@ -160,7 +159,7 @@ export default function Register({ closeRegisterModal }) {
               <button className={classes.cancelBtn} onClick={closeHandler}>
                 Cancel
               </button>
-              <button className={classes.authBtn}>{isSubmitting}</button>
+              <button className={classes.authBtn}>Create a user</button>
             </div>
           </form>
         )}

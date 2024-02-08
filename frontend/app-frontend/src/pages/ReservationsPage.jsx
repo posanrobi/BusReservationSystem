@@ -26,7 +26,7 @@ export default function ReservationsPage() {
   const [isDeleted, setIsDeleted] = useState(false);
 
   const currentUser = getCurrentUser();
-  const username = currentUser ? currentUser.username : "";
+  const username = currentUser?.username || "";
 
   useEffect(() => {
     async function getReservations() {

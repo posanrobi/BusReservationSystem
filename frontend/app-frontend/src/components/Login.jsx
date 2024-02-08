@@ -46,7 +46,7 @@ export default function Login({ closeLoginModal }) {
 
     if (validateForm()) {
       try {
-        const response = await login(formData);
+        await login(formData);
 
         setSubmitted(true);
         setTimeout(() => {

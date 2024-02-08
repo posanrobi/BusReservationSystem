@@ -54,7 +54,6 @@ export default function ProfilePage() {
 
         setOriginalData(currentUserData);
       } catch (error) {
-        //console.error("Error while getting user", error);
         if (error.message === "Your token is expired. Please login again.") {
           setOpenExpiredModal(true);
         } else {
@@ -328,7 +327,6 @@ export default function ProfilePage() {
           </div>
           <footer className={classes.profileBoxFooter}>
             <button
-              /* className={classes.saveBtn} */
               className={`${classes.saveBtn} ${
                 !hasChanges ? classes.disabledStyle : ""
               }`}

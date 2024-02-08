@@ -25,6 +25,7 @@
 .title {
   padding-top: 1.5rem;
   width: 23rem;
+  font-weight: 400;
 }
 
 .welcomeTitle {
@@ -43,6 +44,8 @@
 .ctaTitle {
   width: 23rem;
   margin-bottom: 1rem;
+
+  font-weight: 400;
 }
 
 .signInTitle {

@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
   font-family: "Roboto", sans-serif;
 }
 
@@ -16,7 +16,7 @@
   background-color: #a4d1ee;
   border-radius: 1rem;
   padding: 2rem 2rem 0 2rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .planBoxBody {

@@ -1,5 +1,5 @@
 export const handleInputChange = (fieldName) => (e) => {
-  const value = e.target.value;
+  const { value } = e.target;
   switch (fieldName) {
     case "fullname":
       setFullname(value);

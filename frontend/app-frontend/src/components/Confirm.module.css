@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap");
+
 .body {
   display: flex;
   justify-content: center;
@@ -9,6 +11,7 @@
   padding: 0 1rem 1rem 1rem;
   border-radius: 1rem;
   width: 20rem;
+  font-family: "Roboto", sans-serif;
 }
 
 .actionButtons {

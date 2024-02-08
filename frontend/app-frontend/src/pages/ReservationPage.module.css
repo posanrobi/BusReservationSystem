@@ -61,15 +61,17 @@
   flex-direction: column;
   align-items: center;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  /* 
+  overflow-y: auto;
+  overflow-x: hidden; */
 }
 
 .resBoxBody {
   display: flex;
   flex-wrap: wrap;
-  /*  align-items: flex-start;
-  justify-content: flex-start; */
   justify-content: left;
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: 33rem;
 }
 
@@ -84,25 +86,57 @@
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   color: black;
+
+  overflow-y: auto;
 }
 
 .scrollDiv {
   overflow-y: auto;
-  height: 9rem;
+  height: 8.5rem;
 }
 
-.scrollDiv::-webkit-scrollbar,
+/**/
+.resDataList::-webkit-scrollbar {
+  width: 10px;
+}
+
+.resDataList::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 5px;
+}
+
+.resDataList::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+/* 
+.resBox::-webkit-scrollbar {
+  width: 10px;
+}
+
+.resBox::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 5px;
+}
+
+.resBox::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+ */
+/**/
+
 .resBoxBody::-webkit-scrollbar {
   width: 10px;
 }
 
-.scrollDiv::-webkit-scrollbar-thumb,
 .resBoxBody::-webkit-scrollbar-thumb {
   background: black;
   border-radius: 5px;
 }
 
-.scrollDiv::-webkit-scrollbar-track,
 .resBoxBody::-webkit-scrollbar-track {
   background-color: #fff;
   border-radius: 0.5rem;
@@ -120,7 +154,6 @@
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
-  padding-bottom: 0.5rem;
 }
 
 .deleteIcon {

@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  background-color: rgba(233, 222, 209, 0.701);
   height: 89vh;
 }
 
@@ -13,12 +12,6 @@
   overflow: hidden;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-
-/*-----------------------*/
-/* .tableHeader {
-  position: sticky;
-} */
-/*-----------------------*/
 
 .scrollDiv {
   max-height: 16.5rem;
@@ -40,8 +33,9 @@
 }
 
 .scrollDiv::-webkit-scrollbar-track {
-  background-color: #ddd;
+  background-color: #c6cace;
   border: 1px solid #ccc;
+  border-radius: 0.5rem;
 }
 
 .tableBody::-webkit-scrollbar-button {
@@ -57,7 +51,7 @@
 }
 
 .table th {
-  background-color: rgb(60, 57, 57);
+  background-color: #1a4967;
   color: white;
   text-align: left;
   padding: 1rem;
@@ -69,11 +63,11 @@
 }
 
 .tableBody tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #a8c6d9;
 }
 
 .tableBody tr:nth-child(odd) {
-  background-color: #fff;
+  background-color: #c7ddf3;
 }
 
 .deleteIcon {

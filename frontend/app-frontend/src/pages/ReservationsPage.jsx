@@ -83,40 +83,36 @@ export default function ReservationsPage() {
             ) : (
               reservations.map((res) => (
                 <ul key={res.id} className={classes.resDataList}>
-                  <div className={classes.scrollDiv}>
-                    <li>
-                      <MdOutlineDirectionsBus className={classes.dataIcon} />
-                      {res.bus_line}
-                    </li>
-                    <li>
-                      <TbCalendar className={classes.dataIcon} />
-                      {res.reservation_date}
-                    </li>
-                    <li>
-                      <TbClock className={classes.dataIcon} />
-                      {res.reservation_time.split(":").slice(0, 2).join(":")}
-                    </li>
-                    <li>
-                      <TbUser className={classes.dataIcon} />
-                      {res.seat_number}
-                    </li>
-                    <li>
-                      <MdAirlineSeatReclineNormal
-                        className={classes.dataIcon}
-                      />
-                      {res.selected_seats}
-                    </li>
-                    <li>
-                      <TbCoins className={classes.dataIcon} />
-                      {res.price} Ft
-                    </li>
-                    <span
-                      className={classes.deleteIconContainer}
-                      onClick={() => handleDelete(res.id)}
-                    >
-                      <TbTrash className={classes.deleteIcon} />
-                    </span>
-                  </div>
+                  <li>
+                    <MdOutlineDirectionsBus className={classes.dataIcon} />
+                    {res.bus_line}
+                  </li>
+                  <li>
+                    <TbCalendar className={classes.dataIcon} />
+                    {res.reservation_date}
+                  </li>
+                  <li>
+                    <TbClock className={classes.dataIcon} />
+                    {res.reservation_time.split(":").slice(0, 2).join(":")}
+                  </li>
+                  <li>
+                    <TbUser className={classes.dataIcon} />
+                    {res.seat_number}
+                  </li>
+                  <li>
+                    <MdAirlineSeatReclineNormal className={classes.dataIcon} />
+                    {res.selected_seats}
+                  </li>
+                  <li>
+                    <TbCoins className={classes.dataIcon} />
+                    {res.price} Ft
+                  </li>
+                  <span
+                    className={classes.deleteIconContainer}
+                    onClick={() => handleDelete(res.id)}
+                  >
+                    <TbTrash className={classes.deleteIcon} />
+                  </span>
                 </ul>
               ))
             )}

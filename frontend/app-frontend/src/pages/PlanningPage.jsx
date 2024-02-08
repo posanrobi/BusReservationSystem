@@ -531,7 +531,7 @@ export default function PlanningPage() {
 
               {/* TOTAL */}
               <div className={classes.totalDiv}>
-                <p>Total price:</p>
+                <p className={classes.totalPrice}>Total price:</p>
                 <p>{calculateTotalPrice()} Ft</p>
               </div>
             </div>

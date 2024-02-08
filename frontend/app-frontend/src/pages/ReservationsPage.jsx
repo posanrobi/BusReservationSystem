@@ -17,11 +17,13 @@ import {
 
 import classes from "./ReservationPage.module.css";
 import modalClasses from "../components/Modal.module.css";
+import adminClasses from "../components/AdminBoard.module.css";
 
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState([]);
 
   const [openModal, setOpenModal] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const currentUser = getCurrentUser();
   const username = currentUser ? currentUser.username : "";
@@ -55,12 +57,20 @@ export default function ReservationsPage() {
       setReservations((prevReservations) =>
         prevReservations.filter((res) => res.id !== resId)
       );
+
+      setIsDeleted(true);
     } catch (error) {
       console.error("Error deleting reservation", error);
     }
   };
 
   const noReservations = reservations.length === 0;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsDeleted(false);
+    }, 2000);
+  }, [reservations]);
 
   return (
     <>
@@ -70,52 +80,63 @@ export default function ReservationsPage() {
             <div>
               <h2 className={classes.resTitle}>Your reservations</h2>
             </div>
+            {isDeleted && (
+              <p className={adminClasses.deleteMessage}>
+                Reservation deleted successfully!
+              </p>
+            )}
             <Link to="/plan" className={classes.addNew}>
               <p>New</p>
               <RiAddCircleLine />
             </Link>
           </header>
-          <div className={classes.resBoxBody}>
-            {noReservations ? (
-              <p className={classes.noReservationsMessage}>
-                No reservations yet
-              </p>
-            ) : (
-              reservations.map((res) => (
-                <ul key={res.id} className={classes.resDataList}>
-                  <li>
-                    <MdOutlineDirectionsBus className={classes.dataIcon} />
-                    {res.bus_line}
-                  </li>
-                  <li>
-                    <TbCalendar className={classes.dataIcon} />
-                    {res.reservation_date}
-                  </li>
-                  <li>
-                    <TbClock className={classes.dataIcon} />
-                    {res.reservation_time.split(":").slice(0, 2).join(":")}
-                  </li>
-                  <li>
-                    <TbUser className={classes.dataIcon} />
-                    {res.seat_number}
-                  </li>
-                  <li>
-                    <MdAirlineSeatReclineNormal className={classes.dataIcon} />
-                    {res.selected_seats}
-                  </li>
-                  <li>
-                    <TbCoins className={classes.dataIcon} />
-                    {res.price} Ft
-                  </li>
-                  <span
-                    className={classes.deleteIconContainer}
-                    onClick={() => handleDelete(res.id)}
-                  >
-                    <TbTrash className={classes.deleteIcon} />
-                  </span>
-                </ul>
-              ))
-            )}
+          <div className={classes.scrollDivRes}>
+            <div className={classes.resBoxBody}>
+              {noReservations ? (
+                <div className={classes.noReservationsDiv}>
+                  <p className={classes.noReservationsMessage}>
+                    No reservations yet
+                  </p>
+                </div>
+              ) : (
+                reservations.map((res) => (
+                  <ul key={res.id} className={classes.resDataList}>
+                    <li>
+                      <MdOutlineDirectionsBus className={classes.dataIcon} />
+                      {res.bus_line}
+                    </li>
+                    <li>
+                      <TbCalendar className={classes.dataIcon} />
+                      {res.reservation_date}
+                    </li>
+                    <li>
+                      <TbClock className={classes.dataIcon} />
+                      {res.reservation_time.split(":").slice(0, 2).join(":")}
+                    </li>
+                    <li>
+                      <TbUser className={classes.dataIcon} />
+                      {res.seat_number}
+                    </li>
+                    <li>
+                      <MdAirlineSeatReclineNormal
+                        className={classes.dataIcon}
+                      />
+                      {res.selected_seats}
+                    </li>
+                    <li>
+                      <TbCoins className={classes.dataIcon} />
+                      {res.price} Ft
+                    </li>
+                    <span
+                      className={classes.deleteIconContainer}
+                      onClick={() => handleDelete(res.id)}
+                    >
+                      <TbTrash className={classes.deleteIcon} />
+                    </span>
+                  </ul>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -7,6 +7,8 @@
   height: 87vh;
   width: 100%;
   font-family: "Roboto", sans-serif;
+  /*   background-color: #a4d1ee;
+ */
 }
 
 .header {
@@ -16,11 +18,18 @@
   width: 100%;
   padding: 0 1.5rem;
   margin-bottom: 1rem;
+  height: 1.5rem;
 }
 
 .noReservationsMessage {
   font-style: italic;
   color: rgb(84, 80, 80);
+  /* margin-left: 30rem; */
+}
+
+.noReservationsDiv {
+  width: 100%;
+  text-align: center;
 }
 
 .resTitle {
@@ -52,32 +61,35 @@
 .resBox {
   background-color: #a4d1ee;
   width: 65rem;
-  height: 36rem;
+  /* width: 66rem; */
   border-radius: 1rem;
   padding: 1rem;
-  height: 36.5rem;
+  height: 35.5rem;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  /* 
-  overflow-y: auto;
+
+  /*   overflow-y: auto;
   overflow-x: hidden; */
 }
 
 .resBoxBody {
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 33rem;
+
+  justify-content: flex-start;
+  width: 100%;
+
+  /*   overflow-y: auto;
+  overflow-x: hidden; */
+  max-height: 34rem;
 }
 
 .resDataList {
   height: 9rem;
-  width: 12rem;
+  width: 12.25rem;
   list-style-type: none;
   background-color: #5a91b3;
   padding: 0.5rem 1.5rem;
@@ -128,7 +140,7 @@
  */
 /**/
 
-.resBoxBody::-webkit-scrollbar {
+/* .resBoxBody::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -141,7 +153,33 @@
   background-color: #fff;
   border-radius: 0.5rem;
   border: 1px solid #ccc;
+} */
+
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+.scrollDivRes::-webkit-scrollbar {
+  width: 10px;
 }
+
+.scrollDivRes::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 5px;
+}
+
+.scrollDivRes::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.scrollDivRes {
+  max-height: 34rem;
+  width: 101%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 1rem;
+  margin-left: 0.6rem;
+}
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 
 .resDataList li {
   display: flex;

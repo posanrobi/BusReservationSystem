@@ -197,18 +197,24 @@
 
 .totalDiv {
   text-align: center;
-  background-color: #2f6588;
+  background-color: #33688a;
   color: white;
   border-radius: 0.5rem;
   padding: 0;
+
+  padding: 0.5rem 0;
+}
+
+.totalDiv p {
+  margin: 0;
 }
 
 .priceDiv {
   text-align: center;
-  background-color: #2f6588;
+  background-color: #33688a;
   color: white;
   border-radius: 0.5rem;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   margin: 1rem 0;
 }
 
@@ -216,7 +222,8 @@
   margin: 0;
 }
 
-.seatPrice {
+.seatPrice,
+.totalPrice {
   padding-bottom: 1rem;
 }
 

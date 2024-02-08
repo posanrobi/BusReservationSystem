@@ -41,7 +41,6 @@ export default function AdminBoard() {
         setUsers(userResponse.data);
         setReservations(reservationResponse.data);
       } catch (error) {
-        //console.error("Error while fetching data", error);
         if (error.message === "Your token is expired. Please login again.") {
           setOpenExpiredModal(true);
         } else {

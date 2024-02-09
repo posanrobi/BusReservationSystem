@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap");
+
+.deleteContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 5rem;
+
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+.deleteWindow {
+  text-align: center;
+  padding: 1rem 0.5rem;
+  border-radius: 1rem;
+  background-color: #fff;
+  width: 17rem;
+  height: 10rem;
+  font-family: "Roboto", sans-serif;
+}
+
+.question {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.buttons {
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+}
+
+.noBtn,
+.yesBtn {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.noBtn {
+  background: none;
+  border: none;
+}
+
+.noBtn:hover {
+  color: #2f6588;
+}
+
+.yesBtn {
+  padding: 0.5rem 1.5rem;
+  border-radius: 1rem;
+  background-color: #1a4967;
+  color: #fff;
+}
+
+.yesBtn:hover {
+  background-color: #2f6588;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

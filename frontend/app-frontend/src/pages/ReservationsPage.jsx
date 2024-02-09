@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   getAllReservations,
   deleteReservation,
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getCurrentUser } from "../services/auth.service";
 import Modal from "../components/Modal";
 import TokenExpired from "../components/TokenExpired";
+import DeleteWindow from "../components/DeleteWindow";
 
 import { TbTrash, TbCalendar, TbClock, TbUser, TbCoins } from "react-icons/tb";
 import { RiAddCircleLine } from "react-icons/ri";
@@ -21,9 +22,10 @@ import adminClasses from "../components/AdminBoard.module.css";
 
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState([]);
-
-  const [openModal, setOpenModal] = useState(false);
+  const [openTokenExpiredModal, setOpenTokenExpiredModal] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [selectedReservationId, setSelectedReservationId] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const currentUser = getCurrentUser();
   const username = currentUser?.username || "";
@@ -32,36 +34,38 @@ export default function ReservationsPage() {
     async function getReservations() {
       try {
         const reservationsResponse = await getAllReservations();
-
         const userReservations = reservationsResponse.data.filter(
           (reservation) => reservation.username === username
         );
-
         setReservations(userReservations);
       } catch (error) {
         if (error.message === "Your token is expired. Please login again.") {
-          setOpenModal(true);
+          setOpenTokenExpiredModal(true);
         } else {
           console.error("Error while fetching data", error);
         }
       }
     }
-
     getReservations();
-  }, []);
+  }, [username]);
 
   const handleDelete = async (resId) => {
+    setSelectedReservationId(resId);
+    setShowConfirmModal(true);
+  };
+
+  const confirmDelete = async () => {
     try {
-      await deleteReservation(resId);
-
+      await deleteReservation(selectedReservationId);
       setReservations((prevReservations) =>
-        prevReservations.filter((res) => res.id !== resId)
+        prevReservations.filter((res) => res.id !== selectedReservationId)
       );
-
       setIsDeleted(true);
     } catch (error) {
       console.error("Error deleting reservation", error);
     }
+    setSelectedReservationId(null);
+    setShowConfirmModal(false);
   };
 
   const noReservations = reservations.length === 0;
@@ -140,8 +144,16 @@ export default function ReservationsPage() {
           </div>
         </div>
       </div>
-      {openModal && (
-        <Modal open={openModal} className={modalClasses.modalContainer}>
+      <DeleteWindow
+        open={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={confirmDelete}
+      />
+      {openTokenExpiredModal && (
+        <Modal
+          open={openTokenExpiredModal}
+          className={modalClasses.modalContainer}
+        >
           <TokenExpired />
         </Modal>
       )}

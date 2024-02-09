@@ -1,10 +1,7 @@
 package com.thesispr.BusReservationSystem.model;
 
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,23 +27,11 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    /*@ElementCollection(targetClass = ERole.class)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")*/
-
-    /*@ElementCollection(targetClass = ERole.class)
-    @Enumerated(EnumType.STRING)
-    private Set<ERole> roles;*/
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
-    /*@OneToMany(mappedBy = "user")
-    private List<Reservation> reservations = new ArrayList<>();*/
 
     public User() {}
 
@@ -70,10 +55,7 @@ public class User {
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
-
         this.roles = roles;
-        //.roles = new HashSet<>(); //ADDED
-        //this.roles = roles != null ? roles : new HashSet<>();
     }
 
     public Long getId() {
@@ -124,14 +106,6 @@ public class User {
         this.password = password;
     }
 
-    /*public Set<ERole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<ERole> roles) {
-        this.roles = roles;
-    }*/
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -139,12 +113,4 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-    /*public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }*/
 }

@@ -2,10 +2,6 @@ package com.thesispr.BusReservationSystem.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-
-import java.util.List;
-
 @Entity
 public class BusLine {
 
@@ -13,9 +9,6 @@ public class BusLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    //@OneToMany(mappedBy = "busLine", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<BusLineDate> available_dates = new ArrayList<>();
-    //private int seatNum;
     private int price;
 
     public Long getId() {
@@ -33,22 +26,6 @@ public class BusLine {
     public void setName(String name) {
         this.name = name;
     }
-
-    /*public List<BusLineDate> getAvailable_dates() {
-        return available_dates;
-    }
-
-    public void setAvailable_dates(List<BusLineDate> available_dates) {
-        this.available_dates = available_dates;
-    }*/
-
-    /*public int getSeatNum() {
-        return seatNum;
-    }
-
-    public void setSeatNum(int seatNum) {
-        this.seatNum = seatNum;
-    }*/
 
     public int getPrice() {
         return price;

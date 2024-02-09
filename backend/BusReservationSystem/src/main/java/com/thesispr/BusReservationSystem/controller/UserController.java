@@ -40,21 +40,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
-   /* @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User user) {
-        user.setId(userId);
-        User updatedUser = userService.saveUser(user);
-        return ResponseEntity.ok(updatedUser);
-    }*/
-
-    /*@PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User user) {
-        user.setId(userId);
-        userService.updateUser(userId, user);
-        return ResponseEntity.ok(user);
-    }*/
-
-    //ADDED
     @PutMapping("/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable Long userId, @RequestBody User user) {
         user.setId(userId);
@@ -70,8 +55,6 @@ public class UserController {
         }
     }
 
-
-
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
@@ -83,12 +66,6 @@ public class UserController {
             @PathVariable Long userId,
             @RequestBody UpdatePasswordRequest updatePasswordRequest) {
 
-        /*try {
-            userService.updatePassword(userId, updatePasswordRequest);
-            return ResponseEntity.ok("Password updated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to update password");
-        }*/
         try {
             userService.updatePassword(userId, updatePasswordRequest);
             return ResponseEntity.ok("Password updated successfully");

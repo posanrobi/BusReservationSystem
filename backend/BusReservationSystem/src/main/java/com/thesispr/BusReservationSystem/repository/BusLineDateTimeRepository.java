@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BusLineDateTimeRepository extends JpaRepository<BusLineDateTime, Long> {
-    // custom queries
 }

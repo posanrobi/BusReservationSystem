@@ -14,13 +14,8 @@ import java.util.List;
 @Service
 public class UserService {
 
-    //@Autowired
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
-
-    /*public UserService() {
-    }*/
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -44,34 +39,15 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    /*public void updateUser(Long userId, User updatedUserData) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
-
-        user.setUsername(updatedUserData.getUsername());
-        user.setFirstname(updatedUserData.getFirstname());
-        user.setLastname(updatedUserData.getLastname());
-        user.setEmail(updatedUserData.getEmail());
-
-        if (updatedUserData.getPassword() != null && !updatedUserData.getPassword().trim().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(updatedUserData.getPassword()));
-        }
-
-        userRepository.save(user);
-    }*/
-
-    //ADDED
     public void updateUser(Long userId, User updatedUserData) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("user not found"));
 
-        // Check if the new username is already taken
         if (!user.getUsername().equals(updatedUserData.getUsername()) &&
                 userRepository.existsByUsername(updatedUserData.getUsername())) {
             throw new DuplicateKeyException("username is already taken");
         }
 
-        // Check if the new email is already taken
         if (!user.getEmail().equals(updatedUserData.getEmail()) &&
                 userRepository.existsByEmail(updatedUserData.getEmail())) {
             throw new DuplicateKeyException("email is already taken");
@@ -88,8 +64,6 @@ public class UserService {
 
         userRepository.save(user);
     }
-
-
 
     public void updatePassword(Long userId, UpdatePasswordRequest updatePasswordRequest) {
         User user = userRepository.findById(userId)

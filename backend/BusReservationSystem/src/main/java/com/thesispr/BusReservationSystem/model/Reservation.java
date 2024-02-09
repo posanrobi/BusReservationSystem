@@ -1,6 +1,5 @@
 package com.thesispr.BusReservationSystem.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -12,14 +11,6 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /*@JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "bus_line_id")
-    private BusLine busLine;*/
     private LocalDate reservation_date;
     private LocalTime reservation_time;
     private String bus_line;
@@ -38,22 +29,6 @@ public class Reservation {
     public void setId(Long id) {
         this.id = id;
     }
-
- /*   public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public BusLine getBusLine() {
-        return busLine;
-    }
-
-    public void setBusLine(BusLine busLine) {
-        this.busLine = busLine;
-    }*/
 
     public LocalDate getReservation_date() {
         return reservation_date;
@@ -86,14 +61,6 @@ public class Reservation {
     public void setPrice(int price) {
         this.price = price;
     }
-
-    /*public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }*/
 
     public String getBus_line() {
         return bus_line;

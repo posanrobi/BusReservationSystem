@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
-import Input from "../components/Input";
 import { getCurrentUser } from "../services/auth.service";
-
-import { CgProfile } from "react-icons/cg";
-import { FaRegEdit } from "react-icons/fa";
-
 import {
   getUserById,
   updatePassword,
   updateUser,
 } from "../services/user.service";
+import Input from "../components/Input";
 import Modal from "../components/Modal";
 import LoggingOut from "../components/LoggingOut";
+import TokenExpired from "../components/TokenExpired";
+import {
+  checkDataChanges,
+  existNewAndConfirmPassword,
+  noPasswordData,
+  noUserData,
+  validateEmail,
+} from "../services/utils";
+
+import { CgProfile } from "react-icons/cg";
+import { FaRegEdit } from "react-icons/fa";
 
 import classes from "./ProfilePage.module.css";
 import modalClasses from "../components/Modal.module.css";
-import TokenExpired from "../components/TokenExpired";
 
 export default function ProfilePage() {
   const [firstname, setFirstname] = useState("");
@@ -35,8 +41,6 @@ export default function ProfilePage() {
 
   const currentUser = getCurrentUser();
   const userId = currentUser ? currentUser.id : "";
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const [isEditing, setIsEditing] = useState(false);
   const [openExpiredModal, setOpenExpiredModal] = useState(false);
@@ -65,15 +69,16 @@ export default function ProfilePage() {
   }, [userId]);
 
   useEffect(() => {
-    const hasDataChanged =
-      originalData.username !== username ||
-      originalData.email !== email ||
-      originalData.firstname !== firstname ||
-      originalData.lastname !== lastname ||
-      password !== "" ||
-      newPassword !== "" ||
-      confirmPassword !== "";
-
+    const hasDataChanged = checkDataChanges(
+      originalData,
+      username,
+      email,
+      firstname,
+      lastname,
+      password,
+      newPassword,
+      confirmPassword
+    );
     setHasChanges(hasDataChanged);
   }, [
     originalData,
@@ -86,15 +91,6 @@ export default function ProfilePage() {
     confirmPassword,
   ]);
 
-  const noUSerData = !username || !firstname || !lastname || !email;
-  const noPasswordData =
-    (password && !newPassword) ||
-    (password && !confirmPassword) ||
-    (newPassword && !confirmPassword) ||
-    (newPassword && !password) ||
-    (confirmPassword && !newPassword) ||
-    (confirmPassword && !password);
-
   async function handleSave() {
     try {
       setErrors({
@@ -102,14 +98,14 @@ export default function ProfilePage() {
         message: "",
       });
 
-      if (noUSerData) {
+      if (noUserData(username, firstname, lastname, email)) {
         setErrors({
           ...errors,
           userDataMessage: "please fill in all required fields",
         });
         return;
       }
-      if (noPasswordData) {
+      if (noPasswordData(password, newPassword, confirmPassword)) {
         setErrors({
           ...errors,
           message: "please fill in all required fields",
@@ -117,7 +113,7 @@ export default function ProfilePage() {
         return;
       }
 
-      if (!emailRegex.test(email)) {
+      if (!validateEmail(email)) {
         setErrors({
           ...errors,
           userDataMessage: "invalid email format",
@@ -132,12 +128,7 @@ export default function ProfilePage() {
         email: email,
       });
 
-      if (
-        newPassword &&
-        newPassword !== "" &&
-        confirmPassword &&
-        confirmPassword !== ""
-      ) {
+      if (existNewAndConfirmPassword(newPassword, confirmPassword)) {
         await updatePassword(userId, {
           currentPassword: password,
           newPassword: newPassword,
@@ -149,8 +140,6 @@ export default function ProfilePage() {
 
       setIsModalOpen(true);
       localStorage.removeItem("user");
-
-      console.log("User updated successfully!");
     } catch (error) {
       if (error.response) {
         console.error(

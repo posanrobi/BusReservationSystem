@@ -10,6 +10,8 @@ import {
 import TokenExpired from "../components/TokenExpired";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../services/auth.service";
+import { calculateTotalPrice } from "../services/utils";
+
 import { TbTrash } from "react-icons/tb";
 import { FaSquare } from "react-icons/fa";
 
@@ -44,7 +46,7 @@ export default function PlanningPage() {
 
   // open modal
   const openConfirm = () => {
-    const total = calculateTotalPrice();
+    const total = calculateTotalPrice(selectedSeats, busLines);
     setSelectedData({
       startingCity: selectedFrom,
       destinationCity: selectedTo,
@@ -266,17 +268,7 @@ export default function PlanningPage() {
     return grouped;
   }, {});
 
-  //Total
-  const calculateTotalPrice = () => {
-    const totalPrice = selectedSeats.reduce((total, seat) => {
-      const busLine = busLines.find((bl) => bl.id === seat.busLineId);
-      const seatPrice = busLine ? busLine.price : 0;
-      return total + seatPrice;
-    }, 0);
-    return totalPrice;
-  };
-
-  // Send Data
+  //Send Data
   async function handleSubmitConfirm() {
     try {
       const user = getCurrentUser();
@@ -299,7 +291,7 @@ export default function PlanningPage() {
 
       const reservationData = {
         bus_line: selectedBusLine,
-        price: calculateTotalPrice(),
+        price: calculateTotalPrice(selectedSeats, busLines),
         reservation_date: selectedDate,
         reservation_time: selectedTime,
         seat_number: selectedSeats.length,
@@ -327,7 +319,7 @@ export default function PlanningPage() {
       setSelectedDate("");
       setSelectedTime("");
       setSelectedSeats([]);
-      calculateTotalPrice();
+      calculateTotalPrice(selectedSeats, busLines);
     }
   }
 
@@ -532,7 +524,7 @@ export default function PlanningPage() {
               {/* TOTAL */}
               <div className={classes.totalDiv}>
                 <p className={classes.totalPrice}>Total price:</p>
-                <p>{calculateTotalPrice()} Ft</p>
+                <p>{calculateTotalPrice(selectedSeats, busLines)} Ft</p>
               </div>
             </div>
           </div>

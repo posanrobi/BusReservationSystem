@@ -26,7 +26,7 @@ export default function TokenExpired() {
           </button>
         </div>
       ) : (
-        <p>Logging out...</p>
+        <p className={classes.logoutMessage}>Logging out...</p>
       )}
     </div>
   );

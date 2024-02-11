@@ -11,9 +11,9 @@ import TokenExpired from "../components/TokenExpired";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../services/auth.service";
 import { calculateTotalPrice } from "../services/utils";
-
-import { TbTrash } from "react-icons/tb";
-import { FaSquare } from "react-icons/fa";
+import TripSelection from "../components/TripSelection";
+import SeatSelection from "../components/SeatSelection";
+import DetailsSelection from "../components/DetailsSelection";
 
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
@@ -328,205 +328,40 @@ export default function PlanningPage() {
       <div className={classes.planContainer}>
         <div className={classes.planBox}>
           <div className={classes.planBoxBody}>
-            <div className={classes.tripDiv}>
-              <h2>Plan your travel</h2>
+            <TripSelection
+              busLines={busLines}
+              selectedFrom={selectedFrom}
+              selectedTo={selectedTo}
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              handleSelectFromChange={handleSelectFromChange}
+              handleSelectToChange={handleSelectToChange}
+              handleSelectDateChange={handleSelectDateChange}
+              handleSelectTimeChange={handleSelectTimeChange}
+              getLineId={getLineId}
+              groupedDatesByLineId={groupedDatesByLineId}
+              groupedTimesByLineId={groupedTimesByLineId}
+            />
 
-              {/* FROM */}
-              <label>
-                From:
-                <div className={classes.dropDownBox}>
-                  <select
-                    className={classes.select}
-                    onChange={handleSelectFromChange}
-                    value={selectedFrom}
-                  >
-                    <option value="" disabled>
-                      Choose starting place
-                    </option>
-                    {Array.from(
-                      new Set(
-                        busLines.map((busLine) =>
-                          busLine.name.split("-")[0].trim()
-                        )
-                      )
-                    )
-                      .sort()
-                      .map((startingPlace) => (
-                        <option key={startingPlace} value={startingPlace}>
-                          {startingPlace}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-              </label>
+            <SeatSelection
+              selectedFrom={selectedFrom}
+              selectedTo={selectedTo}
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              groupedDatesByLineId={groupedDatesByLineId}
+              getLineId={getLineId}
+              handleClearSelectedSeats={handleClearSelectedSeats}
+              renderSeats={renderSeats}
+            />
 
-              {/* TO */}
-              <label>
-                To:
-                <div className={classes.dropDownBox}>
-                  <select
-                    className={classes.select}
-                    onChange={handleSelectToChange}
-                    value={selectedTo}
-                  >
-                    <option value="" disabled>
-                      Choose destination place
-                    </option>
-                    {busLines
-                      .filter(
-                        (busLine) =>
-                          busLine.name.split("-")[0].trim() === selectedFrom
-                      )
-                      .sort((a, b) => {
-                        const cityA = a.name.split("-")[1].trim();
-                        const cityB = b.name.split("-")[1].trim();
-                        return cityA.localeCompare(cityB);
-                      })
-                      .map((busLine) => (
-                        <option
-                          key={busLine.id}
-                          value={busLine.name.split("-")[1].trim()}
-                        >
-                          {busLine.name.split("-")[1].trim()}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-              </label>
-
-              {/* DATE */}
-              <label>
-                Available dates:
-                <div className={classes.dropDownBox}>
-                  <select
-                    className={classes.select}
-                    onChange={handleSelectDateChange}
-                    value={selectedDate}
-                  >
-                    <option value="" disabled>
-                      Choose a date
-                    </option>
-
-                    {selectedTo &&
-                      Array.from(
-                        new Set(
-                          groupedDatesByLineId[
-                            getLineId(selectedFrom, selectedTo)
-                          ]?.map((date) => date.date) || []
-                        )
-                      )
-                        .sort()
-                        .map((date) => (
-                          <option key={date} value={date}>
-                            {date}
-                          </option>
-                        ))}
-                  </select>
-                </div>
-              </label>
-
-              {/* TIME */}
-              <label>
-                Available times:
-                <div className={classes.dropDownBox}>
-                  <select
-                    className={classes.select}
-                    onChange={handleSelectTimeChange}
-                    value={selectedTime}
-                  >
-                    <option value="" disabled>
-                      Choose a time
-                    </option>
-
-                    {selectedDate &&
-                      Array.from(
-                        new Set(
-                          groupedTimesByLineId[
-                            getLineId(selectedFrom, selectedTo)
-                          ]?.map((time) => time) || []
-                        )
-                      )
-                        .sort()
-                        .map((time) => (
-                          <option key={time} value={time}>
-                            {time}
-                          </option>
-                        ))}
-                  </select>
-                </div>
-              </label>
-            </div>
-
-            {/* SEATS */}
-            <div className={classes.seatsDiv}>
-              <div className={classes.seatsDivHeader}>
-                <p>Available seats:</p>
-                <span>
-                  <TbTrash onClick={handleClearSelectedSeats} />
-                </span>
-              </div>
-              {!selectedTime ? (
-                <div className={classes.noSeatsDiv}>
-                  <p className={`${classes.noItemMessage} ${classes.noSeats}`}>
-                    No seats available
-                  </p>
-                </div>
-              ) : (
-                <div className={classes.seats}>
-                  {selectedFrom &&
-                    selectedTo &&
-                    selectedDate &&
-                    selectedTime &&
-                    groupedDatesByLineId[getLineId(selectedFrom, selectedTo)] &&
-                    groupedDatesByLineId[getLineId(selectedFrom, selectedTo)]
-                      .filter((date) => date.busLine)
-                      .slice(0, 1)
-                      .map((date) => {
-                        const busLineId = getLineId(
-                          date.busLine.name.split("-")[0].trim(),
-                          date.busLine.name.split("-")[1].trim()
-                        );
-                        return renderSeats(busLineId);
-                      })}
-                </div>
-              )}
-            </div>
-
-            {/* DEATAILS */}
-            <div className={classes.detailsDiv}>
-              <ul>
-                <li>
-                  Free <FaSquare className={classes.greenIndicatorIcon} />
-                </li>
-                <li>
-                  Booked <FaSquare className={classes.redIndicatorIcon} />
-                </li>
-                <li>
-                  Selected <FaSquare className={classes.blackIndicatorIcon} />
-                </li>
-              </ul>
-
-              {/* PRICE */}
-              <label>
-                <div className={classes.priceDiv}>
-                  <p className={classes.seatPrice}>Seat price:</p>
-                  {busLines.map((busLine) => {
-                    const selectedLine = getLineId(selectedFrom, selectedTo);
-
-                    if (busLine.id === selectedLine) {
-                      return <p key={busLine.id}>{busLine.price} Ft</p>;
-                    }
-                  })}
-                  {!selectedTo && <p className={classes.noPrice}>0 Ft</p>}
-                </div>
-              </label>
-
-              {/* TOTAL */}
-              <div className={classes.totalDiv}>
-                <p className={classes.totalPrice}>Total price:</p>
-                <p>{calculateTotalPrice(selectedSeats, busLines)} Ft</p>
-              </div>
-            </div>
+            <DetailsSelection
+              busLines={busLines}
+              selectedFrom={selectedFrom}
+              selectedTo={selectedTo}
+              getLineId={getLineId}
+              calculateTotalPrice={calculateTotalPrice}
+              selectedSeats={selectedSeats}
+            />
           </div>
           <div className={classes.planBoxFooter}>
             <button onClick={openConfirm} type="button">

@@ -3,6 +3,19 @@ import { TbTrash } from "react-icons/tb";
 
 import classes from "../pages/PlanningPage.module.css";
 
+/**
+ * SeatSelection component displays available seats for a selected trip and allows clearing selected seats.
+ *
+ * @param {string} selectedFrom - The selected starting place.
+ * @param {string} selectedTo - The selected destination place.
+ * @param {string} selectedDate - The selected date.
+ * @param {string} selectedTime - The selected time.
+ * @param {Object} groupedDatesByLineId - Object containing grouped dates by line ID.
+ * @param {Function} getLineId - Function to get the line ID based on selected from and to places.
+ * @param {Function} handleClearSelectedSeats - Function to handle clearing selected seats.
+ * @param {Function} renderSeats - Function to render available seats.
+ * @returns {JSX.Element} The SeatSelection component.
+ */
 const SeatSelection = ({
   selectedFrom,
   selectedTo,

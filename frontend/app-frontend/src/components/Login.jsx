@@ -6,17 +6,25 @@ import { getUserRole } from "../services/auth.service";
 
 import classes from "./Auth.module.css";
 
+/**
+ * Component for user login.
+ *
+ * @param {function} closeLoginModal - Function to close the login modal.
+ * @returns {React.ReactNode} - JSX element representing the login form.
+ */
 export default function Login({ closeLoginModal }) {
+  // State variables for form data, errors, and submission status
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
+  // React router hook for navigation
   const navigate = useNavigate();
 
+  // Handles input change for the form fields
   function handleInputChange(e) {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -26,6 +34,11 @@ export default function Login({ closeLoginModal }) {
     setErrors({});
   }
 
+  /**
+   * Validates the login form.
+   *
+   * @returns {boolean} - Indicates whether the form is valid.
+   */
   function validateForm() {
     let isValid = true;
     const newErrors = {};
@@ -41,6 +54,7 @@ export default function Login({ closeLoginModal }) {
     return isValid;
   }
 
+  // Handles form submission
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -66,13 +80,16 @@ export default function Login({ closeLoginModal }) {
     }
   }
 
+  // Handles pressing the enter key to submit the form
   useEnterKeyEffect(handleSubmit);
 
+  // Handles closing the login modal.
   function closeHandler(e) {
     e.preventDefault();
     closeLoginModal();
   }
 
+  // Resets form data, errors, and submission status when the modal is closed
   useEffect(() => {
     setErrors({});
     setFormData({
@@ -82,6 +99,7 @@ export default function Login({ closeLoginModal }) {
     setSubmitted(false);
   }, [closeLoginModal]);
 
+  // Renders the login form
   return (
     <>
       <div className={classes.loginContainer}>

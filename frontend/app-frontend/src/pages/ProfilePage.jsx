@@ -23,28 +23,32 @@ import { FaRegEdit } from "react-icons/fa";
 import classes from "./ProfilePage.module.css";
 import modalClasses from "../components/Modal.module.css";
 
+/**
+ * Component for managing user profile details and password change.
+ *
+ * @returns {JSX.Element} The ProfilePage component.
+ */
 export default function ProfilePage() {
+  // State variables for user data and form inputs
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [errors, setErrors] = useState({});
   const [hasChanges, setHasChanges] = useState(false);
   const [originalData, setOriginalData] = useState({});
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const currentUser = getCurrentUser();
-  const userId = currentUser ? currentUser.id : "";
-
   const [isEditing, setIsEditing] = useState(false);
   const [openExpiredModal, setOpenExpiredModal] = useState(false);
 
+  // Get the current user's data
+  const currentUser = getCurrentUser();
+  const userId = currentUser ? currentUser.id : "";
+
+  // useEffect hook to fetch user data on component mount
   useEffect(() => {
     async function getUserData() {
       try {
@@ -68,6 +72,7 @@ export default function ProfilePage() {
     getUserData();
   }, [userId]);
 
+  // useEffect hook to check for changes in user data
   useEffect(() => {
     const hasDataChanged = checkDataChanges(
       originalData,
@@ -91,6 +96,7 @@ export default function ProfilePage() {
     confirmPassword,
   ]);
 
+  // Function to handle saving changes
   async function handleSave() {
     try {
       setErrors({
@@ -167,6 +173,7 @@ export default function ProfilePage() {
     setConfirmPassword("");
   }, [isModalOpen]);
 
+  // Function to handle input changes
   const handleInputChange = (fieldName) => (e) => {
     setErrors({
       userDataMessage: "",
@@ -210,6 +217,7 @@ export default function ProfilePage() {
     }
   };
 
+  // Function to handle edit button click
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };

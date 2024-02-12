@@ -5,7 +5,14 @@ import { MdError } from "react-icons/md";
 
 import classes from "./ErrorPage.module.css";
 
+/**
+ * Error page component displaying an error message and a back button.
+ * Determines the destination of the back button based on the user's role.
+ *
+ * @returns {JSX.Element} Error page JSX element.
+ */
 export default function Error() {
+  // Variable for checking if the user is an admin or not.
   const isAdmin = getUserRole() === "ROLE_ADMIN";
 
   return (

@@ -1,5 +1,21 @@
 import classes from "./Auth.module.css";
 
+/**
+ * Input component for forms.
+ *
+ * @param {string} label - The label for the input field.
+ * @param {string} type - The type of the input field.
+ * @param {string} name - The name of the input field.
+ * @param {string} id - The id of the input field.
+ * @param {string} value - The value of the input field.
+ * @param {function} onChange - The function to handle changes in the input field.
+ * @param {string} error - The error message to display.
+ * @param {string} [placeholder=""] - The placeholder text for the input field.
+ * @param {string} [className=""] - The additional CSS classes for styling.
+ * @param {boolean} [disabled=false] - Applied if the input field is disabled.
+ *
+ * @returns {React.ReactNode} - JSX element representing an input field.
+ */
 export default function Input({
   label,
   type,
@@ -12,6 +28,7 @@ export default function Input({
   className = "",
   disabled = false,
 }) {
+  // Renders an input field with its label and optional error message
   return (
     <div className={classes.labelInput}>
       <label className={classes.label} htmlFor={id}>

@@ -5,6 +5,16 @@ import { MdDelete } from "react-icons/md";
 import classes from "./AdminBoard.module.css";
 import DeleteWindow from "./DeleteWindow";
 
+/**
+ * UserTable component for displaying a table of users and allowing deletion of users.
+ *
+ * @param {Object[]} users - Array of user objects containing user data.
+ * @param {Function} setUsers - Function to update the user state.
+ * @param {Object[]} reservations - Array of reservation objects containing reservation data.
+ * @param {Function} setReservations - Function to update the reservations state.
+ * @param {Function} onDeleteMessage - Function to display a message after a user is deleted.
+ * @returns {JSX.Element} The UserTable component.
+ */
 export default function UserTable({
   users,
   setUsers,
@@ -12,23 +22,28 @@ export default function UserTable({
   setReservations,
   onDeleteMessage,
 }) {
+  // State variables for managing loading state, selected user ID, and confirm modal visibility
   const [loading, setLoading] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  // Effect hook to set loading state to false on component mount
   useEffect(() => {
     setLoading(false);
   }, []);
 
+  // Filter users to include only those with 'ROLE_USER' role
   const onlyUsers = users.filter((user) =>
     user.roles.some((role) => role.roleName === "ROLE_USER")
   );
 
+  // Function to handle user deletion
   const handleDelete = async (userId) => {
     setSelectedUserId(userId);
     setShowConfirmModal(true);
   };
 
+  // Function to confirm user deletion
   const confirmDelete = async () => {
     try {
       await deleteUser(selectedUserId);
@@ -59,6 +74,7 @@ export default function UserTable({
     setShowConfirmModal(false);
   };
 
+  // Check if there are no users
   const noUsers = onlyUsers.length === 0;
 
   return (

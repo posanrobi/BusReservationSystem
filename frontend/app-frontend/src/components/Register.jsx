@@ -10,6 +10,7 @@ import classes from "./Auth.module.css";
  * @returns {React.JSX.Element} - JSX element representing the registration form.
  */
 export default function Register({ closeRegisterModal }) {
+  // State variables for storing the user's data
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -18,9 +19,13 @@ export default function Register({ closeRegisterModal }) {
     password: "",
   });
 
+  // State variable for storing the errors of the form
   const [errors, setErrors] = useState({});
+
+  // State variable for storing if the form has been submitted
   const [submitted, setSubmitted] = useState(false);
 
+  // Store the input change in the form data
   function handleInputChange(e) {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -30,6 +35,7 @@ export default function Register({ closeRegisterModal }) {
     setErrors({});
   }
 
+  // Validates the form inputs
   function validateForm() {
     let isValid = true;
     const newErrors = {};
@@ -52,6 +58,7 @@ export default function Register({ closeRegisterModal }) {
     return isValid;
   }
 
+  // Function to handle form submission
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -72,14 +79,17 @@ export default function Register({ closeRegisterModal }) {
     }
   }
 
+  // Send the registration data to the backend for Enter Key effect
   useEnterKeyEffect(handleSubmit);
 
+  // Function to close the modal
   function closeHandler(e) {
     e.preventDefault();
     setErrors("");
     closeRegisterModal();
   }
 
+  // Reset the form data on modal close
   useEffect(() => {
     setErrors({});
     setFormData({

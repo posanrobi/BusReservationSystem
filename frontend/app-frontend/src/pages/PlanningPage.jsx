@@ -18,23 +18,76 @@ import DetailsSelection from "../components/DetailsSelection";
 import classes from "./PlanningPage.module.css";
 import modalClasses from "../components/Modal.module.css";
 
+/**
+ * Component for planning and creating reservations.
+ *
+ * @returns {JSX.Element} The PlanningPage component.
+ */
 export default function PlanningPage() {
+  /**
+   * State variable for storing bus lines.
+   * @type {Array<Object>}
+   */
   const [busLines, setBusLines] = useState([]);
+
+  /**
+   * State variable for storing bus line dates and times.
+   * @type {Array<Object>}
+   */
   const [busLineDateTime, setBusLineDateTime] = useState([]);
 
+  /**
+   * State variable for storing starting city of the bus line.
+   * @type {String}
+   */
   const [selectedFrom, setSelectedFrom] = useState("");
+
+  /**
+   * State variable for storing destination city of the bus line.
+   * @type {String}
+   */
   const [selectedTo, setSelectedTo] = useState("");
+
+  /**
+   * State variable for storing the date of the bus line.
+   * @type {String}
+   */
   const [selectedDate, setSelectedDate] = useState("");
+
+  /**
+   * State variable for storing the time of the bus line.
+   * @type {String}
+   */
   const [selectedTime, setSelectedTime] = useState("");
 
+  /**
+   * State variable for managing the visibility of the confirmation modal.
+   * @type {boolean}
+   */
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  /**
+   * State variable for storing the selected seats.
+   * @type {Array<Object>}
+   */
   const [selectedSeats, setSelectedSeats] = useState([]);
 
+  /**
+   * State variable for storing information about already reserved seats.
+   * @type {Object}
+   */
   const [alreadyReserved, setAlreadyReserved] = useState({});
 
+  /**
+   * State variable for managing the visibility of the token expiration modal.
+   * @type {boolean}
+   */
   const [openExpiredModal, setOpenExpiredModal] = useState(false);
 
+  /**
+   * State variable for storing data related to the confirmed reservation.
+   * @type {Object}
+   */
   const [selectedData, setSelectedData] = useState({
     startingCity: "",
     destinationCity: "",
@@ -44,7 +97,9 @@ export default function PlanningPage() {
     numberOfSelectedSeats: [],
   });
 
-  // open modal
+  /**
+   * Function to open the confirmation modal.
+   */
   const openConfirm = () => {
     const total = calculateTotalPrice(selectedSeats, busLines);
     setSelectedData({
@@ -57,10 +112,16 @@ export default function PlanningPage() {
     setIsModalOpen(true);
   };
 
-  // close modal
+  /**
+   * Function to close the confirmation modal.
+   */
   const closeConfirm = () => setIsModalOpen(false);
 
-  // click on seats
+  /**
+   * Function to handle click on a seat.
+   * @param {string} busLineId - The ID of the bus line.
+   * @param {number} seatContent - The seat number.
+   */
   const handleClick = (busLineId, seatContent) => {
     const selectedSeat = { busLineId, seatContent };
 
@@ -83,7 +144,11 @@ export default function PlanningPage() {
     }
   };
 
-  //Render seats
+  /**
+   * Function to render the seats for a specific bus line.
+   * @param {string} busLineId - The ID of the bus line.
+   * @returns {JSX.Element[]} An array of JSX elements representing the seats.
+   */
   const renderSeats = (busLineId) => {
     const seatDiv = [];
 
@@ -144,7 +209,9 @@ export default function PlanningPage() {
     return seatDiv;
   };
 
-  // FETCH
+  /**
+   * Fetching buslines and dates and times.
+   */
   useEffect(() => {
     async function fetchData() {
       try {
@@ -165,6 +232,9 @@ export default function PlanningPage() {
     fetchData();
   }, []);
 
+  /**
+   * Checking that a seat is reserved or not.
+   */
   useEffect(() => {
     async function fetchReservedSeats() {
       try {
@@ -207,10 +277,17 @@ export default function PlanningPage() {
     fetchReservedSeats();
   }, [selectedFrom, selectedTo, selectedDate, selectedTime]);
 
+  /**
+   * Function to clear the selected seats.
+   */
   function handleClearSelectedSeats() {
     setSelectedSeats([]);
   }
 
+  /**
+   * Function to handle the change event when selecting the starting city.
+   * @param {Event} e - The change event object.
+   */
   function handleSelectFromChange(e) {
     const { value } = e.target;
     setSelectedFrom(value);
@@ -220,6 +297,10 @@ export default function PlanningPage() {
     setSelectedTime("");
   }
 
+  /**
+   * Function to handle the change event when selecting the destination city.
+   * @param {Event} e - The change event object.
+   */
   function handleSelectToChange(e) {
     const { value } = e.target;
     setSelectedTo(value);
@@ -228,25 +309,41 @@ export default function PlanningPage() {
     setSelectedTime("");
   }
 
+  /**
+   * Function to handle the change event when selecting the date.
+   * @param {Event} e - The change event object.
+   */
   function handleSelectDateChange(e) {
     const { value } = e.target;
     setSelectedDate(value);
     setSelectedTime("");
   }
 
+  /**
+   * Function to handle the change event when selecting the time.
+   * @param {Event} e - The change event object.
+   */
   function handleSelectTimeChange(e) {
     const { value } = e.target;
     setSelectedTime(value);
   }
 
-  //Get lineId
+  /**
+   * Function to get the ID of a bus line based on its starting and destination cities.
+   * @param {string} from - The starting city.
+   * @param {string} to - The destination city.
+   * @returns {string|null} The ID of the bus line if found, or null if not found.
+   */
   const getLineId = (from, to) => {
     const line = `${from}-${to}`;
     const busLine = busLines.find((bl) => bl.name === line);
     return busLine ? busLine.id : null;
   };
 
-  //Grouping Date by id
+  /**
+   * Object storing dates grouped by bus line ID.
+   * @type {Object<string, Array<Object>>}
+   */
   const groupedDatesByLineId = busLineDateTime.reduce((grouped, date) => {
     const lineId = date.busLine.id;
     if (!grouped[lineId]) {
@@ -256,7 +353,10 @@ export default function PlanningPage() {
     return grouped;
   }, {});
 
-  //Grouping Time by id
+  /**
+   * Object storing times grouped by bus line ID.
+   * @type {Object<string, Array<string>>}
+   */
   const groupedTimesByLineId = busLineDateTime.reduce((grouped, time) => {
     const lineId = time.busLine.id;
     const formattedTime = time.time.split(":").slice(0, 2).join(":");
@@ -268,7 +368,9 @@ export default function PlanningPage() {
     return grouped;
   }, {});
 
-  //Send Data
+  /**
+   * Function to handle the submission of the reservation confirmation.
+   */
   async function handleSubmitConfirm() {
     try {
       const user = getCurrentUser();

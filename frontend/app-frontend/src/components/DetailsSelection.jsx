@@ -3,6 +3,19 @@ import { FaSquare } from "react-icons/fa";
 
 import classes from "../pages/PlanningPage.module.css";
 
+/**
+ * Component for displaying details and calculating the total
+ * price of selected seats and the busline's seatprice.
+ *
+ * @param {Array} busLines - An array of bus lines.
+ * @param {string} selectedFrom - The selected starting place.
+ * @param {string} selectedTo - The selected destination place.
+ * @param {function} getLineId - Function to get the ID of the selected bus line.
+ * @param {function} calculateTotalPrice - Function to calculate the total price of selected seats.
+ * @param {Array} selectedSeats - An array of selected seats.
+ *
+ * @returns {React.ReactNode} - JSX element representing the details and total price section.
+ */
 const DetailsSelection = ({
   busLines,
   selectedFrom,
@@ -11,6 +24,7 @@ const DetailsSelection = ({
   calculateTotalPrice,
   selectedSeats,
 }) => {
+  // Renders the details and price sections.
   return (
     <div className={classes.detailsDiv}>
       <ul>

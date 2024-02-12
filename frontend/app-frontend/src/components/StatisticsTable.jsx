@@ -2,12 +2,21 @@ import { useState, useEffect } from "react";
 
 import classes from "./AdminBoard.module.css";
 
+/**
+ * StatisticsTable component displays summary statistics about users and reservations.
+ *
+ * @param {Object[]} users - The array of users.
+ * @param {Object[]} reservations - The array of reservations.
+ * @returns {JSX.Element} The StatisticsTable component.
+ */
 export default function StatisticsTable({ users, reservations }) {
+  // State variables for managing total statistics
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalReservations, setTotalReservations] = useState(0);
   const [totalReservedSeats, setTotalReservedSeats] = useState(0);
   const [totalReservationPrices, setTotalReservationPrices] = useState(0);
 
+  // Updates the total statistics based on the provided users and reservations.
   useEffect(() => {
     const onlyUsers = users.filter((user) =>
       user.roles.some((role) => role.roleName === "ROLE_USER")

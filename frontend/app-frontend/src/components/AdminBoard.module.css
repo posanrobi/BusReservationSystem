@@ -63,11 +63,11 @@
 }
 
 .tableBody tr:nth-child(even) {
-  background-color: #a8c6d9;
+  background-color: #b2d1e5;
 }
 
 .tableBody tr:nth-child(odd) {
-  background-color: #c7ddf3;
+  background-color: #dde9f3;
 }
 
 .deleteIcon {

@@ -222,6 +222,7 @@ export default function ProfilePage() {
     setIsEditing(!isEditing);
   };
 
+  // JSX structure representing the ProfilePage component
   return (
     <>
       <div className={classes.profileContainer}>

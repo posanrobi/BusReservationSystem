@@ -23,7 +23,7 @@ export default function Confirm({
     (value) => value === "" || value.length === 0 || value === 0
   );
 
-  // Ref to store timeout ID
+  //  Ref to store timeout ID
   const timeoutIdRef = useRef(null);
 
   // Clear timeout when unmounting component

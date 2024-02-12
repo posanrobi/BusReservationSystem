@@ -26,46 +26,19 @@ import adminClasses from "../components/AdminBoard.module.css";
  * @returns {JSX.Element} The ReservationsPage component.
  */
 export default function ReservationsPage() {
-  /**
-   * State variable for storing reservations.
-   * @type {Array<Object>}
-   */
+  // State variables for storing reservations, expired token modal, deletion message and selected reservation and confirm modal
   const [reservations, setReservations] = useState([]);
-
-  /**
-   * State variable for indicating whether the toke n expiration modal is open.
-   * @type {boolean}
-   */
   const [openTokenExpiredModal, setOpenTokenExpiredModal] = useState(false);
-
-  /**
-   * State variable for indicating whether a reservation is deleted successfully.
-   * @type {boolean}
-   */
   const [isDeleted, setIsDeleted] = useState(false);
-
-  /**
-   * State variable for storing the ID of the selected reservation.
-   * @type {string|null}
-   */
   const [selectedReservationId, setSelectedReservationId] = useState(null);
-
-  /**
-   * State variable for indicating whether the delete confirmation modal is open.
-   * @type {boolean}
-   */
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const currentUser = getCurrentUser();
-  /**
-   * State variable for storing the username of the current user.
-   * @type {string|null}
-   */
+
+  // State variable for storing the username of the current user
   const username = currentUser?.username || "";
 
-  /**
-   * Fetches reservations for the current user upon component mount or username change.
-   */
+  // Fetches reservations for the current user upon component mount or username change
   useEffect(() => {
     async function getReservations() {
       try {
@@ -85,19 +58,13 @@ export default function ReservationsPage() {
     getReservations();
   }, [username]);
 
-  /**
-   * Delete the reservation by its ID.
-   *
-   * @param {String} resId ID of the reservation to be deleted.
-   */
+  // Delete the reservation by its ID
   const handleDelete = async (resId) => {
     setSelectedReservationId(resId);
     setShowConfirmModal(true);
   };
 
-  /**
-   * Confirm the deletion of the reservation.
-   */
+  // Confirm the deletion of the reservation
   const confirmDelete = async () => {
     try {
       await deleteReservation(selectedReservationId);
@@ -114,15 +81,14 @@ export default function ReservationsPage() {
 
   const noReservations = reservations.length === 0;
 
-  /**
-   * Sets a timeout to reset the isDeleted state after 2 seconds.
-   */
+  // Sets a timeout to reset the isDeleted state after 2 seconds
   useEffect(() => {
     setTimeout(() => {
       setIsDeleted(false);
     }, 2000);
   }, [reservations]);
 
+  // JSX structure representing the reservations
   return (
     <>
       <div className={classes.pageContainer}>

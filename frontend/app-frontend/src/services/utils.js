@@ -1,5 +1,3 @@
-//Profile page
-
 /**
  * Validation function for email.
  *

@@ -1,12 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap");
-
 .pageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 87vh;
   width: 100%;
-  font-family: "Roboto", sans-serif;
 }
 
 .header {
@@ -71,12 +68,8 @@
 .resBoxBody {
   display: flex;
   flex-wrap: wrap;
-
   justify-content: flex-start;
   width: 100%;
-
-  /*   overflow-y: auto;
-  overflow-x: hidden; */
   max-height: 34rem;
 }
 
@@ -115,40 +108,7 @@
   border-radius: 0.5rem;
   border: 1px solid #ccc;
 }
-/* 
-.resBox::-webkit-scrollbar {
-  width: 10px;
-}
 
-.resBox::-webkit-scrollbar-thumb {
-  background: black;
-  border-radius: 5px;
-}
-
-.resBox::-webkit-scrollbar-track {
-  background-color: #fff;
-  border-radius: 0.5rem;
-  border: 1px solid #ccc;
-}
- */
-/**/
-
-/* .resBoxBody::-webkit-scrollbar {
-  width: 10px;
-}
-
-.resBoxBody::-webkit-scrollbar-thumb {
-  background: black;
-  border-radius: 5px;
-}
-
-.resBoxBody::-webkit-scrollbar-track {
-  background-color: #fff;
-  border-radius: 0.5rem;
-  border: 1px solid #ccc;
-} */
-
-/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 .scrollDivRes::-webkit-scrollbar {
   width: 10px;
 }
@@ -172,7 +132,6 @@
   padding: 0 1rem;
   margin-left: 0.6rem;
 }
-/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
 
 .resDataList li {
   display: flex;

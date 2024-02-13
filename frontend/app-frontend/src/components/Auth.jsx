@@ -9,25 +9,30 @@ import modalClasses from "./Modal.module.css";
 
 /**
  * Component for authentication page, including login and registration forms as modals.
- *
- * @returns {React.ReactNode} - JSX element representing the authentication page.
+ * @returns {React.JSX.Element} - JSX element representing the authentication page.
  */
 export default function AuthenticationPage() {
-  // State to manage the visibility of the login and registration modals
+  /**
+   * State to manage the visibility of the login and registration modals.
+   */
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
 
-  // Functions to open and close the login and registration modal
+  /**
+   * Functions to open and close the login and registration modal.
+   * @returns {void}
+   */
   const openLoginModal = () => setLoginModalOpen(true);
   const closeLoginModal = () => setLoginModalOpen(false);
   const openRegisterModal = () => setRegisterModalOpen(true);
   const closeRegisterModal = () => setRegisterModalOpen(false);
 
-  // Check if there is a user in local storage and remove it if there is
+  /**
+   * Checks if there is a user in local storage and removes it if found.
+   */
   const user = getCurrentUser();
   if (user) localStorage.removeItem("user");
 
-  // JSX structure representing the authentication page
   return (
     <>
       <div className={`${classes.authContainer} ${classes.authBackground}`}>

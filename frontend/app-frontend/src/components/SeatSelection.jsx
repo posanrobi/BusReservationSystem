@@ -5,7 +5,6 @@ import classes from "../pages/PlanningPage.module.css";
 
 /**
  * SeatSelection component displays available seats for a selected trip and allows clearing selected seats.
- *
  * @param {string} selectedFrom - The selected starting place.
  * @param {string} selectedTo - The selected destination place.
  * @param {string} selectedDate - The selected date.
@@ -14,7 +13,7 @@ import classes from "../pages/PlanningPage.module.css";
  * @param {Function} getLineId - Function to get the line ID based on selected from and to places.
  * @param {Function} handleClearSelectedSeats - Function to handle clearing selected seats.
  * @param {Function} renderSeats - Function to render available seats.
- * @returns {JSX.Element} The SeatSelection component.
+ * @returns {React.JSX.Element} The SeatSelection component.
  */
 const SeatSelection = ({
   selectedFrom,

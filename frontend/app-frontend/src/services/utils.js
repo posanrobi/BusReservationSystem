@@ -1,6 +1,5 @@
 /**
  * Validation function for email.
- *
  * @param {String} email Email address of the user to be validated.
  * @returns {Boolean} True if email is valid, false if not valid.
  */
@@ -11,7 +10,6 @@ export const validateEmail = (email) => {
 
 /**
  * Checks if there are any changes in the user data compared to the original data.
- *
  * @param {Object} originalData The original user data.
  * @param {String} username The new username.
  * @param {String} email The new email address.
@@ -45,7 +43,6 @@ export const checkDataChanges = (
 
 /**
  * Checks if the user data is empty.
- *
  * @param {String} username The username of the user.
  * @param {String} firstname The firstname of the user.
  * @param {String} lastname The lastname of the user.
@@ -58,7 +55,6 @@ export const noUserData = (username, firstname, lastname, email) => {
 
 /**
  * Checks if the password-related data is empty.
- *
  * @param {String} password The current password of the user.
  * @param {String} newPassword The new password of the user.
  * @param {String} confirmPassword The confirmation of the new password.
@@ -77,7 +73,6 @@ export const noPasswordData = (password, newPassword, confirmPassword) => {
 
 /**
  * Checks if both the new and confirm passwords are provided and not empty.
- *
  * @param {String} newPassword The new password.
  * @param {String} confirmPassword The confirmation of the new password.
  * @returns {Boolean} True if both new and confirm passwords are provided and not empty, false otherwise.
@@ -93,7 +88,6 @@ export const existNewAndConfirmPassword = (newPassword, confirmPassword) => {
 
 /**
  * Calculates the total price of selected seats based on their associated bus lines.
- *
  * @param {Array} selectedSeats Array of selected seats.
  * @param {Array} busLines Array of bus lines containing price information.
  * @returns {Number} The total price of selected seats.

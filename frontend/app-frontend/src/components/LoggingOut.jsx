@@ -5,14 +5,18 @@ import classes from "./LoggingOut.module.css";
 
 /**
  * Component for logging out the user.
- *
- * @returns {React.ReactNode} - JSX element representing the logging out functionality.
+ * @returns {React.JSX.Element} - JSX element representing the logging out functionality.
  */
 export default function LoggingOut() {
-  // State variable to track loading status.
+  /**
+   * State variable to track loading status.
+   */
   const [isLoading, setIsLoading] = useState(false);
 
-  // Handles the logout process.
+  /**
+   * Handles the logout action.
+   * Sets isLoading state to true, logs out the user, and reloads the window after a delay.
+   */
   function handleLogout() {
     setIsLoading(true);
 
@@ -22,7 +26,6 @@ export default function LoggingOut() {
     }, 2000);
   }
 
-  // Renders the logging out functionality.
   return (
     <div className={classes.logoutContainer}>
       {!isLoading ? (

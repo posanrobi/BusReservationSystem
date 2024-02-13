@@ -11,18 +11,22 @@ import modalClasses from "../components/Modal.module.css";
 
 /**
  * Component for the administrator dashboard, displaying users, reservations, and system statistics.
- *
- * @returns {React.ReactNode} - JSX element representing the administrator dashboard.
+ * @returns {React.JSX.Element} - JSX element representing the administrator dashboard.
  */
 export default function AdminBoard() {
-  // State variables to store users, reservations, and messages for user and reservation deletions
+  /**
+   * State variables to store users, reservations, and messages for user and reservation deletions.
+   */
   const [users, setUsers] = useState([]);
   const [reservations, setReservations] = useState([]);
   const [userDeleteMessage, setUserDeleteMessage] = useState("");
   const [reservationDeleteMessage, setReservationDeleteMessage] = useState("");
   const [openExpiredModal, setOpenExpiredModal] = useState(false);
 
-  // Function to handle user deletion message
+  /**
+   * Function to handle user deletion message.
+   * @param {string} message - The message to be displayed.
+   */
   const handleUserDeleteMessage = (message) => {
     setUserDeleteMessage(message);
 
@@ -31,7 +35,10 @@ export default function AdminBoard() {
     }, 2500);
   };
 
-  // Function to handle reservation deletion message
+  /**
+   * Function to handle reservation deletion message.
+   * @param {string} message - The message to be displayed.
+   */
   const handleReservationDeleteMessage = (message) => {
     setReservationDeleteMessage(message);
 
@@ -40,7 +47,9 @@ export default function AdminBoard() {
     }, 2500);
   };
 
-  // Fetch users and reservations data on component mount
+  /**
+   * Fetch users and reservations data on component mount.
+   */
   useEffect(() => {
     async function fetchData() {
       try {
@@ -61,7 +70,6 @@ export default function AdminBoard() {
     fetchData();
   }, []);
 
-  // JSX structure representing the administrator dashboard
   return (
     <div className={classes.adminContainer}>
       <div className={classes.userTableStat}>

@@ -10,7 +10,6 @@ const AUTH_API_URL = "http://localhost:8080/api/auth/";
 /**
  * Logs in the user by sending a POST request to the authentication API with the provided form data.
  * If the login is successful, the user's access token is stored in the local storage.
- *
  * @param {Object} formData - The login form data.
  * @returns {Promise<Object>} A promise that resolves to the response from the authentication API.
  * @throws {Error} If an error occurs during the login process.
@@ -32,7 +31,6 @@ export async function login(formData) {
 
 /**
  * Registers a new user by sending a POST request to the authentication API with the provided form data.
- *
  * @param {Object} formData - The registration form data.
  * @returns {Promise<Object>} A promise that resolves to the response from the authentication API.
  * @throws {Error} If an error occurs during the registration process.
@@ -55,7 +53,6 @@ export function logout() {
 
 /**
  * Retrieves the current user from local storage.
- *
  * @returns {Object|null} The current user object, or null if no user is logged in.
  */
 export function getCurrentUser() {
@@ -64,7 +61,6 @@ export function getCurrentUser() {
 
 /**
  * Retrieves the role of the current user.
- *
  * @returns {string|null} The role of the current user, or null if no user is logged in.
  */
 export function getUserRole() {
@@ -74,7 +70,6 @@ export function getUserRole() {
 
 /**
  * Retrieves the authentication token of the current user.
- *
  * @returns {string|null} The authentication token of the current user, or null if no user is logged in.
  */
 export function getAuthToken() {
@@ -85,7 +80,6 @@ export function getAuthToken() {
 
 /**
  * Adds an event listener for the 'Enter' key to the document.
- *
  * @param {Function} handleSubmit - The function to be called when the 'Enter' key is pressed.
  */
 export function useEnterKeyEffect(handleSubmit) {
@@ -107,7 +101,6 @@ export function useEnterKeyEffect(handleSubmit) {
 
 /**
  * Checks the authentication status and redirects the user if necessary.
- *
  * @returns {void}
  */
 export function checkAuthLoader() {

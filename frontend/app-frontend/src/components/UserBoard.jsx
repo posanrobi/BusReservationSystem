@@ -4,8 +4,7 @@ import classes from "./UserBoard.module.css";
 
 /**
  * HomePage component for displaying the landing page content.
- *
- * @returns {JSX.Element} The HomePage component.
+ * @returns {React.JSX.Element} The HomePage component.
  */
 export default function HomePage() {
   return (

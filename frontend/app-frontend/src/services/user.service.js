@@ -8,7 +8,6 @@ const API_URL = "http://localhost:8080/api/";
 
 /**
  * Fetches all users from the server.
- *
  * @returns {Promise<Object>} A Promise containing the response data with all users.
  * @throws {Error} If the request fails due to unauthorized access or expired token.
  */
@@ -25,7 +24,6 @@ export async function getAllUsers() {
 
 /**
  * Fetches all buslines from the server.
- *
  * @returns {Promise<Object>} A Promise containing the response data with all buslines.
  * @throws {Error} If the request fails due to unauthorized access or expired token.
  */
@@ -42,7 +40,6 @@ export async function getAllBusLines() {
 
 /**
  * Fetches all busline dates and times from the server.
- *
  * @returns {Promise<Object>} A Promise containing the response data with the dates and times.
  * @throws {Error} If the request fails due to unauthorized access or expired token.
  */
@@ -61,7 +58,6 @@ export async function getAllBusLineDatesAndTimes() {
 
 /**
  * Fetches all reservation data from the server.
- *
  * @returns {Promise<Object>} A Promise containing the response data with all reservations.
  * @throws {Error} If the request fails due to unauthorized access or expired token.
  */
@@ -80,7 +76,6 @@ export async function getAllReservations() {
 
 /**
  * Creates a new reservation on the server.
- *
  * @param {Object} reservationData - The data for the reservation to be created.
  * @returns {Promise<Object>} A Promise containing the response data from the server.
  * @throws {Error} If the request fails or if the user's token is expired.
@@ -94,7 +89,6 @@ export async function createReservation(reservationData) {
 
 /**
  * Deletes a reservation from the server by its ID.
- *
  * @param {string} resId - The ID of the reservation to be deleted.
  * @returns {Promise} A Promise indicating the success of the deletion.
  * @throws {Error} If the request fails or if there is an issue with the deletion.
@@ -111,7 +105,6 @@ export async function deleteReservation(resId) {
 
 /**
  * Fetches a user by its ID.
- *
  * @param {String} userId The ID of the user to be fetched.
  * @returns {Promise<Object>} A Promise containing the response data from the server.
  * @throws {Error} If the request fails or if the user's token is expired.
@@ -131,7 +124,6 @@ export async function getUserById(userId) {
 
 /**
  * Updates the password of a user by their ID.
- *
  * @param {String} userId The ID of the user whose password will be updated.
  * @param {Object} passwordData The new password data.
  * @returns {Promise} A Promise representing the result of the password update request.
@@ -155,7 +147,6 @@ export async function updatePassword(userId, passwordData) {
 
 /**
  * Upate user data with the given user ID. Includes firsname, lastname, username, email.
- *
  * @param {String} userId The ID of the user whose data will be updated.
  * @param {*} userData The new user data.
  * @returns {Promise<Object>} A Promise representing the result of the user update request.
@@ -174,7 +165,6 @@ export async function updateUser(userId, userData) {
 
 /**
  * Deletes a user by its ID.
- *
  * @param {string} userId - The ID of the user to be deleted.
  * @returns {Promise} A Promise representing the result of the deletion request.
  * @throws {Error} If the request fails.

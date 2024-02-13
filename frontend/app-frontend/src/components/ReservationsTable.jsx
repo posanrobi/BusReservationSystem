@@ -10,23 +10,26 @@ import DeleteWindow from "./DeleteWindow";
 
 /**
  * ReservationsTable component displays a table of reservations with options to delete individual reservations.
- *
  * @param {Object[]} reservations - An array of reservation objects containing reservation details.
  * @param {Function} setReservations - A function to update the reservations state.
  * @param {Function} onDeleteMessage - A function to display a message upon successful deletion of a reservation.
- * @returns {JSX.Element} The ReservationsTable component.
+ * @returns {React.JSX.Element} The ReservationsTable component.
  */
 export default function ReservationsTable({
   reservations,
   setReservations,
   onDeleteMessage,
 }) {
-  // States for managing loading state, reservationId and confirm modal visibility
+  /**
+   * States for managing loading state, reservationId and confirm modal visibility.
+   */
   const [loading, setLoading] = useState(true);
   const [selectedReservationId, setSelectedReservationId] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  // Fetch reservations data on component mount
+  /**
+   * Fetch reservations data on component mount.
+   */
   useEffect(() => {
     async function fetchData() {
       try {
@@ -42,13 +45,18 @@ export default function ReservationsTable({
     fetchData();
   }, []);
 
-  // Function to handle deletion of a reservation
+  /**
+   * Function to handle deletion of a reservation.
+   * @param {string} resId - The ID of the reservation to be deleted.
+   */
   const handleDelete = async (resId) => {
     setSelectedReservationId(resId);
     setShowConfirmModal(true);
   };
 
-  // Function to confirm deletion of a reservation
+  /**
+   * Function to confirm deletion of a reservation.
+   */
   const confirmDelete = async () => {
     try {
       await deleteReservation(selectedReservationId);
@@ -67,7 +75,10 @@ export default function ReservationsTable({
     setShowConfirmModal(false);
   };
 
-  // Check if there are no reservations
+  /**
+   * Check if there are no reservations.
+   * @type {boolean} noReservations - Indicates whether there are no reservations.
+   */
   const noReservations = reservations.length === 0;
 
   return (

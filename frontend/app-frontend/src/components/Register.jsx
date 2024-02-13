@@ -10,7 +10,9 @@ import classes from "./Auth.module.css";
  * @returns {React.JSX.Element} - JSX element representing the registration form.
  */
 export default function Register({ closeRegisterModal }) {
-  // State variables for storing the user's data
+  /**
+   * State variables for storing the user's data.
+   */
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -19,13 +21,21 @@ export default function Register({ closeRegisterModal }) {
     password: "",
   });
 
-  // State variable for storing the errors of the form
+  /**
+   * State variable for storing the errors of the form.
+   */
   const [errors, setErrors] = useState({});
 
-  // State variable for storing if the form has been submitted
+  /**
+   * State variable for storing if the form has been submitted.
+   */
   const [submitted, setSubmitted] = useState(false);
 
-  // Store the input change in the form data
+  /**
+   * Handles input changes for form fields.
+   * Updates the form data state with the new input value and clears any previous errors.
+   * @param {Object} e - The event object containing information about the input change.
+   */
   function handleInputChange(e) {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -35,7 +45,11 @@ export default function Register({ closeRegisterModal }) {
     setErrors({});
   }
 
-  // Validates the form inputs
+  /**
+   * Validates the form data before submission.
+   * Checks if required fields are filled and validates the email format and update errors.
+   * @returns {boolean} Whether the form data is valid or not.
+   */
   function validateForm() {
     let isValid = true;
     const newErrors = {};
@@ -58,7 +72,11 @@ export default function Register({ closeRegisterModal }) {
     return isValid;
   }
 
-  // Function to handle form submission
+  /**
+   * Handles form submission.
+   * Validates the form data and submits the data if it's valid. Displays error messages if submission fails.
+   * @param {Object} e - The event object representing the form submission.
+   */
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -79,17 +97,26 @@ export default function Register({ closeRegisterModal }) {
     }
   }
 
-  // Send the registration data to the backend for Enter Key effect
+  /**
+   * Send the registration data to the backend for Enter Key effect.
+   */
   useEnterKeyEffect(handleSubmit);
 
-  // Function to close the modal
+  /**
+   * Handles the close event of the modal.
+   * Prevents the default behavior, clears any errors, and closes the register modal.
+   * @param {Object} e - The event object representing the close event.
+   */
   function closeHandler(e) {
     e.preventDefault();
     setErrors("");
     closeRegisterModal();
   }
 
-  // Reset the form data on modal close
+  /**
+   * Clears errors, resets the form data and state variables when the register modal is closed.
+   * Sets the submission status to false.
+   */
   useEffect(() => {
     setErrors({});
     setFormData({

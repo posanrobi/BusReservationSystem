@@ -20,8 +20,7 @@ import modalClasses from "../components/Modal.module.css";
 
 /**
  * Component for planning and creating reservations.
- *
- * @returns {JSX.Element} The PlanningPage component.
+ * @returns {React.JSX.Element} The PlanningPage component.
  */
 export default function PlanningPage() {
   /**
@@ -47,7 +46,10 @@ export default function PlanningPage() {
     numberOfSelectedSeats: [],
   });
 
-  // Function to open the confirmation modal
+  /**
+   * Function to open the confirmation modal.
+   * @returns {void}
+   */
   const openConfirm = () => {
     const total = calculateTotalPrice(selectedSeats, busLines);
     setSelectedData({
@@ -60,7 +62,10 @@ export default function PlanningPage() {
     setIsModalOpen(true);
   };
 
-  // Function to close the confirmation modal
+  /**
+   * Function to close the confirmation modal.
+   * @returns {void}
+   */
   const closeConfirm = () => setIsModalOpen(false);
 
   /**
@@ -155,7 +160,9 @@ export default function PlanningPage() {
     return seatDiv;
   };
 
-  // Fetching buslines and dates and times
+  /**
+   * Fetching buslines and dates and times.
+   */
   useEffect(() => {
     async function fetchData() {
       try {
@@ -176,7 +183,9 @@ export default function PlanningPage() {
     fetchData();
   }, []);
 
-  // Checking that a seat is reserved or not.
+  /**
+   * Checking that a seat is reserved or not.
+   */
   useEffect(() => {
     async function fetchReservedSeats() {
       try {
@@ -219,7 +228,9 @@ export default function PlanningPage() {
     fetchReservedSeats();
   }, [selectedFrom, selectedTo, selectedDate, selectedTime]);
 
-  // Function to clear the selected seats
+  /**
+   * Function to clear the selected seats.
+   */
   function handleClearSelectedSeats() {
     setSelectedSeats([]);
   }
@@ -307,7 +318,9 @@ export default function PlanningPage() {
     return grouped;
   }, {});
 
-  // Function to handle the submission of the reservation confirmation
+  /**
+   * Function to handle the submission of the reservation confirmation.
+   */
   async function handleSubmitConfirm() {
     try {
       const user = getCurrentUser();
@@ -362,7 +375,6 @@ export default function PlanningPage() {
     }
   }
 
-  // JSX structure representing the planning page (trip, seat and details selection)
   return (
     <>
       <div className={classes.planContainer}>

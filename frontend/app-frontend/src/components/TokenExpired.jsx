@@ -6,11 +6,12 @@ import classes from "./LoggingOut.module.css";
 /**
  * TokenExpired component displayed when the user's session has expired.
  * Allows the user to log out and sign in again to continue accessing the account.
- *
- * @returns {JSX.Element} The TokenExpired component.
+ * @returns {React.JSX.Element} The TokenExpired component.
  */
 export default function TokenExpired() {
-  // State variable for indicating whether the logout is in progress.
+  /**
+   *  State variable for indicating whether the logout is in progress.
+   */
   const [isLoading, setIsLoading] = useState(false);
 
   /**

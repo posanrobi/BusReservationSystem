@@ -8,12 +8,13 @@ import classes from "./Auth.module.css";
 
 /**
  * Component for user login.
- *
  * @param {function} closeLoginModal - Function to close the login modal.
- * @returns {React.ReactNode} - JSX element representing the login form.
+ * @returns {React.JSX.Element} - JSX element representing the login form.
  */
 export default function Login({ closeLoginModal }) {
-  // State variables for form data, errors, and submission status
+  /**
+   * State variables for form data, errors, and submission status.
+   */
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -21,10 +22,15 @@ export default function Login({ closeLoginModal }) {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
-  // React router hook for navigation
+  /**
+   * React router hook for navigation.
+   */
   const navigate = useNavigate();
 
-  // Handles input change for the form fields
+  /**
+   * Updates the form data state based on the input field changes and clears errors.
+   * @param {object} e - The event object containing the input field's name and value.
+   */
   function handleInputChange(e) {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -36,7 +42,6 @@ export default function Login({ closeLoginModal }) {
 
   /**
    * Validates the login form.
-   *
    * @returns {boolean} - Indicates whether the form is valid.
    */
   function validateForm() {
@@ -54,7 +59,12 @@ export default function Login({ closeLoginModal }) {
     return isValid;
   }
 
-  // Handles form submission
+  /**
+   * Handles form submission for login.
+   * Prevents the default form submission behavior, validates the form, and attempts login.
+   * Sets the submission status and redirects the user based on their role after successful login.
+   * @param {object} e - The event object associated with the form submission.
+   */
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -80,16 +90,23 @@ export default function Login({ closeLoginModal }) {
     }
   }
 
-  // Handles pressing the enter key to submit the form
+  /**
+   * Handles pressing the enter key to submit the form.
+   */
   useEnterKeyEffect(handleSubmit);
 
-  // Handles closing the login modal.
+  /**
+   * Handles the close action of the login modal.
+   * @param {object} e - The event object associated with the close action.
+   */
   function closeHandler(e) {
     e.preventDefault();
     closeLoginModal();
   }
 
-  // Resets form data, errors, and submission status when the modal is closed
+  /**
+   * Resets form data, errors, and submission status when the login modal is closed.
+   */
   useEffect(() => {
     setErrors({});
     setFormData({
@@ -99,7 +116,6 @@ export default function Login({ closeLoginModal }) {
     setSubmitted(false);
   }, [closeLoginModal]);
 
-  // Renders the login form
   return (
     <>
       <div className={classes.loginContainer}>

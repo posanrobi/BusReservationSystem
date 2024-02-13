@@ -8,19 +8,21 @@ import logo from "../images/logo.png";
 
 /**
  * Component for rendering the main navigation bar.
- *
- * @returns {React.ReactNode} - JSX element representing the main navigation.
+ * @returns {React.JSX.Element} - JSX element representing the main navigation.
  */
 export default function MainNavigation() {
-  // Handles the logout functionality
+  /**
+   * Handles the logout functionality.
+   */
   function handleLogout() {
     logout();
   }
 
-  // Checks if the current user is an admin
+  /**
+   * Checks if the current user is an admin
+   */
   const isAdmin = getUserRole() === "ROLE_ADMIN";
 
-  // Renders the main navigation bar.
   return (
     <header className={classes.header}>
       <img src={logo} alt="Logo" className={classes.logo} />

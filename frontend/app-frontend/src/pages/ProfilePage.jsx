@@ -25,11 +25,12 @@ import modalClasses from "../components/Modal.module.css";
 
 /**
  * Component for managing user profile details and password change.
- *
- * @returns {JSX.Element} The ProfilePage component.
+ * @returns {React.JSX.Element} The ProfilePage component.
  */
 export default function ProfilePage() {
-  // State variables for user data and form inputs
+  /**
+   * State variables for user data, password, modals, data changes, manage edit state and token expired modal.
+   */
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
@@ -44,11 +45,15 @@ export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [openExpiredModal, setOpenExpiredModal] = useState(false);
 
-  // Get the current user's data
+  /**
+   * Get the current user's data.
+   */
   const currentUser = getCurrentUser();
   const userId = currentUser ? currentUser.id : "";
 
-  // useEffect hook to fetch user data on component mount
+  /**
+   * useEffect hook to fetch user data on component mount.
+   */
   useEffect(() => {
     async function getUserData() {
       try {
@@ -72,7 +77,9 @@ export default function ProfilePage() {
     getUserData();
   }, [userId]);
 
-  // useEffect hook to check for changes in user data
+  /**
+   * useEffect hook to check for changes in user data.
+   */
   useEffect(() => {
     const hasDataChanged = checkDataChanges(
       originalData,
@@ -96,7 +103,10 @@ export default function ProfilePage() {
     confirmPassword,
   ]);
 
-  // Function to handle saving changes
+  /**
+   * Function that resolves when the changes have been saved.
+   * @returns {Promise<void>}
+   */
   async function handleSave() {
     try {
       setErrors({
@@ -167,13 +177,20 @@ export default function ProfilePage() {
     setHasChanges(false);
   }
 
+  /**
+   * Reset the state variables when the modal is closed.
+   */
   useEffect(() => {
     setPassword("");
     setNewPassword("");
     setConfirmPassword("");
   }, [isModalOpen]);
 
-  // Function to handle input changes
+  /**
+   * Function to handle input changes.
+   * @param {string} fieldName - The name of the field being changed.
+   * @returns {void}
+   */
   const handleInputChange = (fieldName) => (e) => {
     setErrors({
       userDataMessage: "",
@@ -217,12 +234,14 @@ export default function ProfilePage() {
     }
   };
 
-  // Function to handle edit button click
+  /**
+   * Function to handle edit button click.
+   * @returns {void}
+   */
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
 
-  // JSX structure representing the ProfilePage component
   return (
     <>
       <div className={classes.profileContainer}>

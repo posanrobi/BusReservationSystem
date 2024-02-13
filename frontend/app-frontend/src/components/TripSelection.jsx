@@ -4,7 +4,6 @@ import classes from "../pages/PlanningPage.module.css";
 
 /**
  * TripSelection component for selecting travel details such as starting place, destination, date, and time.
- *
  * @param {Object} props - The props object containing the necessary data and functions.
  * @param {Array} props.busLines - The array of available bus lines.
  * @param {string} props.selectedFrom - The selected starting place.
@@ -18,7 +17,7 @@ import classes from "../pages/PlanningPage.module.css";
  * @param {Function} props.getLineId - The function to get the ID of the selected bus line.
  * @param {Object} props.groupedDatesByLineId - The object containing grouped dates by line ID.
  * @param {Object} props.groupedTimesByLineId - The object containing grouped times by line ID.
- * @returns {JSX.Element} The TripSelection component.
+ * @returns {React.JSX.Element} The TripSelection component.
  */
 const TripSelection = ({
   busLines,

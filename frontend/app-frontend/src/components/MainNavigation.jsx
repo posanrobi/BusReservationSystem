@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 import { logout } from "../services/auth.service";
 import { getUserRole } from "../services/auth.service";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import logo from "../images/logo.png";
 
 import classes from "./MainNavigation.module.css";
-import logo from "../images/logo.png";
 
 /**
  * Component for rendering the main navigation bar.
@@ -19,7 +19,7 @@ export default function MainNavigation() {
   }
 
   /**
-   * Checks if the current user is an admin
+   * Checks if the current user is an admin.
    */
   const isAdmin = getUserRole() === "ROLE_ADMIN";
 

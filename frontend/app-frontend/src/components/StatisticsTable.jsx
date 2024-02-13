@@ -10,7 +10,7 @@ import classes from "./AdminBoard.module.css";
  */
 export default function StatisticsTable({ users, reservations }) {
   /**
-   *  State variables for managing total statistics.
+   * State variables for managing total statistics.
    */
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalReservations, setTotalReservations] = useState(0);

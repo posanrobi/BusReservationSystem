@@ -10,14 +10,15 @@ import AdminBoard from "./components/AdminBoard";
 import { checkAuthLoader } from "./services/auth.service";
 import Error from "./pages/ErrorPage";
 
+/**
+ *  Create a browser router instance with specified routes.
+ */
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AuthenticationPage />,
     errorElement: <Error />,
   },
-  /* { path: "signin", element: <Login /> },
-  { path: "signup", element: <Register /> }, */
   {
     path: "/",
     element: <RootLayout />,
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
   { path: "*", element: <Error /> },
 ]);
 
+/**
+ * App component serves as the entry point of the application.
+ * It configures the router with specified routes and renders the RouterProvider with the router instance.
+ * @returns {React.JSX.Element} JSX element representing the App component.
+ */
 function App() {
   return <RouterProvider router={router} />;
 }

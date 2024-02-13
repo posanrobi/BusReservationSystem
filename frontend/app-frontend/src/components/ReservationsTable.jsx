@@ -3,10 +3,10 @@ import {
   deleteReservation,
   getAllReservations,
 } from "../services/user.service";
+import DeleteWindow from "./DeleteWindow";
 import { MdDelete } from "react-icons/md";
 
 import classes from "./AdminBoard.module.css";
-import DeleteWindow from "./DeleteWindow";
 
 /**
  * ReservationsTable component displays a table of reservations with options to delete individual reservations.

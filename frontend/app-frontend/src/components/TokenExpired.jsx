@@ -10,7 +10,7 @@ import classes from "./LoggingOut.module.css";
  */
 export default function TokenExpired() {
   /**
-   *  State variable for indicating whether the logout is in progress.
+   * State variable for indicating whether the logout is in progress.
    */
   const [isLoading, setIsLoading] = useState(false);
 

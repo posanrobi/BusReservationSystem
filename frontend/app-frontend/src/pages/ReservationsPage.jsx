@@ -26,7 +26,8 @@ import adminClasses from "../components/AdminBoard.module.css";
  */
 export default function ReservationsPage() {
   /**
-   * State variables for storing reservations, expired token modal, deletion message and selected reservation and confirm modal.
+   * State variables for storing reservations, expired token modal, deletion message and
+   * selected reservation and confirm modal.
    */
   const [reservations, setReservations] = useState([]);
   const [openTokenExpiredModal, setOpenTokenExpiredModal] = useState(false);

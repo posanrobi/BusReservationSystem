@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { login, useEnterKeyEffect } from "../services/auth.service";
+import {
+  login,
+  useEnterKeyEffect,
+  getUserRole,
+} from "../services/auth.service";
 import Input from "./Input";
-import { getUserRole } from "../services/auth.service";
 
 import classes from "./Auth.module.css";
 

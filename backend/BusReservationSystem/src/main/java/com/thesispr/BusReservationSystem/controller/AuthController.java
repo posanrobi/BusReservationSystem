@@ -30,6 +30,16 @@ import com.thesispr.BusReservationSystem.repository.UserRepository;
 import com.thesispr.BusReservationSystem.security.jwt.JwtUtils;
 import com.thesispr.BusReservationSystem.security.services.UserDetailsImpl;
 
+/**
+ * Controller class responsible for handling authentication-related HTTP requests.
+ * This includes user authentication (sign-in) and user registration (sign-up).
+ * Uses Spring Security for authentication and JWT (JSON Web Token) for authorization.
+ * Endpoints are prefixed with "/api/auth".
+ * Cross-origin requests are allowed from all origins with a maximum age of 3600 seconds (1 hour).
+ * @RestController Indicates that this class is a controller and that the return value of its methods should be written directly to the HTTP response body.
+ * @CrossOrigin Annotation for enabling cross-origin requests on specific handler methods or controller classes.
+ * @RequestMapping Specifies the base URL path for all endpoints in this controller.
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -50,6 +60,13 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    /**
+     * Handles user authentication (sign-in) requests.
+     * Authenticates the user credentials using Spring Security's AuthenticationManager.
+     * Generates a JWT token upon successful authentication.
+     * @param loginRequest The request body containing the user's login credentials (username and password).
+     * @return ResponseEntity containing a JWT response if authentication is successful, along with user details and roles.
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
@@ -71,6 +88,14 @@ public class AuthController {
                 roles));
     }
 
+    /**
+     * Handles user registration (sign-up) requests.
+     * Registers a new user with the provided details.
+     * Validates if the username and email are not already in use.
+     * Sets user roles based on the provided role or defaults to ROLE_USER.
+     * @param signUpRequest The request body containing user registration details (username, email, password, firstname, lastname, role).
+     * @return ResponseEntity containing a message response indicating successful registration or error messages.
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {

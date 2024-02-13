@@ -15,6 +15,9 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+/**
+ * Utility class for handling JWT (JSON Web Token) operations.
+ */
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
@@ -25,6 +28,12 @@ public class JwtUtils {
     @Value("${JWT_EXPIRATION_MS}")
     private int jwtExpirationMs;
 
+    /**
+     * Generates a JWT token for the provided authentication.
+     *
+     * @param authentication The authentication object.
+     * @return The generated JWT token.
+     */
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
@@ -37,15 +46,33 @@ public class JwtUtils {
                 .compact();
     }
 
+    /**
+     * Generates a cryptographic key based on the configured JWT secret.
+     *
+     * @return The cryptographic key.
+     */
     private Key key() {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
+    /**
+     * Retrieves the username from the provided JWT token.
+     *
+     * @param token The JWT token.
+     * @return The username extracted from the token.
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key()).build()
                 .parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Validates the provided JWT token.
+     *
+     * @param authToken The JWT token to validate.
+     * @return True if the token is valid, false otherwise.
+     * @throws CustomJwtException If the token is invalid, expired, or unsupported.
+     */
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);

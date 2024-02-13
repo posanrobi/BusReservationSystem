@@ -15,11 +15,23 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+/**
+ * Custom authentication entry point for handling unauthorized requests.
+ */
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
+    /**
+     * Invoked when an unauthenticated user requests a secured HTTP resource.
+     * It sends an unauthorized response containing details of the error.
+     *
+     * @param request The HTTP servlet request.
+     * @param response The HTTP servlet response.
+     * @param authException The authentication exception that caused the error.
+     * @throws IOException If an I/O exception occurs.
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException {

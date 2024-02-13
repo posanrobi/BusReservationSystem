@@ -10,11 +10,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.thesispr.BusReservationSystem.model.User;
 import com.thesispr.BusReservationSystem.repository.UserRepository;
 
+/**
+ * Service class that implements the UserDetailsService interface to load user-specific data during authentication.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
 
+    /**
+     * Loads a user by the given username.
+     *
+     * @param username The username to load the user for.
+     * @return UserDetails object representing the loaded user.
+     * @throws UsernameNotFoundException If the user is not found with the given username.
+     */
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -23,6 +33,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return UserDetailsImpl.build(user);
     }
-
-
 }

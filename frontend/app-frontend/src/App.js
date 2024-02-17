@@ -7,8 +7,8 @@ import PlanningPage from "./pages/PlanningPage";
 import ProfilePage from "./pages/ProfilePage";
 import ReservationsPage from "./pages/ReservationsPage";
 import AdminBoard from "./components/AdminBoard";
-import { checkAuthLoader } from "./services/auth.service";
 import Error from "./pages/ErrorPage";
+import { checkAuthLoader } from "./services/auth.service";
 
 /**
  *  Create a browser router instance with specified routes.

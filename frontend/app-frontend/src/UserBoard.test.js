@@ -10,7 +10,13 @@ describe("UserBoard Component", () => {
       </BrowserRouter>
     );
 
-    //expect(screen.getByText(/Bookerra/i)).toBeInTheDocument();
-    //expect(screen.getByText(/Hungary/i)).toBeInTheDocument();
+    const planningLink = screen.getByText(/Planning/i);
+    expect(planningLink).toHaveAttribute("href", "/plan");
+
+    const reservationsLink = screen.getByText(/Reservations/i);
+    expect(reservationsLink).toHaveAttribute("href", "/reservations");
+
+    const profileLink = screen.getByText(/Profile/i);
+    expect(profileLink).toHaveAttribute("href", "/profile");
   });
 });

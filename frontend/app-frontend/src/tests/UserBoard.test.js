@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import HomePage from "./components/UserBoard";
+import HomePage from "../components/UserBoard";
 import { BrowserRouter } from "react-router-dom";
 
 describe("UserBoard Component", () => {
@@ -10,13 +10,13 @@ describe("UserBoard Component", () => {
       </BrowserRouter>
     );
 
-    const planningLink = screen.getByText(/Planning/i);
+    const planningLink = screen.getByText(/planning/i);
     expect(planningLink).toHaveAttribute("href", "/plan");
 
-    const reservationsLink = screen.getByText(/Reservations/i);
+    const reservationsLink = screen.getByText(/reservations/i);
     expect(reservationsLink).toHaveAttribute("href", "/reservations");
 
-    const profileLink = screen.getByText(/Profile/i);
+    const profileLink = screen.getByText(/profile/i);
     expect(profileLink).toHaveAttribute("href", "/profile");
   });
 });

@@ -1,6 +1,4 @@
 import { render } from "@testing-library/react";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
 import App from "../App";
 
 jest.mock("../components/Root", () => () => <div>Root Component</div>);

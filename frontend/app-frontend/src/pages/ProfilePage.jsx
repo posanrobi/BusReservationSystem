@@ -251,7 +251,11 @@ export default function ProfilePage() {
               <CgProfile className={classes.profileIcon} />
               <h2 className={classes.fullName}>Profile details</h2>
             </div>
-            <FaRegEdit className={classes.editIcon} onClick={handleEditClick} />
+            <FaRegEdit
+              className={classes.editIcon}
+              onClick={handleEditClick}
+              data-testid="editIcon"
+            />
           </header>
           <div className={classes.profileBoxBody}>
             <form className={classes.profileForm}>

@@ -66,13 +66,13 @@ describe("ProfilePage Component", () => {
   });
 
   test("toggles edit mode", () => {
-    const { getByText, getByLabelText } = render(
+    const { getByTestId, getByLabelText } = render(
       <BrowserRouter>
         <ProfilePage />
       </BrowserRouter>
     );
 
-    const editButton = getByText("Edit");
+    const editButton = getByTestId("editIcon");
     fireEvent.click(editButton);
 
     const usernameInput = getByLabelText("Username");

@@ -352,6 +352,8 @@ export default function PlanningPage() {
         user: currentUser,
       };
 
+      console.log(typeof selectedBusLine);
+
       await createReservation(reservationData);
 
       setTimeout(() => {

@@ -65,7 +65,7 @@ export default function MainNavigation() {
         )}
 
         <div className={classes.logoutDiv}>
-          <NavLink to="/" onClick={handleLogout}>
+          <NavLink to="/" onClick={handleLogout} data-testid="logout-button">
             <RiLogoutBoxRLine />
           </NavLink>
         </div>

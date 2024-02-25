@@ -126,6 +126,7 @@ export default function UserTable({
                 <MdDelete
                   className={classes.deleteIcon}
                   onClick={() => handleDelete(user.id)}
+                  data-testid="delete-button-1"
                 />
               </td>
             </tr>

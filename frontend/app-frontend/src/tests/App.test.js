@@ -19,9 +19,3 @@ jest.mock("../pages/ErrorPage", () => () => <div>Error Page</div>);
 test("renders the landing page", () => {
   render(<App />);
 });
-
-//PASSES
-/* test("renders the landing page", () => {
-  render(<App />);
-});
- */

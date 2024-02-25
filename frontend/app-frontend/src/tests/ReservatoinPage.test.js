@@ -1,10 +1,7 @@
 import React from "react";
-import { render, fireEvent, waitFor, act } from "@testing-library/react";
+import { render, act } from "@testing-library/react";
 import ReservationsPage from "../pages/ReservationsPage";
-import {
-  getAllReservations,
-  deleteReservation,
-} from "../services/user.service";
+import { getAllReservations } from "../services/user.service";
 import { getCurrentUser } from "../services/auth.service";
 import { BrowserRouter } from "react-router-dom";
 

@@ -123,6 +123,7 @@ export default function ReservationsTable({
                   <MdDelete
                     className={classes.deleteIcon}
                     onClick={() => handleDelete(res.id)}
+                    data-testid={`delete-button-${res.id}`}
                   />
                 </td>
               </tr>

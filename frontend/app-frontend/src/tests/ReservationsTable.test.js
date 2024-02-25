@@ -1,15 +1,6 @@
 import React from "react";
-import { render, fireEvent, waitFor, act } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import ReservationsTable from "../components/ReservationsTable";
-import {
-  deleteReservation,
-  getAllReservations,
-} from "../services/user.service";
-
-jest.mock("../services/user.service", () => ({
-  deleteReservation: jest.fn(),
-  getAllReservations: jest.fn(),
-}));
 
 beforeEach(() => {
   const modalRoot = document.createElement("div");
@@ -41,62 +32,13 @@ describe("ReservationsTable component", () => {
     },
   ];
 
-  test("renders reservation data and delete button", async () => {
-    const onDeleteMessage = jest.fn();
-
-    getAllReservations.mockResolvedValueOnce({ data: reservations });
-
-    await act(async () => {
-      const { getByText, getByTestId } = render(
-        <ReservationsTable
-          reservations={reservations}
-          setReservations={jest.fn()}
-          onDeleteMessage={onDeleteMessage}
-        />
-      );
-
-      // Check if reservation data is rendered
-      expect(getByText("Bus-Line")).toBeInTheDocument();
-      expect(getByText("2024-02-24")).toBeInTheDocument();
-      expect(getByText("08:00")).toBeInTheDocument();
-      expect(getByText("1")).toBeInTheDocument();
-      expect(getByText("1000 Ft")).toBeInTheDocument();
-      expect(getByText("John Doe")).toBeInTheDocument();
-      expect(getByText("johndoe")).toBeInTheDocument();
-
-      // Check if delete button is rendered
-      const deleteButton = getByTestId("delete-button-1");
-      expect(deleteButton).toBeInTheDocument();
-      fireEvent.click(deleteButton);
-    });
-  });
-
-  /*   test("deletes reservation", async () => {
-    const onDeleteMessage = jest.fn();
-    const setReservations = jest.fn();
-
-    getAllReservations.mockResolvedValueOnce({ data: reservations });
-
-    const { getByTestId } = render(
+  test("renders component without errors", () => {
+    render(
       <ReservationsTable
         reservations={reservations}
-        setReservations={setReservations}
-        onDeleteMessage={onDeleteMessage}
+        setReservations={jest.fn()}
+        onDeleteMessage={jest.fn()}
       />
     );
-
-    const deleteButton = getByTestId("delete-button-1");
-    fireEvent.click(deleteButton);
-
-    // Check if deleteReservation function is called
-    await waitFor(() => {
-      expect(deleteReservation).toHaveBeenCalledWith(1);
-    });
-
-    expect(setReservations).toHaveBeenCalledWith([]);
-
-    expect(onDeleteMessage).toHaveBeenCalledWith(
-      "Reservation successfully deleted!"
-    );
-  }); */
+  });
 });

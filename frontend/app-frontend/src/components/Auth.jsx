@@ -48,13 +48,21 @@ export default function AuthenticationPage() {
           <h1 className={`${classes.ctaTitle} ${classes.signInTitle}`}>
             Do you have an account?
           </h1>
-          <button className={classes.authBtn} onClick={openLoginModal}>
+          <button
+            className={classes.authBtn}
+            onClick={openLoginModal}
+            data-testid="sign-in-button"
+          >
             Sign in
           </button>
           <h1 className={`${classes.ctaTitle} ${classes.signUpTitle}`}>
             Or create a new one
           </h1>
-          <button className={classes.authBtn} onClick={openRegisterModal}>
+          <button
+            className={classes.authBtn}
+            onClick={openRegisterModal}
+            data-testid="sign-up-button"
+          >
             Sign up
           </button>
         </div>

@@ -270,6 +270,7 @@ export default function ProfilePage() {
                   onChange={(e) => handleInputChange("firstname")(e)}
                   error={""}
                   disabled={!isEditing}
+                  testId="profileFirstname"
                 />
                 <Input
                   className={classes.profileInput}

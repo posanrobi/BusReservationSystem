@@ -2,6 +2,9 @@ import React from "react";
 import { render } from "@testing-library/react";
 import ReservationsTable from "../components/ReservationsTable";
 
+/**
+ * Unit tests for the ReservationsTable component.
+ */
 beforeEach(() => {
   const modalRoot = document.createElement("div");
   modalRoot.setAttribute("id", "modal");
@@ -18,7 +21,13 @@ afterEach(() => {
   }
 });
 
+/**
+ * Test suite for the ReservationsTable component.
+ */
 describe("ReservationsTable component", () => {
+  /**
+   * Sample reservations data for testing.
+   */
   const reservations = [
     {
       id: 1,
@@ -32,7 +41,13 @@ describe("ReservationsTable component", () => {
     },
   ];
 
+  /**
+   * Test case: Renders component without errors.
+   */
   test("renders component without errors", () => {
+    /**
+     * Render the component with sample reservations data.
+     */
     render(
       <ReservationsTable
         reservations={reservations}

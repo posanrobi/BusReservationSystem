@@ -254,7 +254,7 @@ export default function ProfilePage() {
             <FaRegEdit
               className={classes.editIcon}
               onClick={handleEditClick}
-              data-testid="editIcon"
+              data-testid="edit-icon"
             />
           </header>
           <div className={classes.profileBoxBody}>

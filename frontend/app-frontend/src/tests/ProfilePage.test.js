@@ -39,7 +39,7 @@ describe("ProfilePage Component", () => {
     });
   });
 
-  /*  test("handles input change", async () => {
+  /*   test("handles input change", async () => {
     const { getByLabelText } = render(
       <BrowserRouter>
         <ProfilePage />
@@ -56,31 +56,15 @@ describe("ProfilePage Component", () => {
       expect(firstnameInput.value).toBe("John");
     });
   }); */
-
-  /*   test("handles input change", async () => {
-    let firstnameInput;
-
-    await act(async () => {
-      const { getByLabelText } = render(
-        <BrowserRouter>
-          <ProfilePage />
-        </BrowserRouter>
-      );
-      firstnameInput = getByLabelText("profileFirstname");
-      fireEvent.change(firstnameInput, { target: { value: "Jane" } });
-    });
-
-    expect(firstnameInput.value).toBe("Jane");
-  });
- */
-  /* test("toggles edit mode", async () => {
+  /* 
+  test("toggles edit mode", async () => {
     act(() => {
       const { getByTestId, getByLabelText } = render(
         <BrowserRouter>
           <ProfilePage />
         </BrowserRouter>
       );
-      const editButton = getByTestId("editIcon");
+      const editButton = getByTestId("edit-icon");
       const usernameInput = getByLabelText("Username");
 
       fireEvent.click(editButton);

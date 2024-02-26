@@ -1,8 +1,15 @@
+/**
+ * Test file for ProfilePage component.
+ */
+
 import React from "react";
 import { render, fireEvent, waitFor, act } from "@testing-library/react";
 import ProfilePage from "../pages/ProfilePage";
 import { BrowserRouter } from "react-router-dom";
 
+/**
+ * Setting up modal root before each test.
+ */
 beforeEach(() => {
   const modalRoot = document.createElement("div");
   modalRoot.setAttribute("id", "modal");
@@ -12,6 +19,9 @@ beforeEach(() => {
   HTMLDialogElement.prototype.close = jest.fn();
 });
 
+/**
+ * Removing modal root after each test.
+ */
 afterEach(() => {
   const modalRoot = document.getElementById("modal");
   if (modalRoot) {
@@ -19,39 +29,38 @@ afterEach(() => {
   }
 });
 
+/**
+ * Test suite for ProfilePage component.
+ */
 describe("ProfilePage Component", () => {
-  /*   test("renders input fields and buttons", async () => {
-    const { getByLabelText, getByText } = render(
-      <BrowserRouter>
-        <ProfilePage />
-      </BrowserRouter>
-    );
-
-    await waitFor(() => {
-      expect(getByLabelText("Firstname")).toBeInTheDocument();
-      expect(getByLabelText("Lastname")).toBeInTheDocument();
-      expect(getByLabelText("Username")).toBeInTheDocument();
-      expect(getByLabelText("Email")).toBeInTheDocument();
-      expect(getByLabelText("Current password")).toBeInTheDocument();
-      expect(getByLabelText("New password")).toBeInTheDocument();
-      expect(getByLabelText("Confirm new password")).toBeInTheDocument();
-      expect(getByText("Save changes")).toBeInTheDocument();
-    });
-  }); */
-
+  /**
+   * Test to ensure input change is handled properly.
+   */
   test("handles input change", async () => {
+    /**
+     * Render the component.
+     */
     const { getByTestId } = render(
       <BrowserRouter>
         <ProfilePage />
       </BrowserRouter>
     );
 
+    /**
+     * Get the firstname input field.
+     */
     const firstnameInput = getByTestId("profileFirstname");
 
+    /**
+     * Simulate input change.
+     */
     act(() => {
       fireEvent.change(firstnameInput, { target: { value: "John" } });
     });
 
+    /**
+     * Wait for the change to reflect.
+     */
     await waitFor(() => {
       expect(firstnameInput.value).toBe("John");
     });

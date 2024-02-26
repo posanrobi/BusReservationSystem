@@ -1,9 +1,13 @@
+/**
+ * Test file for ReservationsTable component.
+ */
+
 import React from "react";
 import { render } from "@testing-library/react";
 import ReservationsTable from "../components/ReservationsTable";
 
 /**
- * Unit tests for the ReservationsTable component.
+ * Setting up modal root before each test.
  */
 beforeEach(() => {
   const modalRoot = document.createElement("div");
@@ -14,6 +18,9 @@ beforeEach(() => {
   HTMLDialogElement.prototype.close = jest.fn();
 });
 
+/**
+ * Removing modal root after each test.
+ */
 afterEach(() => {
   const modalRoot = document.getElementById("modal");
   if (modalRoot) {
@@ -42,7 +49,7 @@ describe("ReservationsTable component", () => {
   ];
 
   /**
-   * Test case: Renders component without errors.
+   * Test to render component without errors.
    */
   test("renders component without errors", () => {
     /**

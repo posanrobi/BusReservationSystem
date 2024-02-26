@@ -1,8 +1,18 @@
+/**
+ * Test file for TripSelection component.
+ */
+
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import TripSelection from "../components/TripSelection";
 
+/**
+ * Test suite for the TripSelection component.
+ */
 describe("TripSelection Component", () => {
+  /**
+   * Mock data for testing.
+   */
   const mockBusLines = [
     { id: 1, name: "CityA - CityB" },
     { id: 2, name: "CityA - CityC" },
@@ -26,7 +36,13 @@ describe("TripSelection Component", () => {
     getLineId: jest.fn(),
   };
 
+  /**
+   * Test to check if component renders without errors.
+   */
   test("renders TripSelection component correctly", () => {
+    /**
+     * Render the component.
+     */
     const { getByText, getByLabelText } = render(
       <TripSelection
         busLines={mockBusLines}
@@ -40,6 +56,9 @@ describe("TripSelection Component", () => {
       />
     );
 
+    /**
+     * Assertions for rendered elements.
+     */
     expect(getByText("Plan your travel")).toBeInTheDocument();
     expect(getByLabelText("From:")).toBeInTheDocument();
     expect(getByLabelText("To:")).toBeInTheDocument();
@@ -47,7 +66,13 @@ describe("TripSelection Component", () => {
     expect(getByLabelText("Available times:")).toBeInTheDocument();
   });
 
+  /**
+   * Test to ensure change events are handled correctly.
+   */
   test("handles change events correctly", () => {
+    /**
+     * Render the component.
+     */
     const { getByLabelText } = render(
       <TripSelection
         busLines={mockBusLines}
@@ -61,6 +86,9 @@ describe("TripSelection Component", () => {
       />
     );
 
+    /**
+     * Simulate change events.
+     */
     fireEvent.change(getByLabelText("From:"), { target: { value: "CityA" } });
     fireEvent.change(getByLabelText("To:"), { target: { value: "CityB" } });
     fireEvent.change(getByLabelText("Available dates:"), {
@@ -70,6 +98,9 @@ describe("TripSelection Component", () => {
       target: { value: "08:00" },
     });
 
+    /**
+     * Assertions for function calls.
+     */
     expect(mockFunctions.handleSelectFromChange).toHaveBeenCalled();
     expect(mockFunctions.handleSelectToChange).toHaveBeenCalled();
     expect(mockFunctions.handleSelectDateChange).toHaveBeenCalled();

@@ -37,7 +37,7 @@ afterEach(() => {
 });
 
 /**
- * Tests for UserTable component.
+ * Test suite for UserTable component.
  */
 describe("UserTable component", () => {
   /**

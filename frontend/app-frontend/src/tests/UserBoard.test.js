@@ -7,7 +7,7 @@ import HomePage from "../components/UserBoard";
 import { BrowserRouter } from "react-router-dom";
 
 /**
- * Tests for UserBoard component.
+ * Test suite for UserBoard component.
  */
 describe("UserBoard Component", () => {
   /**

@@ -1,6 +1,13 @@
+/**
+ * Test file for App component.
+ */
+
 import { render } from "@testing-library/react";
 import App from "../App";
 
+/**
+ * Mocking components.
+ */
 jest.mock("../components/Root", () => () => <div>Root Component</div>);
 jest.mock("../components/Auth", () => () => <div>Authentication Page</div>);
 jest.mock("../components/UserBoard", () => () => (
@@ -16,6 +23,12 @@ jest.mock("../components/AdminBoard", () => () => (
 ));
 jest.mock("../pages/ErrorPage", () => () => <div>Error Page</div>);
 
+/**
+ * Test to render the landing page.
+ */
 test("renders the landing page", () => {
+  /**
+   * Render the component.
+   */
   render(<App />);
 });

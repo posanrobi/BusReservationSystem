@@ -24,6 +24,23 @@ public class BusLine {
     private int price;
 
     /**
+     * No arg constructor for BusLine entity.
+     */
+    public BusLine(){}
+
+    /**
+     * Constructor for BusLine entity.
+     * @param id unique identifier for the bus line.
+     * @param name name of the bus line.
+     * @param price price of the bus line.
+     */
+    public BusLine(Long id, String name, int price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    /**
      * Retrieves the ID of the bus line.
      * @return The ID of the bus line.
      */

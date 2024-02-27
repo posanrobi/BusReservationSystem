@@ -38,7 +38,7 @@ public class BusLineDateTimeControllerTest {
         LocalTime time2 = LocalTime.of(12, 30);
 
         mockBusLineDateTimeList.add(new BusLineDateTime(1L, date1, time1, new BusLine(1L, "TestBusline1",2000)));
-        mockBusLineDateTimeList.add(new BusLineDateTime(2L, date2, time2, new BusLine(1L, "TestBuslin2",5000)));
+        mockBusLineDateTimeList.add(new BusLineDateTime(2L, date2, time2, new BusLine(1L, "TestBusline2",5000)));
 
         when(busLineDateTimeService.getAllBusLineDatesAndTimes()).thenReturn(mockBusLineDateTimeList);
 

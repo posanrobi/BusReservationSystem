@@ -41,7 +41,7 @@ public class BusLineDateTimeController {
      * @return A list of BusLineDateTime objects representing all bus line dates and times.
      */
     @GetMapping
-    public List<BusLineDateTime> getAllBusLineDatesAndTime() {
+    public List<BusLineDateTime> getAllBusLineDatesAndTimes() {
         return busLineDateTimeService.getAllBusLineDatesAndTimes();
     }
 }

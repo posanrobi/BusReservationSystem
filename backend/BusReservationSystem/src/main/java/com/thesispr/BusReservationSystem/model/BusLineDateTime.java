@@ -41,6 +41,21 @@ public class BusLineDateTime {
     }
 
     /**
+     * Constructs a new BusLineDateTime object with the specified ID, date, time, and associated bus line.
+     *
+     * @param id The ID of the bus line date and time.
+     * @param date The date of the bus line.
+     * @param time The time of the bus line.
+     * @param busLine The associated bus line.
+     */
+    public BusLineDateTime(Long id, LocalDate date, LocalTime time, BusLine busLine) {
+        this.id = id;
+        this.date = date;
+        this.time = time;
+        this.busLine = busLine;
+    }
+
+    /**
      * Retrieves the ID of the bus line date and time.
      * @return The ID of the bus line date and time.
      */

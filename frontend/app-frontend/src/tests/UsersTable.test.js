@@ -1,5 +1,5 @@
 /**
- * This test file is designed to test the functionality of the UserTable component.
+ * Test file for UserTable component.
  */
 
 import React from "react";

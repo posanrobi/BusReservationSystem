@@ -93,7 +93,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testUpdatePassword_Success() {
+    public void testUpdatePasswordSuccess() {
         Long userId = 1L;
         UpdatePasswordRequest updatePasswordRequest = new UpdatePasswordRequest();
 

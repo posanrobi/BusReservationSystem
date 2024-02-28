@@ -15,8 +15,13 @@ import com.thesispr.BusReservationSystem.repository.UserRepository;
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
+    //@Autowired
     UserRepository userRepository;
+
+    @Autowired
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     /**
      * Loads a user by the given username.

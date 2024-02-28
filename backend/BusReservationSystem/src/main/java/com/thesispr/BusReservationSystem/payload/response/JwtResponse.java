@@ -127,4 +127,13 @@ public class JwtResponse {
     public List<String> getRoles() {
         return roles;
     }
+
+    /**
+     * Sets the roles for the user.
+     *
+     * @param roles a list of strings representing the roles to be assigned to the user
+     */
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 }

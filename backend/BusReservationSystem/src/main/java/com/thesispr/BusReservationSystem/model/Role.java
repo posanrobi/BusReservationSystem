@@ -23,6 +23,16 @@ public class Role {
     }
 
     /**
+     * Constructor with full data.
+     * @param id Identifier of the role.
+     * @param roleName Name of the role.
+     */
+    public Role(Long id, ERole roleName) {
+        this.id = id;
+        this.roleName = roleName;
+    }
+
+    /**
      * Constructs a role with the specified role name.
      * @param roleName The name of the role.
      */

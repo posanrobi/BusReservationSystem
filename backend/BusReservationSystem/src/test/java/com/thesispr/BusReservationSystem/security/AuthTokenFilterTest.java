@@ -19,21 +19,39 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the AuthTokenFilter class.
+ */
 @ExtendWith(MockitoExtension.class)
 public class AuthTokenFilterTest {
 
+    /**
+     * Mock instance of JwtUtils used for simulating JWT token-related functionality.
+     */
     @Mock
     private JwtUtils jwtUtils;
 
+    /**
+     * Mock instance of UserDetailsServiceImpl used for simulating user details service functionality.
+     */
     @Mock
     private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * Injected mock instance of AuthTokenFilter for testing.
+     */
     @InjectMocks
     private AuthTokenFilter authTokenFilter;
 
+    /**
+     * Test to verify the doFilterInternal method of AuthTokenFilter when provided with a valid token.
+     *
+     * @throws ServletException if a servlet exception occurs
+     * @throws IOException      if an I/O exception occurs
+     */
     @Test
     void testDoFilterInternal_ValidToken() throws ServletException, IOException {
-        // Given
+        /* Arrange: Create mock objects and set up behavior */
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         FilterChain filterChain = mock(FilterChain.class);
@@ -46,10 +64,10 @@ public class AuthTokenFilterTest {
         when(jwtUtils.getUserNameFromJwtToken(jwt)).thenReturn("testUser");
         when(userDetailsService.loadUserByUsername("testUser")).thenReturn(userDetails);
 
-        // When
+        /* Act: Call the doFilterInternal method */
         authTokenFilter.doFilterInternal(request, response, filterChain);
 
-        // Then
+        /* Assert: Verify method invocations */
         verify(jwtUtils).validateJwtToken(jwt);
         verify(jwtUtils).getUserNameFromJwtToken(jwt);
         verify(userDetailsService).loadUserByUsername("testUser");

@@ -14,21 +14,33 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the AuthEntryPointJwt class.
+ */
 public class AuthEntryPointJwtTest {
 
+    /**
+     * Test to verify the commence method of AuthEntryPointJwt.
+     *
+     * @throws IOException if an I/O exception occurs
+     */
     @Test
     void testCommence() throws IOException {
-        // Given
+        /* Arrange: Mock the AuthenticationException */
         AuthenticationException authException = mock(AuthenticationException.class);
         when(authException.getMessage()).thenReturn("Unauthorized");
+
+        /* Create an instance of AuthEntryPointJwt */
         AuthEntryPointJwt authEntryPointJwt = new AuthEntryPointJwt();
+
+        /* Create mock servlet request and response objects */
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
 
-        // When
+        /* Act: Call the commence method */
         authEntryPointJwt.commence(request, response, authException);
 
-        // Then
+        /* Assert: Verify the response status and content */
         assertEquals(HttpServletResponse.SC_UNAUTHORIZED, response.getStatus());
 
         ObjectMapper objectMapper = new ObjectMapper();

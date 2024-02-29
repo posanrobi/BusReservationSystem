@@ -12,24 +12,32 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the RoleRepository interface.
+ */
 @ExtendWith(MockitoExtension.class)
 public class RoleRepositoryTest {
 
+    /** The mocked RoleRepository object. */
     @Mock
     private RoleRepository roleRepository;
 
+    /**
+     * Test to verify the findByRoleName method of RoleRepository.
+     */
     @Test
     void testFindByRoleName() {
-        // Given
+        /* Arrange: Define test data */
         ERole roleName = ERole.ROLE_USER;
         Role expectedRole = new Role(1L, roleName);
 
+        /* Mock the behavior of RoleRepository */
         when(roleRepository.findByRoleName(roleName)).thenReturn(Optional.of(expectedRole));
 
-        // When
+        /* Act: Call the findByRoleName method */
         Optional<Role> result = roleRepository.findByRoleName(roleName);
 
-        // Then
+        /* Assert: Verify the result */
         assertEquals(expectedRole, result.orElse(null));
     }
 }

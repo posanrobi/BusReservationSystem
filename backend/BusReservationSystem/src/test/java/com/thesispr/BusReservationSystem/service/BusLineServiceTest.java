@@ -14,21 +14,37 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit tests for the BusLineService class.
+ */
 public class BusLineServiceTest {
 
+    /**
+     * Mock instance of BusLineRepository used for testing.
+     */
     @Mock
     private BusLineRepository busLineRepository;
 
+    /**
+     * The instance of BusLineService to be tested.
+     */
     @InjectMocks
     private BusLineService busLineService;
 
+    /**
+     * Sets up the necessary dependencies for each test.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Test to verify the getAllBusLines method of BusLineService.
+     */
     @Test
     void testGetAllBusLines() {
+        /* Arrange: Create mock data */
         Long id1 = 1L;
         String name1 = "TestBusLine1";
         int price1 = 2000;
@@ -40,10 +56,11 @@ public class BusLineServiceTest {
         BusLine busLine2 = new BusLine(id2, name2, price2);
         List<BusLine> mockData = Arrays.asList(busLine1, busLine2);
 
+        /* Act: Mock the behavior of BusLineRepository and call the method */
         when(busLineRepository.findAll()).thenReturn(mockData);
-
         List<BusLine> result = busLineService.getAllBusLines();
 
+        /* Assert: Verify that the result matches the expected mock data */
         assertEquals(mockData, result);
     }
 }

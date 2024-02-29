@@ -17,21 +17,37 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit tests for the BusLineDateTimeService class.
+ */
 public class BusLineDateTimeServiceTest {
 
+    /**
+     * Mock instance of BusLineDateTimeRepository used for testing.
+     */
     @Mock
     private BusLineDateTimeRepository busLineDateTimeRepository;
 
+    /**
+     * The instance of BusLineDateTimeService to be tested.
+     */
     @InjectMocks
     private BusLineDateTimeService busLineDateTimeService;
 
+    /**
+     * Sets up the necessary dependencies for each test.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Test to verify the getAllBusLineDatesAndTimes method of BusLineDateTimeService.
+     */
     @Test
     void testGetAllBusLineDatesAndTimes() {
+        /* Arrange: Create mock data */
         Long id1 = 1L;
         LocalDate date1 = LocalDate.of(2024, 2, 27);
         LocalTime time1 = LocalTime.of(10, 0);
@@ -46,10 +62,11 @@ public class BusLineDateTimeServiceTest {
         BusLineDateTime dateTime2 = new BusLineDateTime(id2, date2, time2, busLine2);
         List<BusLineDateTime> mockData = Arrays.asList(dateTime1, dateTime2);
 
+        /* Act: Mock the behavior of BusLineDateTimeRepository and call the method */
         when(busLineDateTimeRepository.findAll()).thenReturn(mockData);
-
         List<BusLineDateTime> result = busLineDateTimeService.getAllBusLineDatesAndTimes();
 
+        /* Assert: Verify that the result matches the expected mock data */
         assertEquals(mockData, result);
     }
 }

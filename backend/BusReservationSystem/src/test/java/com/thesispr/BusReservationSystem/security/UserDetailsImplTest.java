@@ -12,10 +12,17 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit tests for the UserDetailsImpl class.
+ */
 class UserDetailsImplTest {
 
+    /**
+     * Test to verify the build method of UserDetailsImpl.
+     */
     @Test
     void testBuild() {
+        /* Arrange: Create a user with roles */
         User user = new User();
         user.setId(1L);
         user.setUsername("testuser");
@@ -30,13 +37,16 @@ class UserDetailsImplTest {
         role.setRoleName(erole);
         user.setRoles(Collections.singleton(role));
 
+        /* Act: Call the build method */
         UserDetailsImpl userDetails = UserDetailsImpl.build(user);
 
+        /* Assert: Verify the user details */
         assertEquals(user.getId(), userDetails.getId());
         assertEquals(user.getUsername(), userDetails.getUsername());
         assertEquals(user.getEmail(), userDetails.getEmail());
         assertEquals(user.getPassword(), userDetails.getPassword());
 
+        /* Verify authorities */
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
         assertEquals(1, authorities.size());
         assertEquals("ROLE_USER", authorities.iterator().next().getAuthority());

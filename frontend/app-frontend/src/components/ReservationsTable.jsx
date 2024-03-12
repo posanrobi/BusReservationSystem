@@ -6,7 +6,7 @@ import {
 import DeleteWindow from "./DeleteWindow";
 import { MdDelete } from "react-icons/md";
 
-import classes from "./AdminBoard.module.css";
+import classes from "../pages/AdminBoard.module.css";
 
 /**
  * ReservationsTable component displays a table of reservations with options to delete individual reservations.

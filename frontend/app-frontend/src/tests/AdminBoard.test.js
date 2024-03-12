@@ -4,7 +4,7 @@
 
 import React from "react";
 import { render, waitFor, screen } from "@testing-library/react";
-import AdminBoard from "../components/AdminBoard";
+import AdminBoard from "../pages/AdminBoard";
 import { cleanup } from "@testing-library/react";
 
 /**

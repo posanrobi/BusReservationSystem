@@ -18,7 +18,7 @@ import {
 
 import classes from "./ReservationPage.module.css";
 import modalClasses from "../components/Modal.module.css";
-import adminClasses from "../components/AdminBoard.module.css";
+import adminClasses from "./AdminBoard.module.css";
 
 /**
  * Component for displaying reservations of the current user.

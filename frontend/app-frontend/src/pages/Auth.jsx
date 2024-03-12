@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Modal from "./Modal";
-import Login from "./Login";
-import Register from "./Register";
+import Modal from "../components/Modal";
+import Login from "../components/Login";
+import Register from "../components/Register";
 import { getCurrentUser } from "../services/auth.service";
 
 import classes from "./Auth.module.css";
-import modalClasses from "./Modal.module.css";
+import modalClasses from "../components/Modal.module.css";
 
 /**
  * Component for authentication page, including login and registration forms as modals.

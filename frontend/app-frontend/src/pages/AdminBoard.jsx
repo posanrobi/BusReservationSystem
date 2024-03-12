@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import UserTable from "./UsersTable";
-import ReservationsTable from "./ReservationsTable";
-import StatisticsTable from "./StatisticsTable";
+import UserTable from "../components/UsersTable";
+import ReservationsTable from "../components/ReservationsTable";
+import StatisticsTable from "../components/StatisticsTable";
 import { getAllUsers, getAllReservations } from "../services/user.service";
-import Modal from "./Modal";
-import TokenExpired from "./TokenExpired";
+import Modal from "../components/Modal";
+import TokenExpired from "../components/TokenExpired";
 
 import classes from "./AdminBoard.module.css";
 import modalClasses from "../components/Modal.module.css";

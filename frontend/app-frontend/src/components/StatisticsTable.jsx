@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import classes from "./AdminBoard.module.css";
+import classes from "../pages/AdminBoard.module.css";
 
 /**
  * StatisticsTable component displays summary statistics about users and reservations.

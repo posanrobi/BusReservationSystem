@@ -1,12 +1,12 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import RootLayout from "./components/Root";
-import AuthenticationPage from "./components/Auth";
-import HomePage from "./components/UserBoard";
+import AuthenticationPage from "./pages/Auth";
+import HomePage from "./pages/UserBoard";
 import PlanningPage from "./pages/PlanningPage";
 import ProfilePage from "./pages/ProfilePage";
 import ReservationsPage from "./pages/ReservationsPage";
-import AdminBoard from "./components/AdminBoard";
+import AdminBoard from "./pages/AdminBoard";
 import Error from "./pages/ErrorPage";
 import { checkAuthLoader } from "./services/auth.service";
 

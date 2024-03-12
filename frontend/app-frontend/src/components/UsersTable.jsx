@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { deleteUser, deleteReservation } from "../services/user.service";
 import { MdDelete } from "react-icons/md";
 
-import classes from "./AdminBoard.module.css";
+import classes from "../pages/AdminBoard.module.css";
 import DeleteWindow from "./DeleteWindow";
 
 /**

@@ -3,8 +3,9 @@
  */
 
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import UserTable from "../components/UsersTable";
+import { cleanup } from "@testing-library/react";
 
 /**
  * Mocking user.service module.
@@ -30,10 +31,7 @@ beforeEach(() => {
  * Removing modal root after each test.
  */
 afterEach(() => {
-  const modalRoot = document.getElementById("modal");
-  if (modalRoot) {
-    document.body.removeChild(modalRoot);
-  }
+  cleanup();
 });
 
 /**
@@ -76,7 +74,7 @@ describe("UserTable component", () => {
     /**
      * Rendering UserTable component with sample data and mock functions.
      */
-    const { getByText, getByTestId } = render(
+    render(
       <UserTable
         users={users}
         setUsers={jest.fn()}
@@ -89,15 +87,15 @@ describe("UserTable component", () => {
     /**
      * Asserting that user data is rendered properly.
      */
-    expect(getByText("John")).toBeInTheDocument();
-    expect(getByText("Doe")).toBeInTheDocument();
-    expect(getByText("johndoe")).toBeInTheDocument();
-    expect(getByText("john@example.com")).toBeInTheDocument();
+    expect(screen.getByText("John")).toBeInTheDocument();
+    expect(screen.getByText("Doe")).toBeInTheDocument();
+    expect(screen.getByText("johndoe")).toBeInTheDocument();
+    expect(screen.getByText("john@example.com")).toBeInTheDocument();
 
     /**
      * Getting delete button and asserting its presence.
      */
-    const deleteButton = getByTestId("delete-button-1");
+    const deleteButton = screen.getByTestId("delete-button-1");
     expect(deleteButton).toBeInTheDocument();
 
     /**

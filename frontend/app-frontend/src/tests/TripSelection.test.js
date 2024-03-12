@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import TripSelection from "../components/TripSelection";
 
 /**
@@ -43,7 +43,7 @@ describe("TripSelection Component", () => {
     /**
      * Render the component.
      */
-    const { getByText, getByLabelText } = render(
+    render(
       <TripSelection
         busLines={mockBusLines}
         selectedFrom=""
@@ -59,11 +59,11 @@ describe("TripSelection Component", () => {
     /**
      * Assertions for rendered elements.
      */
-    expect(getByText("Plan your travel")).toBeInTheDocument();
-    expect(getByLabelText("From:")).toBeInTheDocument();
-    expect(getByLabelText("To:")).toBeInTheDocument();
-    expect(getByLabelText("Available dates:")).toBeInTheDocument();
-    expect(getByLabelText("Available times:")).toBeInTheDocument();
+    expect(screen.getByText("Plan your travel")).toBeInTheDocument();
+    expect(screen.getByLabelText("From:")).toBeInTheDocument();
+    expect(screen.getByLabelText("To:")).toBeInTheDocument();
+    expect(screen.getByLabelText("Available dates:")).toBeInTheDocument();
+    expect(screen.getByLabelText("Available times:")).toBeInTheDocument();
   });
 
   /**
@@ -73,7 +73,7 @@ describe("TripSelection Component", () => {
     /**
      * Render the component.
      */
-    const { getByLabelText } = render(
+    render(
       <TripSelection
         busLines={mockBusLines}
         selectedFrom=""
@@ -89,12 +89,12 @@ describe("TripSelection Component", () => {
     /**
      * Simulate change events.
      */
-    fireEvent.change(getByLabelText("From:"), { target: { value: "CityA" } });
-    fireEvent.change(getByLabelText("To:"), { target: { value: "CityB" } });
-    fireEvent.change(getByLabelText("Available dates:"), {
+    fireEvent.change(screen.getByLabelText("From:"), { target: { value: "CityA" } });
+    fireEvent.change(screen.getByLabelText("To:"), { target: { value: "CityB" } });
+    fireEvent.change(screen.getByLabelText("Available dates:"), {
       target: { value: "2024-02-24" },
     });
-    fireEvent.change(getByLabelText("Available times:"), {
+    fireEvent.change(screen.getByLabelText("Available times:"), {
       target: { value: "08:00" },
     });
 

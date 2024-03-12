@@ -3,8 +3,9 @@
  */
 
 import React from "react";
-import { render, waitFor } from "@testing-library/react";
+import { render, waitFor, screen } from "@testing-library/react";
 import AdminBoard from "../components/AdminBoard";
+import { cleanup } from "@testing-library/react";
 
 /**
  * Setup modal root before each test.
@@ -22,10 +23,7 @@ beforeEach(() => {
  * Cleanup modal root after each test.
  */
 afterEach(() => {
-  const modalRoot = document.getElementById("modal");
-  if (modalRoot) {
-    document.body.removeChild(modalRoot);
-  }
+  cleanup();
 });
 
 /**
@@ -39,14 +37,17 @@ describe("AdminBoard component", () => {
     /**
      * Render the component.
      */
-    const { getByText } = render(<AdminBoard />);
+    render(<AdminBoard />);
 
     /**
      * Wait for elements to be present in the DOM.
      */
     await waitFor(() => {
-      expect(getByText("User details")).toBeInTheDocument();
-      expect(getByText("Reservation details")).toBeInTheDocument();
+      expect(screen.getByText("User details")).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText("Reservation details")).toBeInTheDocument();
     });
   });
 });

@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
 import * as authService from "../services/auth.service";
@@ -32,7 +32,7 @@ describe("MainNavigation component", () => {
     /**
      * Render the component within MemoryRouter.
      */
-    const { getByText } = render(
+    render(
       <MemoryRouter>
         <MainNavigation />
       </MemoryRouter>
@@ -41,10 +41,10 @@ describe("MainNavigation component", () => {
     /**
      * Assertions for presence of navigation links.
      */
-    expect(getByText("Home")).toBeInTheDocument();
-    expect(getByText("Plan")).toBeInTheDocument();
-    expect(getByText("Reservations")).toBeInTheDocument();
-    expect(getByText("Profile")).toBeInTheDocument();
+    expect(screen.getByText("Home")).toBeInTheDocument();
+    expect(screen.getByText("Plan")).toBeInTheDocument();
+    expect(screen.getByText("Reservations")).toBeInTheDocument();
+    expect(screen.getByText("Profile")).toBeInTheDocument();
   });
 
   /**
@@ -59,7 +59,7 @@ describe("MainNavigation component", () => {
     /**
      * Render the component within MemoryRouter.
      */
-    const { queryByText } = render(
+    render(
       <MemoryRouter>
         <MainNavigation />
       </MemoryRouter>
@@ -68,10 +68,10 @@ describe("MainNavigation component", () => {
     /**
      * Assertions for absence of navigation links.
      */
-    expect(queryByText("Home")).not.toBeInTheDocument();
-    expect(queryByText("Plan")).not.toBeInTheDocument();
-    expect(queryByText("Reservations")).not.toBeInTheDocument();
-    expect(queryByText("Profile")).not.toBeInTheDocument();
+    expect(screen.queryByText("Home")).not.toBeInTheDocument();
+    expect(screen.queryByText("Plan")).not.toBeInTheDocument();
+    expect(screen.queryByText("Reservations")).not.toBeInTheDocument();
+    expect(screen.queryByText("Profile")).not.toBeInTheDocument();
   });
 
   /**
@@ -81,7 +81,7 @@ describe("MainNavigation component", () => {
     /**
      * Render the component within MemoryRouter.
      */
-    const { getByTestId } = render(
+    render(
       <MemoryRouter>
         <MainNavigation />
       </MemoryRouter>
@@ -90,7 +90,7 @@ describe("MainNavigation component", () => {
     /**
      * Click the logout button.
      */
-    const logoutButton = getByTestId("logout-button");
+    const logoutButton = screen.getByTestId("logout-button");
     fireEvent.click(logoutButton);
 
     /**

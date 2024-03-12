@@ -3,14 +3,15 @@
  */
 
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import AuthenticationPage from "../components/Auth";
 import { BrowserRouter } from "react-router-dom";
+import { cleanup } from "@testing-library/react";
 
 /**
  * Setup modal root before each test.
  */
-beforeEach(() => {
+beforeAll(() => {
   const modalRoot = document.createElement("div");
   modalRoot.setAttribute("id", "modal");
   document.body.appendChild(modalRoot);
@@ -30,11 +31,8 @@ beforeEach(() => {
 /**
  * Cleanup modal root after each test.
  */
-afterEach(() => {
-  const modalRoot = document.getElementById("modal");
-  if (modalRoot) {
-    document.body.removeChild(modalRoot);
-  }
+afterAll(() => {
+  cleanup();
 });
 
 /**
@@ -62,7 +60,7 @@ describe("AuthenticationPage component", () => {
     /**
      * Render the component.
      */
-    const { getByTestId } = render(
+    render(
       <BrowserRouter>
         <AuthenticationPage />
       </BrowserRouter>
@@ -71,14 +69,14 @@ describe("AuthenticationPage component", () => {
     /**
      * Click sign in button.
      */
-    const signInButton = getByTestId("sign-in-button");
+    const signInButton = screen.getByTestId("sign-in-button");
     fireEvent.click(signInButton);
 
     /**
      * Wait for login modal to be displayed.
      */
     await waitFor(() => {
-      const loginModal = getByTestId("login-modal");
+      const loginModal = screen.getByTestId("login-modal");
       expect(loginModal).toBeInTheDocument();
     });
   });
@@ -90,7 +88,7 @@ describe("AuthenticationPage component", () => {
     /**
      * Render the component.
      */
-    const { getByTestId } = render(
+    render(
       <BrowserRouter>
         <AuthenticationPage />
       </BrowserRouter>
@@ -99,14 +97,14 @@ describe("AuthenticationPage component", () => {
     /**
      * Click sign up button.
      */
-    const signUpButton = getByTestId("sign-up-button");
+    const signUpButton = screen.getByTestId("sign-up-button");
     fireEvent.click(signUpButton);
 
     /**
      * Wait for register modal to be displayed.
      */
     await waitFor(() => {
-      const registerModal = getByTestId("register-modal");
+      const registerModal = screen.getByTestId("register-modal");
       expect(registerModal).toBeInTheDocument();
     });
   });

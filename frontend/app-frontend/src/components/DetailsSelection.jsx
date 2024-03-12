@@ -46,6 +46,7 @@ const DetailsSelection = ({
             if (busLine.id === selectedLine) {
               return <p key={busLine.id}>{busLine.price} Ft</p>;
             }
+            return null;
           })}
           {!selectedTo && <p className={classes.noPrice}>0 Ft</p>}
         </div>

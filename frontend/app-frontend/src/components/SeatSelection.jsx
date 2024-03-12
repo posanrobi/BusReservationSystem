@@ -26,7 +26,7 @@ const SeatSelection = ({
   renderSeats,
 }) => {
   return (
-    <div className={classes.seatsDiv}>
+    <div className={classes.seatsDiv} role="group">
       <div className={classes.seatsDivHeader}>
         <p>Available seats:</p>
         <span>

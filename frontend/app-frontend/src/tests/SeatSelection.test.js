@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import SeatSelection from "../components/SeatSelection";
 
 /**
@@ -39,7 +39,7 @@ describe("SeatSelection component", () => {
     /**
      * Render the component.
      */
-    const { getByText } = render(
+    render(
       <SeatSelection
         selectedFrom="A"
         selectedTo="B"
@@ -55,7 +55,7 @@ describe("SeatSelection component", () => {
     /**
      * Assertion for "No seats available" message.
      */
-    expect(getByText("No seats available")).toBeInTheDocument();
+    expect(screen.getByText("No seats available")).toBeInTheDocument();
   });
 
   /**
@@ -65,12 +65,12 @@ describe("SeatSelection component", () => {
     /**
      * Render the component.
      */
-    const { container } = render(
+    render(
       <SeatSelection
         selectedFrom="C"
         selectedTo="D"
         selectedDate="2024-02-23"
-        selectedTime="10:00 AM"
+        selectedTime="10:00"
         groupedDatesByLineId={mockGroupedDatesByLineId}
         getLineId={mockGetLineId}
         handleClearSelectedSeats={() => {}}
@@ -79,8 +79,8 @@ describe("SeatSelection component", () => {
     );
 
     /**
-     * Assertion for presence of seats container.
+     * Assertion for getting the seat container.
      */
-    expect(container.querySelector(".seats")).toBeInTheDocument();
+    expect(screen.getByRole("group")).toBeInTheDocument();
   });
 });

@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Register from "../components/Register";
 
@@ -25,20 +25,34 @@ describe("Register Component", () => {
     /**
      *  Render the component.
      */
-    const { getByText, getByLabelText } = render(<Register />);
+    render(<Register />);
 
     /**
      * Wait for the form elements to be rendered.
      */
     await waitFor(() => {
-      expect(getByText("Register")).toBeInTheDocument();
-      expect(getByLabelText("Firstname")).toBeInTheDocument();
-      expect(getByLabelText("Lastname")).toBeInTheDocument();
-      expect(getByLabelText("Username")).toBeInTheDocument();
-      expect(getByLabelText("Email")).toBeInTheDocument();
-      expect(getByLabelText("Password")).toBeInTheDocument();
-      expect(getByText("Create a user")).toBeInTheDocument();
-      expect(getByText("Cancel")).toBeInTheDocument();
+      expect(screen.getByText("Register")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByLabelText("Firstname")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByLabelText("Lastname")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByLabelText("Username")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByLabelText("Email")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByLabelText("Password")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByText("Create a user")).toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(screen.getByText("Cancel")).toBeInTheDocument();
     });
   });
 
@@ -54,31 +68,31 @@ describe("Register Component", () => {
     /**
      * Render the component.
      */
-    const { getByLabelText, getByText } = render(<Register />);
+    render(<Register />);
 
     /**
      * Fill out the form fields.
      */
-    fireEvent.change(getByLabelText("Firstname"), {
+    fireEvent.change(screen.getByLabelText("Firstname"), {
       target: { value: "John" },
     });
-    fireEvent.change(getByLabelText("Lastname"), {
+    fireEvent.change(screen.getByLabelText("Lastname"), {
       target: { value: "Doe" },
     });
-    fireEvent.change(getByLabelText("Username"), {
+    fireEvent.change(screen.getByLabelText("Username"), {
       target: { value: "johndoe" },
     });
-    fireEvent.change(getByLabelText("Email"), {
+    fireEvent.change(screen.getByLabelText("Email"), {
       target: { value: "john@example.com" },
     });
-    fireEvent.change(getByLabelText("Password"), {
+    fireEvent.change(screen.getByLabelText("Password"), {
       target: { value: "password123" },
     });
 
     /**
      * Submit the form.
      */
-    fireEvent.click(getByText("Create a user"));
+    fireEvent.click(screen.getByText("Create a user"));
 
     /**
      * Wait for registration to complete.

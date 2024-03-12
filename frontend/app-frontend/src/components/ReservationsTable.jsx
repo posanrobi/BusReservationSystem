@@ -43,7 +43,7 @@ export default function ReservationsTable({
     }
 
     fetchData();
-  }, []);
+  });
 
   /**
    * Function to handle deletion of a reservation.

@@ -5,6 +5,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import ReservationsTable from "../components/ReservationsTable";
+import { cleanup } from "@testing-library/react";
 
 /**
  * Setting up modal root before each test.
@@ -22,10 +23,7 @@ beforeEach(() => {
  * Removing modal root after each test.
  */
 afterEach(() => {
-  const modalRoot = document.getElementById("modal");
-  if (modalRoot) {
-    document.body.removeChild(modalRoot);
-  }
+  cleanup();
 });
 
 /**

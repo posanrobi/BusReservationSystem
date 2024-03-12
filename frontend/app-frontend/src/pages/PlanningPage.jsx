@@ -8,7 +8,7 @@ import {
   createReservation,
 } from "../services/user.service";
 import TokenExpired from "../components/TokenExpired";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getCurrentUser } from "../services/auth.service";
 import { calculateTotalPrice } from "../services/utils";
 import TripSelection from "../components/TripSelection";
@@ -100,9 +100,8 @@ export default function PlanningPage() {
    * @param {string} busLineId - The ID of the bus line.
    * @returns {JSX.Element[]} An array of JSX elements representing the seats.
    */
-  const renderSeats = (busLineId) => {
+  /*const renderSeats = (busLineId) => {
     const seatDiv = [];
-
     let seatNumber = 1;
 
     for (let row = 0; row < 5; row++) {
@@ -158,6 +157,67 @@ export default function PlanningPage() {
     }
 
     return seatDiv;
+  };*/
+
+  const renderSeats = (busLineId) => {
+    const seatDiv = [];
+    let seatNumber = 1;
+
+    for (let row = 0; row < 5; row++) {
+      const columns = [];
+
+      for (let col = 0; col < 8; col++) {
+        const isDisabled = row === 2 && col !== 7;
+        const isUnnumbered =
+          row === 2 && (col === 0 || col === 1 || col === 4 || col === 12);
+        const isLastTwoRows = row >= 3;
+        const isLastTwoRowsColumn = isLastTwoRows && col === 3;
+
+        const isClickable =
+          !isDisabled && !isUnnumbered && !isLastTwoRowsColumn;
+
+        let currentSeatNumber = null;
+
+        if (isClickable) {
+          currentSeatNumber = seatNumber++;
+        }
+
+        const currentCellStyle = isDisabled
+          ? [classes.cellStyle, classes.disabledCellStyle].join(" ")
+          : isLastTwoRowsColumn
+          ? [classes.cellStyle, classes.disabledCellStyle].join(" ")
+          : classes.cellStyle;
+
+        const isSelected = selectedSeats.some(
+          (seat) =>
+            seat.busLineId === busLineId &&
+            seat.seatContent === currentSeatNumber
+        );
+
+        const seatClickHandler = isClickable
+          ? () => handleClick(busLineId, currentSeatNumber)
+          : null;
+
+        const isReserved =
+          alreadyReserved[busLineId]?.includes(currentSeatNumber);
+
+        columns.push(
+          <div
+            key={`${busLineId}-${row}-${col}`}
+            onClick={seatClickHandler}
+            className={`${currentCellStyle} ${
+              isSelected ? classes.selected : ""
+            } ${isReserved ? classes.reserved : ""}`}
+          >
+            {isClickable && currentSeatNumber}
+          </div>
+        );
+      }
+
+      seatDiv.push(<div key={row}>{columns}</div>);
+    }
+
+    return seatDiv;
   };
 
   /**
@@ -182,6 +242,27 @@ export default function PlanningPage() {
 
     fetchData();
   }, []);
+
+  /**
+   * Function to get the ID of a bus line based on its starting and destination cities.
+   * @param {string} from - The starting city.
+   * @param {string} to - The destination city.
+   * @returns {string|null} The ID of the bus line if found, or null if not found.
+   */
+  /*   const getLineId = (from, to) => {
+    const line = `${from}-${to}`;
+    const busLine = busLines.find((bl) => bl.name === line);
+    return busLine ? busLine.id : null;
+  }; */
+
+  const getLineId = useCallback(
+    (from, to) => {
+      const line = `${from}-${to}`;
+      const busLine = busLines.find((bl) => bl.name === line);
+      return busLine ? busLine.id : null;
+    },
+    [busLines]
+  );
 
   /**
    * Checking that a seat is reserved or not.
@@ -226,7 +307,7 @@ export default function PlanningPage() {
     }
 
     fetchReservedSeats();
-  }, [selectedFrom, selectedTo, selectedDate, selectedTime]);
+  }, [selectedFrom, selectedTo, selectedDate, selectedTime, getLineId]);
 
   /**
    * Function to clear the selected seats.
@@ -277,18 +358,6 @@ export default function PlanningPage() {
     const { value } = e.target;
     setSelectedTime(value);
   }
-
-  /**
-   * Function to get the ID of a bus line based on its starting and destination cities.
-   * @param {string} from - The starting city.
-   * @param {string} to - The destination city.
-   * @returns {string|null} The ID of the bus line if found, or null if not found.
-   */
-  const getLineId = (from, to) => {
-    const line = `${from}-${to}`;
-    const busLine = busLines.find((bl) => bl.name === line);
-    return busLine ? busLine.id : null;
-  };
 
   /**
    * Object storing dates grouped by bus line ID.

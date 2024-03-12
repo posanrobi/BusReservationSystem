@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Login from "../components/Login";
 
@@ -25,16 +25,16 @@ describe("Login Component", () => {
     /**
      * Render the component.
      */
-    const { getByText, getByLabelText } = render(<Login />);
+    render(<Login />);
 
     /**
      * Assertions for presence of login form elements.
      */
-    expect(getByText("Login")).toBeInTheDocument();
-    expect(getByLabelText("Username")).toBeInTheDocument();
-    expect(getByLabelText("Password")).toBeInTheDocument();
-    expect(getByText("Sign in")).toBeInTheDocument();
-    expect(getByText("Cancel")).toBeInTheDocument();
+    expect(screen.getByText("Login")).toBeInTheDocument();
+    expect(screen.getByLabelText("Username")).toBeInTheDocument();
+    expect(screen.getByLabelText("Password")).toBeInTheDocument();
+    expect(screen.getByText("Sign in")).toBeInTheDocument();
+    expect(screen.getByText("Cancel")).toBeInTheDocument();
   });
 
   /**
@@ -49,22 +49,22 @@ describe("Login Component", () => {
     /**
      * Render the component.
      */
-    const { getByLabelText, getByText } = render(<Login />);
+    render(<Login />);
 
     /**
      * Fill out the form fields.
      */
-    fireEvent.change(getByLabelText("Username"), {
+    fireEvent.change(screen.getByLabelText("Username"), {
       target: { value: "testuser" },
     });
-    fireEvent.change(getByLabelText("Password"), {
+    fireEvent.change(screen.getByLabelText("Password"), {
       target: { value: "testpassword" },
     });
 
     /**
      * Submit the form.
      */
-    fireEvent.click(getByText("Sign in"));
+    fireEvent.click(screen.getByText("Sign in"));
 
     /**
      * Wait for login to complete.

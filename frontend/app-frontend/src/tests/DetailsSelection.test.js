@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import DetailsSelection from "../components/DetailsSelection";
 
 /**
@@ -49,7 +49,7 @@ describe("DetailsSelection component", () => {
     /**
      * Render the component.
      */
-    const { getByText } = render(
+    render(
       <DetailsSelection
         busLines={mockBusLines}
         selectedFrom="A"
@@ -63,7 +63,7 @@ describe("DetailsSelection component", () => {
     /**
      * Assertions for presence of seat price and total price.
      */
-    expect(getByText("Seat price:")).toBeInTheDocument();
-    expect(getByText("Total price:")).toBeInTheDocument();
+    expect(screen.getByText("Seat price:")).toBeInTheDocument();
+    expect(screen.getByText("Total price:")).toBeInTheDocument();
   });
 });

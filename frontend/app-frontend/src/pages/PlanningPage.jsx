@@ -100,65 +100,6 @@ export default function PlanningPage() {
    * @param {string} busLineId - The ID of the bus line.
    * @returns {JSX.Element[]} An array of JSX elements representing the seats.
    */
-  /*const renderSeats = (busLineId) => {
-    const seatDiv = [];
-    let seatNumber = 1;
-
-    for (let row = 0; row < 5; row++) {
-      const columns = [];
-
-      for (let col = 0; col < 8; col++) {
-        const isDisabled = row === 2 && col !== 7;
-        const isUnnumbered = row === 2 && (col === 4 || col === 12);
-        const isLastTwoRows = row >= 3;
-        const isLastTwoRowsColumn = isLastTwoRows && col === 3;
-
-        const isClickable =
-          !isDisabled && !isUnnumbered && !isLastTwoRowsColumn;
-
-        const currentCellStyle = isDisabled
-          ? [classes.cellStyle, classes.disabledCellStyle].join(" ")
-          : isLastTwoRowsColumn
-          ? [classes.cellStyle, classes.disabledCellStyle].join(" ")
-          : classes.cellStyle;
-
-        const isSelected = selectedSeats.some(
-          (seat) =>
-            seat.busLineId === busLineId && seat.seatContent === seatNumber
-        );
-
-        const seatClickHandler = isClickable
-          ? (
-              (num) => () =>
-                handleClick(busLineId, num)
-            )(seatNumber)
-          : null;
-
-        const isReserved = alreadyReserved[busLineId]?.includes(seatNumber);
-
-        columns.push(
-          <div
-            key={`${busLineId}-${row}-${col}`}
-            onClick={seatClickHandler}
-            className={`${currentCellStyle} ${
-              isSelected ? classes.selected : ""
-            } ${isReserved ? classes.reserved : ""}`}
-          >
-            {isClickable && seatNumber}
-          </div>
-        );
-
-        if (isClickable) {
-          seatNumber++;
-        }
-      }
-
-      seatDiv.push(<div key={row}>{columns}</div>);
-    }
-
-    return seatDiv;
-  };*/
-
   const renderSeats = (busLineId) => {
     const seatDiv = [];
     let seatNumber = 1;

@@ -28,7 +28,8 @@ public class BusLineController {
 
     /**
      * Constructor injection of BusLineService dependency.
-     * @param busLineService An instance of BusLineService used for retrieving bus line data.
+     * @param busLineService An instance of BusLineService used
+     * for retrieving bus line data.
      */
     @Autowired
     public BusLineController(BusLineService busLineService) {

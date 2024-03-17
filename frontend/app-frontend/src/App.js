@@ -39,7 +39,8 @@ const router = createBrowserRouter([
 
 /**
  * App component serves as the entry point of the application.
- * It configures the router with specified routes and renders the RouterProvider with the router instance.
+ * It configures the router with specified routes and
+ * renders the RouterProvider with the router instance.
  * @returns {React.JSX.Element} JSX element representing the App component.
  */
 function App() {

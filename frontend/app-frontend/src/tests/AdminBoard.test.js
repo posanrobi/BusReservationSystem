@@ -3,9 +3,8 @@
  */
 
 import React from "react";
-import { render, waitFor, screen } from "@testing-library/react";
+import { render, waitFor, screen, cleanup } from "@testing-library/react";
 import AdminBoard from "../pages/AdminBoard";
-import { cleanup } from "@testing-library/react";
 
 /**
  * Setup modal root before each test.

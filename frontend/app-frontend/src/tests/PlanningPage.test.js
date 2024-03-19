@@ -3,10 +3,9 @@
  */
 
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import PlanningPage from "../pages/PlanningPage";
 import { BrowserRouter } from "react-router-dom";
-import { cleanup } from "@testing-library/react";
 
 /**
  * Setting up modal root before each test and mocking

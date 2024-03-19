@@ -3,12 +3,11 @@
  */
 
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import ReservationsPage from "../pages/ReservationsPage";
 import { getAllReservations } from "../services/user.service";
 import { getCurrentUser } from "../services/auth.service";
 import { BrowserRouter } from "react-router-dom";
-import { cleanup } from "@testing-library/react";
 
 /**
  * Setting up modal root before all tests and mocking

@@ -3,9 +3,8 @@
  */
 
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen, cleanup } from "@testing-library/react";
 import UserTable from "../components/UsersTable";
-import { cleanup } from "@testing-library/react";
 
 /**
  * Mocking user.service module.

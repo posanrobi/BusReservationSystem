@@ -190,12 +190,6 @@ export default function PlanningPage() {
    * @param {string} to - The destination city.
    * @returns {string|null} The ID of the bus line if found, or null if not found.
    */
-  /*   const getLineId = (from, to) => {
-    const line = `${from}-${to}`;
-    const busLine = busLines.find((bl) => bl.name === line);
-    return busLine ? busLine.id : null;
-  }; */
-
   const getLineId = useCallback(
     (from, to) => {
       const line = `${from}-${to}`;
